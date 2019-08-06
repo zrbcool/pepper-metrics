@@ -53,6 +53,7 @@ public class Stats {
                 .tags(tags)
                 .register(registry);
         collector.putIfAbsent(asList, summary);
+
         return summary;
     }
 
