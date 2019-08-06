@@ -16,5 +16,6 @@
         <module>pepper-metrics-parent</module>
         <module>pepper-metrics-core</module>
         <module>pepper-metrics-demo</module>
+        <module>pepper-metrics-printer</module>
     </modules>
 </project>
