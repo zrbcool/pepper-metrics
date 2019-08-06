@@ -31,3 +31,4 @@ framework.log.*
 performance.log.*
 trace.log.*
 
+*.iml
