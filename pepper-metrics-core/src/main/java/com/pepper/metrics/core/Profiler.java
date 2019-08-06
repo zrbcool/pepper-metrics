@@ -2,6 +2,8 @@ package com.pepper.metrics.core;
 
 import com.google.common.collect.Sets;
 import com.pepper.metrics.core.extension.ExtensionLoader;
+import io.micrometer.core.instrument.Measurement;
+import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 
@@ -30,7 +32,6 @@ public class Profiler {
     public static class Builder {
         private String name;
         private String namespace;
-        private String help;
 
         public static Builder builder() {
             return new Builder();
@@ -47,7 +48,7 @@ public class Profiler {
         }
 
         public Stats build() {
-            final Stats stats = new Stats(REGISTRY, name);
+            final Stats stats = new Stats(REGISTRY, name, namespace);
             PROFILER_STAT_SET.add(stats);
             return stats;
         }
