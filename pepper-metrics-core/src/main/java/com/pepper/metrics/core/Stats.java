@@ -15,14 +15,16 @@ import java.util.concurrent.atomic.AtomicLong;
 public class Stats {
     private MeterRegistry registry;
     private String name;
+    private String namespace;
 
     private ConcurrentMap<List<String>, Counter> errCollector = new ConcurrentHashMap<>();
     private ConcurrentMap<List<String>, AtomicLong> gaugeCollector = new ConcurrentHashMap<>();
     private ConcurrentMap<List<String>, DistributionSummary> summaryCollector = new ConcurrentHashMap<>();
 
-    public Stats(MeterRegistry registry, String name) {
+    public Stats(MeterRegistry registry, String name, String namespace) {
         this.registry = registry;
         this.name = name;
+        this.namespace = namespace;
     }
 
     public void error(String... tags) {
@@ -50,6 +52,7 @@ public class Stats {
         summary = DistributionSummary.builder(sName)
                 .distributionStatisticExpiry(Duration.ofSeconds(60))
                 .publishPercentiles(0.9, 0.99, 0.999)
+                .publishPercentileHistogram()
                 .tags(tags)
                 .register(registry);
         collector.putIfAbsent(asList, summary);
