@@ -1,2 +1,1 @@
-com.pepper.metrics.integration.jedis.jdk.JedisJdkProxyFactory
 com.pepper.metrics.integration.jedis.cglib.JedisCglibProxyFactory
