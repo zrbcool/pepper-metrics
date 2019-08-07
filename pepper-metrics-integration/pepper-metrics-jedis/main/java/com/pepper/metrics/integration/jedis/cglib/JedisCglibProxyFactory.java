@@ -4,7 +4,7 @@ import com.pepper.metrics.core.extension.SpiMeta;
 import com.pepper.metrics.integration.jedis.ProxyFactory;
 import net.sf.cglib.proxy.Enhancer;
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisCluster;
+import redis.clients.jedis.PjedisCluster;
 
 /**
  * @author zhangrongbincool@163.com
@@ -25,7 +25,7 @@ public class JedisCglibProxyFactory implements ProxyFactory {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T> T getProxy(Class<T> clz, JedisCluster jedisCluster, String namespace) {
+    public <T> T getProxy(Class<T> clz, PjedisCluster jedisCluster, String namespace) {
         Enhancer enhancer = new Enhancer();
         enhancer.setSuperclass(clz);
         enhancer.setCallback(new JedisClusterMethodInterceptor(jedisCluster, namespace));

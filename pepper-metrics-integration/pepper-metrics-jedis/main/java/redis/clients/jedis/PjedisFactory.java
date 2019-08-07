@@ -1,12 +1,10 @@
-package com.pepper.metrics.integration.jedis;
+package redis.clients.jedis;
 
 import com.pepper.metrics.core.extension.ExtensionLoader;
+import com.pepper.metrics.integration.jedis.ProxyFactory;
 import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.PooledObjectFactory;
 import org.apache.commons.pool2.impl.DefaultPooledObject;
-import redis.clients.jedis.BinaryJedis;
-import redis.clients.jedis.HostAndPort;
-import redis.clients.jedis.Jedis;
 import redis.clients.jedis.exceptions.InvalidURIException;
 import redis.clients.jedis.exceptions.JedisException;
 import redis.clients.util.JedisURIHelper;
@@ -18,7 +16,10 @@ import java.net.URI;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * PoolableObjectFactory custom impl.
+ * @author zhangrongbincool@163.com
+ * @date 19-8-7
+ * @description
+ * 定制版PjedisFactory，基于jedis2.9.0，实现namespace的注入，及为Jedis对象包装动态代理
  */
 class PjedisFactory implements PooledObjectFactory<Jedis> {
   private final AtomicReference<HostAndPort> hostAndPort = new AtomicReference<HostAndPort>();
@@ -60,7 +61,7 @@ class PjedisFactory implements PooledObjectFactory<Jedis> {
 
   public PjedisFactory(final URI uri, final int connectionTimeout, final int soTimeout,
                        final String clientName, final boolean ssl, final SSLSocketFactory sslSocketFactory,
-                       final SSLParameters sslParameters, final HostnameVerifier hostnameVerifier) {
+                       final SSLParameters sslParameters, final HostnameVerifier hostnameVerifier, final String namespace) {
     if (!JedisURIHelper.isValid(uri)) {
       throw new InvalidURIException(String.format(
         "Cannot open Redis connection due invalid URI. %s", uri.toString()));
@@ -76,6 +77,14 @@ class PjedisFactory implements PooledObjectFactory<Jedis> {
     this.sslSocketFactory = sslSocketFactory;
     this.sslParameters = sslParameters;
     this.hostnameVerifier = hostnameVerifier;
+    this.namespace = namespace;
+  }
+
+
+  public PjedisFactory(final URI uri, final int connectionTimeout, final int soTimeout,
+                       final String clientName, final boolean ssl, final SSLSocketFactory sslSocketFactory,
+                       final SSLParameters sslParameters, final HostnameVerifier hostnameVerifier) {
+    this(uri, connectionTimeout, soTimeout, clientName, ssl, sslSocketFactory, sslParameters, hostnameVerifier, "default");
   }
 
   public void setHostAndPort(final HostAndPort hostAndPort) {
