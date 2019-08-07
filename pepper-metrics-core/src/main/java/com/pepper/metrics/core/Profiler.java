@@ -2,8 +2,6 @@ package com.pepper.metrics.core;
 
 import com.google.common.collect.Sets;
 import com.pepper.metrics.core.extension.ExtensionLoader;
-import io.micrometer.core.instrument.Measurement;
-import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 
@@ -12,7 +10,13 @@ import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
+/**
+ * @author zhangrongbincool@163.com
+ * @date 19-8-7
+ * @description
+ * 核心调度类，被度量目标流程中使用Profiler.Builder来构建{@link Stats}完成各项性能指标的统计，
+ * 同时伴随类被加载会启动定时任务，每60秒调起所有实现了{@link ScheduledRun}的扩展点
+ */
 public class Profiler {
     static final Set<Stats> PROFILER_STAT_SET = Sets.newConcurrentHashSet();
     static final ScheduledExecutorService scheduledExecutor;

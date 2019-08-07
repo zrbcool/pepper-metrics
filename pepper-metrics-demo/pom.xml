@@ -15,6 +15,7 @@
 
     <modules>
         <module>pepper-metrics-demo-jvm</module>
+        <module>pepper-metrics-demo-spi</module>
     </modules>
 
 </project>

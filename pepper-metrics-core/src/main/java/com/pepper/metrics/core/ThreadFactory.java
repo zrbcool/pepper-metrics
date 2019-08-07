@@ -1,7 +1,12 @@
 package com.pepper.metrics.core;
 
 import java.util.concurrent.atomic.AtomicInteger;
-
+/**
+ * @author zhangrongbincool@163.com
+ * @date 19-8-7
+ * @description
+ * 统一本项目产生的线程池/线程名
+ */
 public class ThreadFactory implements java.util.concurrent.ThreadFactory {
     private static final AtomicInteger poolNumber = new AtomicInteger(1);
     private final ThreadGroup group;

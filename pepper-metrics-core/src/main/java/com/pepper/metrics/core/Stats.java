@@ -11,7 +11,10 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
-
+/**
+ * @author zhangrongbincool@163.com
+ * @date 19-8-7
+ */
 public class Stats {
     private MeterRegistry registry;
     private String name;

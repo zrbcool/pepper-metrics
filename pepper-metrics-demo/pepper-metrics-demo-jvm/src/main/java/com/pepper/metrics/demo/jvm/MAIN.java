@@ -6,7 +6,6 @@ import com.pepper.metrics.integration.jedis.PjedisPool;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPoolConfig;
 
-import java.sql.Time;
 import java.util.concurrent.TimeUnit;
 
 public class MAIN {
