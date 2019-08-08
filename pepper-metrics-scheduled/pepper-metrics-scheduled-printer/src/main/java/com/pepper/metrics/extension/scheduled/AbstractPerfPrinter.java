@@ -35,15 +35,11 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
         List<Stats> stats = chooseStats(statsSet);
         for (Stats stat : stats) {
             setPre(stat);
-            System.out.println("do print...");
             List<PrinterDomain> printerDomains = collector(stat);
             StringBuilder sb = new StringBuilder();
             sb.append("[").append(PREFIX).append("]");
             sb.append(StringUtils.repeat("-", 50));
             pLogger.info(sb.toString());
-//            System.out.println(sb.toString());
-
-
 
             for (PrinterDomain domain : printerDomains) {
                 StringBuilder s = new StringBuilder();
@@ -59,15 +55,13 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
                 s.append(" | ").append(domain.getP999());
                 s.append(" | ").append(domain.getQps());
                 pLogger.info(s.toString());
-//                System.out.println(s.toString());
             }
             pLogger.info(sb.toString());
-//            System.out.println(sb.toString());
 
         }
     }
 
-    public void setPre(Stats stats) {
+    private void setPre(Stats stats) {
         PREFIX = setPrefix(stats);
     }
 
@@ -81,12 +75,7 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
         return "pref-" + stats.getName() + "-" + stats.getNamespace();
     }
 
-    //    @Override
-//    public void setDimension(PrinterEnum... dimensions) {
-//        setDimension(PrinterEnum.ALL);
-//    }
-
-    public List<PrinterDomain> collector(Stats stats) {
+    private List<PrinterDomain> collector(Stats stats) {
         ConcurrentMap<List<String>, Counter> errCollector = stats.getErrCollector();
         ConcurrentMap<List<String>, AtomicLong> gaugeCollector = stats.getGaugeCollector();
         ConcurrentMap<List<String>, DistributionSummary> summaryCollector = stats.getSummaryCollector();

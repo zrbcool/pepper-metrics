@@ -42,9 +42,4 @@ public interface PerfPrinter {
      */
     String setPrefix(Stats stats);
 
-//    /**
-//     * 定义日志打印维度
-//     */
-//    void setDimension();
-
 }
