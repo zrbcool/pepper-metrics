@@ -1,4 +1,4 @@
-package com.pepper.metrics.core.test;
+package com.pepper.metrics.printer.test;
 
 import com.google.common.collect.Sets;
 import com.pepper.metrics.core.Profiler;
@@ -11,10 +11,15 @@ import org.junit.Test;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.TimeUnit;
 
-public class ExtensionTest {
-
+/**
+ * Description:
+ *
+ * @author zhiminxu
+ * @package com.pepper.metrics.printer.test
+ * @create_time 2019-08-07
+ */
+public class JedisPrinterTest {
     private Set<Stats> PROFILER_STAT_SET = Sets.newConcurrentHashSet();
     private List<ScheduledRun> extensions = null;
 
@@ -23,10 +28,9 @@ public class ExtensionTest {
         try {
             extensions = ExtensionLoader.getExtensionLoader(ScheduledRun.class).getExtensions("");
             final Stats jedisStat = Profiler.Builder.builder().name("jedis").namespace("default").build();
-            final Stats httpStat = Profiler.Builder.builder().name("http").namespace("default").build();
+            final Stats jedisStat1 = Profiler.Builder.builder().name("jedis").namespace("jedisNamespace1").build();
 
             String[] jedisTags = new String[]{"method", "get"};
-            String[] httpTags = new String[]{"url", "/ad/clickAd"};
 
             ThreadLocalRandom random = ThreadLocalRandom.current();
 
@@ -41,12 +45,16 @@ public class ExtensionTest {
             jedisStat.observe(random.nextLong(10000), jedisTags);
             PROFILER_STAT_SET.add(jedisStat);
 
-            // 初始化http数据
-            httpStat.error(httpTags);
-            httpStat.error(httpTags);
-            httpStat.observe(random.nextLong(10000), httpTags);
-            httpStat.observe(random.nextLong(10000), httpTags);
-            PROFILER_STAT_SET.add(httpStat);
+            // 初始化jedis数据
+            jedisStat1.error(jedisTags);
+            jedisStat1.error(jedisTags);
+            jedisStat1.error(jedisTags);
+            jedisStat1.observe(random.nextLong(10000), jedisTags);
+            jedisStat1.observe(random.nextLong(10000), jedisTags);
+            jedisStat1.observe(random.nextLong(10000), jedisTags);
+            jedisStat1.observe(random.nextLong(10000), jedisTags);
+            jedisStat1.observe(random.nextLong(10000), jedisTags);
+            PROFILER_STAT_SET.add(jedisStat1);
 
         } catch (Exception e) {
             e.printStackTrace();

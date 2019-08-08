@@ -24,6 +24,26 @@ public class Stats {
     private ConcurrentMap<List<String>, AtomicLong> gaugeCollector = new ConcurrentHashMap<>();
     private ConcurrentMap<List<String>, DistributionSummary> summaryCollector = new ConcurrentHashMap<>();
 
+    public ConcurrentMap<List<String>, Counter> getErrCollector() {
+        return errCollector;
+    }
+
+    public ConcurrentMap<List<String>, AtomicLong> getGaugeCollector() {
+        return gaugeCollector;
+    }
+
+    public ConcurrentMap<List<String>, DistributionSummary> getSummaryCollector() {
+        return summaryCollector;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getNamespace() {
+        return namespace;
+    }
+
     public Stats(MeterRegistry registry, String name, String namespace) {
         this.registry = registry;
         this.name = name;
