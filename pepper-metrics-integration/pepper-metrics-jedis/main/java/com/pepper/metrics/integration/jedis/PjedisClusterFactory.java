@@ -30,7 +30,7 @@ public class PjedisClusterFactory {
     }
 
     public static PjedisCluster newPjedisCluster(Set<HostAndPort> jedisClusterNodes, int defaultConnectTimeout, int defaultConnectMaxAttempts, GenericObjectPoolConfig jedisPoolConfig) {
-        return newPjedisCluster(jedisClusterNodes, defaultConnectTimeout, defaultConnectMaxAttempts, jedisPoolConfig);
+        return newPjedisCluster(jedisClusterNodes, defaultConnectTimeout, defaultConnectMaxAttempts, jedisPoolConfig, "default");
     }
 
 
