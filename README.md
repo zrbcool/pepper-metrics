@@ -1,9 +1,9 @@
 # Pepper Metrics Project  
 ## Architecture  
 ### Concept
-![](http://oss.zrbcool.top/picgo/pepper-metrics-concept.png-gh)
+![](http://oss.zrbcool.top/picgo/pepper-metrics-concept.png)
 ### Arch
-![](http://oss.zrbcool.top/picgo/pepper-metrics-arch.png-gh)
+![](http://oss.zrbcool.top/picgo/pepper-metrics-arch.png)
 > 各个组件说明
 > - Profiler， 核心部分，用于启动定期调度任务，并通过ExtensionLoad加载所有的ScheduledRun扩展，按照指定周期发起调度。同时内部维护Stats的构造器Profiler.Builder
 > - Scheduler， 虚拟概念，在Profiler作为一个定时任务存在

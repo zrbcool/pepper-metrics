@@ -26,6 +26,11 @@
         </dependency>
         <dependency>
             <groupId>com.pepper</groupId>
+            <artifactId>pepper-metrics-ds-prometheus</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.pepper</groupId>
             <artifactId>pepper-metrics-jedis</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>

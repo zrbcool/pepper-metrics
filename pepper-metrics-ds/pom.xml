@@ -5,20 +5,16 @@
         <artifactId>pepper-metrics-parent</artifactId>
         <groupId>com.pepper</groupId>
         <version>1.0.0-SNAPSHOT</version>
-        <relativePath>./pepper-metrics-parent/pom.xml</relativePath>
+        <relativePath>../pepper-metrics-parent/pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>pepper-metrics</artifactId>
+    <artifactId>pepper-metrics-ds</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>pepper-metrics-parent</module>
-        <module>pepper-metrics-core</module>
-        <module>pepper-metrics-scheduled</module>
-        <module>pepper-metrics-integration</module>
-        <module>pepper-metrics-ds</module>
-        <module>pepper-metrics-demo</module>
-        <module>pepper-metrics-samples</module>
+        <module>pepper-metrics-ds-prometheus</module>
     </modules>
+
 </project>

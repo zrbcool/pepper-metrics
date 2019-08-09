@@ -21,7 +21,7 @@ public class ExtensionTest {
     @Before
     public void init() {
         try {
-            extensions = ExtensionLoader.getExtensionLoader(ScheduledRun.class).getExtensions("");
+            extensions = ExtensionLoader.getExtensionLoader(ScheduledRun.class).getExtensions();
             final Stats jedisStat = Profiler.Builder.builder().name("jedis").namespace("default").build();
             final Stats httpStat = Profiler.Builder.builder().name("http").namespace("default").build();
 

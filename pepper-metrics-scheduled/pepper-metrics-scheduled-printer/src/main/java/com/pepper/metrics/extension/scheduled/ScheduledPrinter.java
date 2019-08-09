@@ -28,7 +28,7 @@ public class ScheduledPrinter implements ScheduledRun {
 
     @Override
     public void run(Set<Stats> statsSet) {
-        final List<PerfPrinter> perfPrinters = ExtensionLoader.getExtensionLoader(PerfPrinter.class).getExtensions("");
+        final List<PerfPrinter> perfPrinters = ExtensionLoader.getExtensionLoader(PerfPrinter.class).getExtensions();
         for (PerfPrinter perfPrinter : perfPrinters) {
             perfPrinter.print(statsSet);
         }

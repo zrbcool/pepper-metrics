@@ -13,7 +13,7 @@ public class ExtensionTest {
     @Test
     public void test() {
         Set<Stats> PROFILER_STAT_SET = Sets.newConcurrentHashSet();
-        final List<ScheduledRun> extensions = ExtensionLoader.getExtensionLoader(ScheduledRun.class).getExtensions("");
+        final List<ScheduledRun> extensions = ExtensionLoader.getExtensionLoader(ScheduledRun.class).getExtensions();
         for (ScheduledRun extension : extensions) {
             extension.run(PROFILER_STAT_SET);
         }

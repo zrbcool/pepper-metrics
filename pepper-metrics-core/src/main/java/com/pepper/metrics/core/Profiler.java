@@ -21,12 +21,19 @@ public class Profiler {
     static final Set<Stats> PROFILER_STAT_SET = Sets.newConcurrentHashSet();
     static final ScheduledExecutorService scheduledExecutor;
 
-    public static MeterRegistry REGISTRY = new SimpleMeterRegistry();
+    private static MeterRegistry REGISTRY = new SimpleMeterRegistry();
 
     static {
+        /**
+         * 如果配置了多个REGISTRY工厂，仅第一个生效，防止错误产生
+         */
+        final List<MeterRegistryFactory> factories = ExtensionLoader.getExtensionLoader(MeterRegistryFactory.class).getExtensions();
+        if (factories != null && factories.size() > 0) {
+            REGISTRY = factories.get(0).createMeterRegistry();
+        }
         scheduledExecutor = Executors.newSingleThreadScheduledExecutor(new ThreadFactory());
         scheduledExecutor.scheduleAtFixedRate(() -> {
-            final List<ScheduledRun> extensions = ExtensionLoader.getExtensionLoader(ScheduledRun.class).getExtensions("");
+            final List<ScheduledRun> extensions = ExtensionLoader.getExtensionLoader(ScheduledRun.class).getExtensions();
             for (ScheduledRun extension : extensions) {
                 extension.run(PROFILER_STAT_SET);
             }

@@ -158,6 +158,11 @@ public class ExtensionLoader<T> {
     }
 
     @SuppressWarnings("unchecked")
+    public List<T> getExtensions() {
+        return getExtensions("");
+    }
+
+    @SuppressWarnings("unchecked")
     public List<T> getExtensions(String key) {
         checkInit();
 
