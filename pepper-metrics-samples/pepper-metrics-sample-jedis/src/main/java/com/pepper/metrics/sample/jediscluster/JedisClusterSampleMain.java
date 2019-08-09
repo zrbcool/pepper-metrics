@@ -2,6 +2,7 @@ package com.pepper.metrics.sample.jediscluster;
 
 import com.pepper.metrics.integration.jedis.PjedisClusterFactory;
 import redis.clients.jedis.HostAndPort;
+import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.PjedisCluster;
 
@@ -13,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  * @author zhangrongbincool@163.com
  * @date 19-8-7
  */
-public class MAIN {
+public class JedisClusterSampleMain {
     private final static int defaultConnectTimeout = 2000;
     private final static int defaultConnectMaxAttempts = 20;
 
@@ -55,6 +56,10 @@ public class MAIN {
             for (int j = 0; j < 10; j++) {
                 jedisCluster.set("hello", "robin");
             }
+            for (JedisPool jedisPool : jedisCluster.getClusterNodes().values()) {
+                System.out.println(String.format("%s NumActive:%s NumIdle:%s", i, jedisPool.getNumActive(), jedisPool.getNumIdle()));
+            }
+            System.out.println("------------------------------------------------------------");
             TimeUnit.SECONDS.sleep(1);
         }
     }

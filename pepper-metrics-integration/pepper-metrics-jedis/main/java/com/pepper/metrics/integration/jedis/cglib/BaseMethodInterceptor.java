@@ -21,12 +21,11 @@ public abstract class BaseMethodInterceptor implements MethodInterceptor {
     public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
         final String[] tags = {"method", method.getName(), "namespace", namespace};
         long begin = System.currentTimeMillis();
-        Stats stats = getOrInitStats();
-
-        stats.incConc(tags);
         Object result;
+        Stats stats = getOrInitStats();
+        stats.incConc(tags);
         try {
-            result = method.invoke(getTarget(), args);
+            result = innerInvoke(obj, method, args, proxy);
         } catch (Throwable t) {
             stats.error(tags);
             throw t;
@@ -37,9 +36,10 @@ public abstract class BaseMethodInterceptor implements MethodInterceptor {
         return result;
     }
 
-    protected abstract String getType();
+    protected abstract Object innerInvoke(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable;
 
-    protected abstract Object getTarget();
+
+    protected abstract String getType();
 
     private Stats getOrInitStats() {
         String statsKey = getType() + "::" + namespace;

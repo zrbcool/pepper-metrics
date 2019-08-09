@@ -15,6 +15,7 @@
 
     <modules>
         <module>pepper-metrics-jedis</module>
+        <module>pepper-metrics-servlet</module>
     </modules>
 
 </project>

@@ -1,15 +1,17 @@
 package com.pepper.metrics.integration.jedis.cglib;
 
+import net.sf.cglib.proxy.MethodProxy;
 import redis.clients.jedis.Jedis;
+
+import java.lang.reflect.Method;
+
 /**
  * @author zhangrongbincool@163.com
  * @date 19-8-7
  */
 public class JedisMethodInterceptor extends BaseMethodInterceptor {
-    protected Jedis jedis;
 
     public JedisMethodInterceptor(Jedis jedis, String namespace) {
-        this.jedis = jedis;
         this.namespace = namespace;
     }
 
@@ -19,7 +21,7 @@ public class JedisMethodInterceptor extends BaseMethodInterceptor {
     }
 
     @Override
-    protected Object getTarget() {
-        return jedis;
+    protected Object innerInvoke(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
+        return proxy.invokeSuper(obj, args);
     }
 }

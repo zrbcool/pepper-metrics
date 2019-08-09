@@ -15,9 +15,9 @@
     <modules>
         <module>pepper-metrics-parent</module>
         <module>pepper-metrics-core</module>
-        <module>pepper-metrics-demo</module>
-        <module>pepper-metrics-samples</module>
         <module>pepper-metrics-scheduled</module>
         <module>pepper-metrics-integration</module>
+        <module>pepper-metrics-demo</module>
+        <module>pepper-metrics-samples</module>
     </modules>
 </project>

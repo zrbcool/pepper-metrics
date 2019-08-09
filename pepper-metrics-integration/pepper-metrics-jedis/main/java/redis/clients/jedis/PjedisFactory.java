@@ -115,12 +115,22 @@ class PjedisFactory implements PooledObjectFactory<Jedis> {
     }
   }
 
+  private static final Class[] classes = {String.class, int.class, int.class,
+          int.class, boolean.class, SSLSocketFactory.class,
+          SSLParameters.class, HostnameVerifier.class};
+  private static final ProxyFactory proxyFactory = ExtensionLoader.getExtensionLoader(ProxyFactory.class).getExtension("cglib");
+
   @Override
   public PooledObject<Jedis> makeObject() throws Exception {
     final HostAndPort hostAndPort = this.hostAndPort.get();
-    final Jedis jedis = new Jedis(hostAndPort.getHost(), hostAndPort.getPort(), connectionTimeout,
-        soTimeout, ssl, sslSocketFactory, sslParameters, hostnameVerifier);
+//    final Jedis jedis = new Jedis(hostAndPort.getHost(), hostAndPort.getPort(), connectionTimeout,
+//        soTimeout, ssl, sslSocketFactory, sslParameters, hostnameVerifier);
 
+    final Jedis jedis = proxyFactory.getProxy(Jedis.class, namespace, classes, new Object[]{
+            hostAndPort.getHost(), hostAndPort.getPort(), connectionTimeout,
+            soTimeout, ssl, sslSocketFactory, sslParameters, hostnameVerifier
+    });
+    
     try {
       jedis.connect();
       if (null != this.password) {
@@ -136,9 +146,7 @@ class PjedisFactory implements PooledObjectFactory<Jedis> {
       jedis.close();
       throw je;
     }
-    final ProxyFactory proxyFactory = ExtensionLoader.getExtensionLoader(ProxyFactory.class).getExtension("cglib");
-    final Jedis proxy = proxyFactory.getProxy(Jedis.class, jedis, namespace);
-    return new DefaultPooledObject<>(proxy);
+    return new DefaultPooledObject<>(jedis);
   }
 
   @Override

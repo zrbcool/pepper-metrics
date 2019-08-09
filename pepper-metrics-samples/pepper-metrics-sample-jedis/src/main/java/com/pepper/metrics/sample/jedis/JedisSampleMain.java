@@ -6,7 +6,7 @@ import redis.clients.jedis.JedisPoolConfig;
 
 import java.util.concurrent.TimeUnit;
 
-public class MAIN {
+public class JedisSampleMain {
     public static void main(String[] args) {
         try {
             testJedis();
@@ -30,9 +30,11 @@ public class MAIN {
 
         for (int j = 0; j < 100; j++) {
             for (int i = 0; i < 10; i++) {
-                final Jedis resource = jedisPool.getResource();
-                resource.set("hello", "robin");
+                try (Jedis jedis = jedisPool.getResource()) {
+                    jedis.set("hello", "robin");
+                }
             }
+            System.out.println(String.format("%s NumActive:%s NumIdle:%s", j, jedisPool.getNumActive(), jedisPool.getNumIdle()));
             TimeUnit.SECONDS.sleep(1);
         }
     }
