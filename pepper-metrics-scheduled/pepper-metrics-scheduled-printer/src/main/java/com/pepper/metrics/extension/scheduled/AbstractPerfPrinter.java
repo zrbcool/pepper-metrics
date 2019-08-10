@@ -26,6 +26,27 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public abstract class AbstractPerfPrinter implements PerfPrinter {
 
+    private static final String SPLIT = "| ";
+    private static final int LABEL_SIZE_METRICS = 75;
+    private static final int LABEL_SIZE_MAX = 10;
+    private static final int LABEL_SIZE_CONCURRENT = 11;
+    private static final int LABEL_SIZE_ERR = 10;
+    private static final int LABEL_SIZE_SUM = 10;
+    private static final int LABEL_SIZE_P90 = 10;
+    private static final int LABEL_SIZE_P99 = 10;
+    private static final int LABEL_SIZE_P999 = 10;
+    private static final int LABEL_SIZE_QPS = 8;
+    private static final int LABEL_SIZE = LABEL_SIZE_METRICS +
+            LABEL_SIZE_MAX +
+            LABEL_SIZE_CONCURRENT +
+            LABEL_SIZE_ERR +
+            LABEL_SIZE_SUM +
+            LABEL_SIZE_P90 +
+            LABEL_SIZE_P99 +
+            LABEL_SIZE_P999 +
+            LABEL_SIZE_QPS +
+            SPLIT.length() * 2;
+
     private static final Logger pLogger = LoggerFactory.getLogger("performance");
 
     protected static String PREFIX = "";
@@ -36,27 +57,40 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
         for (Stats stat : stats) {
             setPre(stat);
             List<PrinterDomain> printerDomains = collector(stat);
-            StringBuilder sb = new StringBuilder();
-            sb.append("[").append(PREFIX).append("]");
-            sb.append(StringUtils.repeat("-", 50));
-            pLogger.info(sb.toString());
+
+            String prefixStr = "[" + PREFIX + "]";
+            String line = StringUtils.repeat("-", LABEL_SIZE);
+
+            pLogger.info(prefixStr + line);
+
+            String header = prefixStr + SPLIT +
+                    StringUtils.rightPad("Metrics", LABEL_SIZE_METRICS) +
+                    StringUtils.leftPad("Max(ms)", LABEL_SIZE_MAX) +
+                    StringUtils.leftPad("Concurrent", LABEL_SIZE_CONCURRENT) +
+                    StringUtils.leftPad("Error", LABEL_SIZE_ERR) +
+                    StringUtils.leftPad("Count", LABEL_SIZE_SUM) +
+                    StringUtils.leftPad("P90(ms)", LABEL_SIZE_P90) +
+                    StringUtils.leftPad("P99(ms)", LABEL_SIZE_P99) +
+                    StringUtils.leftPad("P999(ms)", LABEL_SIZE_P999) +
+                    StringUtils.leftPad("Qps", LABEL_SIZE_QPS)+
+                    " " + SPLIT;
+            pLogger.info(header);
 
             for (PrinterDomain domain : printerDomains) {
-                StringBuilder s = new StringBuilder();
-                s.append("[").append(PREFIX).append("]");
-
-                s.append(" | ").append(domain.getTag());
-                s.append(" | ").append(domain.getMax());
-                s.append(" | ").append(domain.getConcurrent());
-                s.append(" | ").append(domain.getErr());
-                s.append(" | ").append(domain.getSum());
-                s.append(" | ").append(domain.getP90());
-                s.append(" | ").append(domain.getP99());
-                s.append(" | ").append(domain.getP999());
-                s.append(" | ").append(domain.getQps());
-                pLogger.info(s.toString());
+                String content = prefixStr + SPLIT +
+                        StringUtils.rightPad(domain.getTag(), LABEL_SIZE_METRICS) +
+                        StringUtils.leftPad(String.format("%.1f", Float.parseFloat(domain.getMax())), LABEL_SIZE_MAX) +
+                        StringUtils.leftPad(String.format("%.0f", Float.parseFloat(domain.getConcurrent())), LABEL_SIZE_CONCURRENT) +
+                        StringUtils.leftPad(String.format("%.0f", Float.parseFloat(domain.getErr())), LABEL_SIZE_ERR) +
+                        StringUtils.leftPad(String.format("%.0f", Float.parseFloat(domain.getSum())), LABEL_SIZE_SUM) +
+                        StringUtils.leftPad(String.format("%.1f", Float.parseFloat(domain.getP90())), LABEL_SIZE_P90) +
+                        StringUtils.leftPad(String.format("%.1f", Float.parseFloat(domain.getP99())), LABEL_SIZE_P99) +
+                        StringUtils.leftPad(String.format("%.1f", Float.parseFloat(domain.getP999())), LABEL_SIZE_P999) +
+                        StringUtils.leftPad(String.format("%.1f", Float.parseFloat(domain.getQps())), LABEL_SIZE_QPS) +
+                        " " + SPLIT ;
+                pLogger.info(content);
             }
-            pLogger.info(sb.toString());
+            pLogger.info(prefixStr + line);
 
         }
     }
