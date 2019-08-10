@@ -3,7 +3,6 @@ package com.pepper.metrics.extension.scheduled;
 import com.pepper.metrics.core.Stats;
 import com.pepper.metrics.extension.scheduled.domain.PrinterDomain;
 import io.micrometer.core.instrument.Counter;
-import io.micrometer.core.instrument.DistributionSummary;
 import io.micrometer.core.instrument.Timer;
 import io.micrometer.core.instrument.distribution.HistogramSnapshot;
 import io.micrometer.core.instrument.distribution.ValueAtPercentile;
@@ -144,7 +143,7 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
             HistogramSnapshot snapshot = summary.takeSnapshot();
 
             domain.setTag(name);
-            domain.setMax(String.valueOf(snapshot.max()));
+            domain.setMax(String.valueOf(snapshot.max(TimeUnit.MILLISECONDS)));
             domain.setConcurrent(concurrent == null ? "0" : concurrent.toString());
             domain.setErr(counter == null ? "0" : String.valueOf(counter.count() - getLastTimeErrCount(stats, entry.getKey())));
             domain.setSum(String.valueOf(snapshot.count()));
