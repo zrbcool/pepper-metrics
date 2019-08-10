@@ -171,10 +171,10 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
         return retList;
     }
 
-    private ConcurrentMap<List<String>, Long> parseSummaryCollector(ConcurrentMap<List<String>, DistributionSummary> summaryCollector) {
+    private ConcurrentMap<List<String>, Long> parseSummaryCollector(ConcurrentMap<List<String>, Timer> summaryCollector) {
         ConcurrentMap<List<String>, Long> map = new ConcurrentHashMap<>();
 
-        for (Map.Entry<List<String>, DistributionSummary> entry : summaryCollector.entrySet()) {
+        for (Map.Entry<List<String>, Timer> entry : summaryCollector.entrySet()) {
             map.put(entry.getKey(), entry.getValue().count());
         }
 
