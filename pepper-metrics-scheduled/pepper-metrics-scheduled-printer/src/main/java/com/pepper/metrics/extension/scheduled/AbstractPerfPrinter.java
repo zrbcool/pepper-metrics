@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -25,6 +26,9 @@ import java.util.concurrent.atomic.AtomicLong;
  * @create_time 2019-08-07
  */
 public abstract class AbstractPerfPrinter implements PerfPrinter {
+
+    // 记录上一次的错误数，当前时间窗口的错误数 = 本次累计错误数 - 上次记录的错误数
+    private volatile ConcurrentMap<String, ConcurrentMap<List<String>, Counter>> lastTimeErrCollector = new ConcurrentHashMap<>();
 
     private static final String SPLIT = "| ";
     private static final int LABEL_SIZE_METRICS = 75;
@@ -54,9 +58,12 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
     @Override
     public void print(Set<Stats> statsSet) {
         List<Stats> stats = chooseStats(statsSet);
+        // 记录当前时间窗口的error数
+        ConcurrentMap<String, ConcurrentMap<List<String>, Counter>> currentErrCollector = new ConcurrentHashMap<>();
+
         for (Stats stat : stats) {
             setPre(stat);
-            List<PrinterDomain> printerDomains = collector(stat);
+            List<PrinterDomain> printerDomains = collector(stat, currentErrCollector);
 
             String prefixStr = "[" + PREFIX + "]";
             String line = StringUtils.repeat("-", LABEL_SIZE);
@@ -91,8 +98,9 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
                 pLogger.info(content);
             }
             pLogger.info(prefixStr + line);
-
         }
+
+        this.lastTimeErrCollector = currentErrCollector;
     }
 
     private void setPre(Stats stats) {
@@ -109,10 +117,13 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
         return "pref-" + stats.getName() + "-" + stats.getNamespace();
     }
 
-    private List<PrinterDomain> collector(Stats stats) {
+    private List<PrinterDomain> collector(Stats stats, ConcurrentMap<String, ConcurrentMap<List<String>, Counter>> currentErrCollector) {
         ConcurrentMap<List<String>, Counter> errCollector = stats.getErrCollector();
         ConcurrentMap<List<String>, AtomicLong> gaugeCollector = stats.getGaugeCollector();
         ConcurrentMap<List<String>, DistributionSummary> summaryCollector = stats.getSummaryCollector();
+
+        // 记录上一次的error数
+        currentErrCollector.put(buildErrCollectorKey(stats), errCollector);
 
         List<PrinterDomain> retList = new ArrayList<>();
 
@@ -130,11 +141,10 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
             }
             HistogramSnapshot snapshot = summary.takeSnapshot();
 
-
             domain.setTag(name);
             domain.setMax(String.valueOf(snapshot.max()));
             domain.setConcurrent(concurrent == null ? "0" : concurrent.toString());
-            domain.setErr(counter == null ? "0" : String.valueOf(counter.count()));
+            domain.setErr(counter == null ? "0" : String.valueOf(counter.count() - getLastTimeErrCount(stats, entry.getKey())));
             domain.setSum(String.valueOf(snapshot.count()));
             ValueAtPercentile[] vps = snapshot.percentileValues();
             for (ValueAtPercentile vp : vps) {
@@ -155,4 +165,19 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
 
         return retList;
     }
+
+    private double getLastTimeErrCount(Stats stats, List<String> key) {
+        ConcurrentMap<List<String>, Counter> map = this.lastTimeErrCollector.get(buildErrCollectorKey(stats));
+        if (map == null) {
+            return 0.0D;
+        }
+
+        Counter counter = map.get(key);
+        return counter == null ? 0.0D : counter.count();
+    }
+
+    private String buildErrCollectorKey(Stats stats) {
+        return stats.getName() + "-" + stats.getNamespace();
+    }
+
 }

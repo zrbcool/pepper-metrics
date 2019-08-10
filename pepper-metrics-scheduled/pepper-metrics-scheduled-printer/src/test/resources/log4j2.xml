@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="off" monitorInterval="30">
+    <properties>
+        <property name="PATTERN">[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%level] - %msg%xEx%n</property>
+        <property name="OUTPUT_LOG_LEVEL">info</property><!-- 日志输出级别 -->
+    </properties>
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${PATTERN}"/>
+        </Console>
+    </appenders>
+
+    <loggers>
+        <!-- Printer logger配置，打印到root的console中 -->
+        <Logger name="performance" level="${OUTPUT_LOG_LEVEL}" additivity="true"/>
+
+        <ROOT level="${OUTPUT_LOG_LEVEL}">
+            <AppenderRef ref="Console"/>
+        </ROOT>
+    </loggers>
+</configuration>
