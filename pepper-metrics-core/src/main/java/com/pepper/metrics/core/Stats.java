@@ -1,15 +1,13 @@
 package com.pepper.metrics.core;
 
-import io.micrometer.core.instrument.Counter;
-import io.micrometer.core.instrument.DistributionSummary;
-import io.micrometer.core.instrument.Gauge;
-import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.*;
 
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 /**
  * @author zhangrongbincool@163.com
@@ -22,7 +20,7 @@ public class Stats {
 
     private ConcurrentMap<List<String>, Counter> errCollector = new ConcurrentHashMap<>();
     private ConcurrentMap<List<String>, AtomicLong> gaugeCollector = new ConcurrentHashMap<>();
-    private ConcurrentMap<List<String>, DistributionSummary> summaryCollector = new ConcurrentHashMap<>();
+    private ConcurrentMap<List<String>, Timer> summaryCollector = new ConcurrentHashMap<>();
 
     public ConcurrentMap<List<String>, Counter> getErrCollector() {
         return errCollector;
@@ -32,7 +30,7 @@ public class Stats {
         return gaugeCollector;
     }
 
-    public ConcurrentMap<List<String>, DistributionSummary> getSummaryCollector() {
+    public ConcurrentMap<List<String>, Timer> getSummaryCollector() {
         return summaryCollector;
     }
 
@@ -63,24 +61,24 @@ public class Stats {
     }
 
     public void observe(long elapse, String...tags) {
-        getOrInitSummary(summaryCollector, name + ".summary", tags).record(elapse);
+        getOrInitSummary(summaryCollector, name + ".summary", tags).record(elapse, TimeUnit.MILLISECONDS);
     }
 
-    private DistributionSummary getOrInitSummary(ConcurrentMap<List<String>, DistributionSummary> collector, String sName, String... tags) {
+    private Timer getOrInitSummary(ConcurrentMap<List<String>, Timer> collector, String sName, String... tags) {
         final List<String> asList = Arrays.asList(tags);
-        DistributionSummary summary = collector.get(asList);
-        if (summary != null) {
-            return summary;
+        Timer timer = collector.get(asList);
+        if (timer != null) {
+            return timer;
         }
-        summary = DistributionSummary.builder(sName)
+        timer = Timer.builder(sName)
                 .distributionStatisticExpiry(Duration.ofSeconds(60))
                 .publishPercentiles(0.9, 0.99, 0.999)
-                .publishPercentileHistogram()
+                .publishPercentileHistogram(false)
                 .tags(tags)
                 .register(registry);
-        collector.putIfAbsent(asList, summary);
+        collector.putIfAbsent(asList, timer);
 
-        return summary;
+        return timer;
     }
 
     private Counter getOrInitCounter(ConcurrentMap<List<String>, Counter> collector, String counterName, String... tags) {
