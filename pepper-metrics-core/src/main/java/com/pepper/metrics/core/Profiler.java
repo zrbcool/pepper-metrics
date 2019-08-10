@@ -18,8 +18,8 @@ import java.util.concurrent.TimeUnit;
  * 同时伴随类被加载会启动定时任务，每60秒调起所有实现了{@link ScheduledRun}的扩展点
  */
 public class Profiler {
-    static final Set<Stats> PROFILER_STAT_SET = Sets.newConcurrentHashSet();
-    static final ScheduledExecutorService scheduledExecutor;
+    private static final Set<Stats> PROFILER_STAT_SET = Sets.newConcurrentHashSet();
+    private static final ScheduledExecutorService scheduledExecutor;
 
     private static MeterRegistry REGISTRY = new SimpleMeterRegistry();
 

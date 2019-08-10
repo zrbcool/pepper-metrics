@@ -4,6 +4,7 @@ import com.pepper.metrics.core.Stats;
 import com.pepper.metrics.extension.scheduled.domain.PrinterDomain;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.DistributionSummary;
+import io.micrometer.core.instrument.Timer;
 import io.micrometer.core.instrument.distribution.HistogramSnapshot;
 import io.micrometer.core.instrument.distribution.ValueAtPercentile;
 import org.apache.commons.lang3.StringUtils;
@@ -16,6 +17,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -120,16 +122,16 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
     private List<PrinterDomain> collector(Stats stats, ConcurrentMap<String, ConcurrentMap<List<String>, Counter>> currentErrCollector) {
         ConcurrentMap<List<String>, Counter> errCollector = stats.getErrCollector();
         ConcurrentMap<List<String>, AtomicLong> gaugeCollector = stats.getGaugeCollector();
-        ConcurrentMap<List<String>, DistributionSummary> summaryCollector = stats.getSummaryCollector();
+        ConcurrentMap<List<String>, Timer> summaryCollector = stats.getSummaryCollector();
 
         // 记录上一次的error数
         currentErrCollector.put(buildErrCollectorKey(stats), errCollector);
 
         List<PrinterDomain> retList = new ArrayList<>();
 
-        for (Map.Entry<List<String>, DistributionSummary> entry : summaryCollector.entrySet()) {
+        for (Map.Entry<List<String>, Timer> entry : summaryCollector.entrySet()) {
             List<String> tag = entry.getKey();
-            DistributionSummary summary= entry.getValue();
+            Timer summary= entry.getValue();
 
             Counter counter = errCollector.get(tag);
             AtomicLong concurrent = gaugeCollector.get(tag);
@@ -149,11 +151,11 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
             ValueAtPercentile[] vps = snapshot.percentileValues();
             for (ValueAtPercentile vp : vps) {
                 if (vp.percentile() == 0.9D) {
-                    domain.setP90(String.valueOf(vp.value()));
+                    domain.setP90(String.valueOf(vp.value(TimeUnit.MILLISECONDS)));
                 } else if (vp.percentile() == 0.99D) {
-                    domain.setP99(String.valueOf(vp.value()));
+                    domain.setP99(String.valueOf(vp.value(TimeUnit.MILLISECONDS)));
                 } else if (vp.percentile() == 0.999D) {
-                    domain.setP999(String.valueOf(vp.value()));
+                    domain.setP999(String.valueOf(vp.value(TimeUnit.MILLISECONDS)));
                 }
             }
 
