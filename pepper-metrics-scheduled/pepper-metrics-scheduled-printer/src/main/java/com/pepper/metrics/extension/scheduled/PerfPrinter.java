@@ -1,6 +1,7 @@
 package com.pepper.metrics.extension.scheduled;
 
 import com.pepper.metrics.core.Stats;
+import com.pepper.metrics.core.extension.Scope;
 import com.pepper.metrics.core.extension.Spi;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.Set;
  * @package com.pepper.metrics.extension.scheduled
  * @create_time 2019-08-07
  */
-@Spi
+@Spi(scope = Scope.SINGLETON)
 public interface PerfPrinter {
 
     /**

@@ -27,9 +27,6 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public abstract class AbstractPerfPrinter implements PerfPrinter {
 
-    // 记录上一次的错误数，当前时间窗口的错误数 = 本次累计错误数 - 上次记录的错误数
-    private volatile ConcurrentMap<String, ConcurrentMap<List<String>, Counter>> lastTimeErrCollector = new ConcurrentHashMap<>();
-
     private static final String SPLIT = "| ";
     private static final int LABEL_SIZE_METRICS = 75;
     private static final int LABEL_SIZE_MAX = 10;
@@ -59,11 +56,12 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
     public void print(Set<Stats> statsSet) {
         List<Stats> stats = chooseStats(statsSet);
         // 记录当前时间窗口的error数
-        ConcurrentMap<String, ConcurrentMap<List<String>, Counter>> currentErrCollector = new ConcurrentHashMap<>();
+        ConcurrentMap<String, ConcurrentMap<List<String>, Double>> currentErrCollector = new ConcurrentHashMap<>();
+        ConcurrentMap<String, ConcurrentMap<List<String>, Long>> currentSummaryCollector = new ConcurrentHashMap<>();
 
         for (Stats stat : stats) {
             setPre(stat);
-            List<PrinterDomain> printerDomains = collector(stat, currentErrCollector);
+            List<PrinterDomain> printerDomains = collector(stat, currentErrCollector, currentSummaryCollector);
 
             String prefixStr = "[" + PREFIX + "]";
             String line = StringUtils.repeat("-", LABEL_SIZE);
@@ -100,7 +98,8 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
             pLogger.info(prefixStr + line);
         }
 
-        this.lastTimeErrCollector = currentErrCollector;
+        LastTimeStatsHolder.lastTimeErrCollector = currentErrCollector;
+        LastTimeStatsHolder.lastTimeSummaryCollector = currentSummaryCollector;
     }
 
     private void setPre(Stats stats) {
@@ -117,13 +116,15 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
         return "pref-" + stats.getName() + "-" + stats.getNamespace();
     }
 
-    private List<PrinterDomain> collector(Stats stats, ConcurrentMap<String, ConcurrentMap<List<String>, Counter>> currentErrCollector) {
+    private List<PrinterDomain> collector(Stats stats, ConcurrentMap<String, ConcurrentMap<List<String>, Double>> currentErrCollector,
+                                          ConcurrentMap<String, ConcurrentMap<List<String>, Long>> currentSummaryCollector) {
         ConcurrentMap<List<String>, Counter> errCollector = stats.getErrCollector();
         ConcurrentMap<List<String>, AtomicLong> gaugeCollector = stats.getGaugeCollector();
         ConcurrentMap<List<String>, DistributionSummary> summaryCollector = stats.getSummaryCollector();
 
         // 记录上一次的error数
-        currentErrCollector.put(buildErrCollectorKey(stats), errCollector);
+        currentErrCollector.put(buildCollectorKey(stats), parseErrCollector(errCollector));
+        currentSummaryCollector.put(buildCollectorKey(stats), parseSummaryCollector(summaryCollector));
 
         List<PrinterDomain> retList = new ArrayList<>();
 
@@ -140,12 +141,13 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
                 name = tag.get(1);
             }
             HistogramSnapshot snapshot = summary.takeSnapshot();
+            System.out.println(snapshot.toString());
 
             domain.setTag(name);
-            domain.setMax(String.valueOf(snapshot.max()));
+
             domain.setConcurrent(concurrent == null ? "0" : concurrent.toString());
             domain.setErr(counter == null ? "0" : String.valueOf(counter.count() - getLastTimeErrCount(stats, entry.getKey())));
-            domain.setSum(String.valueOf(snapshot.count()));
+            domain.setSum(String.valueOf(snapshot.count() - getLastTimeSummaryCount(stats, entry.getKey())));
             ValueAtPercentile[] vps = snapshot.percentileValues();
             for (ValueAtPercentile vp : vps) {
                 if (vp.percentile() == 0.9D) {
@@ -154,11 +156,13 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
                     domain.setP99(String.valueOf(vp.value()));
                 } else if (vp.percentile() == 0.999D) {
                     domain.setP999(String.valueOf(vp.value()));
+                } else if (vp.percentile() == 0.99999D) {
+                    domain.setMax(String.valueOf(vp.value()));
                 }
             }
 
             // 计算qps
-            domain.setQps(String.format("%.1f", new Long(snapshot.count()).floatValue() / 60));
+            domain.setQps(String.format("%.1f", Float.parseFloat(domain.getSum()) / 60));
 
             retList.add(domain);
         }
@@ -166,17 +170,46 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
         return retList;
     }
 
+    private ConcurrentMap<List<String>, Long> parseSummaryCollector(ConcurrentMap<List<String>, DistributionSummary> summaryCollector) {
+        ConcurrentMap<List<String>, Long> map = new ConcurrentHashMap<>();
+
+        for (Map.Entry<List<String>, DistributionSummary> entry : summaryCollector.entrySet()) {
+            map.put(entry.getKey(), entry.getValue().count());
+        }
+
+        return map;
+    }
+
+    private ConcurrentMap<List<String>, Double> parseErrCollector(ConcurrentMap<List<String>, Counter> errCollector) {
+        ConcurrentMap<List<String>, Double> map = new ConcurrentHashMap<>();
+        for (Map.Entry<List<String>, Counter> entry : errCollector.entrySet()) {
+            map.put(entry.getKey(), entry.getValue().count());
+        }
+
+        return map;
+    }
+
+    private long getLastTimeSummaryCount(Stats stats, List<String> key) {
+        ConcurrentMap<List<String>, Long> map = LastTimeStatsHolder.lastTimeSummaryCollector.get(buildCollectorKey(stats));
+        if (map == null) {
+            return 0L;
+        }
+
+        Long summary = map.get(key);
+        return summary == null ? 0L : summary;
+    }
+
     private double getLastTimeErrCount(Stats stats, List<String> key) {
-        ConcurrentMap<List<String>, Counter> map = this.lastTimeErrCollector.get(buildErrCollectorKey(stats));
+        ConcurrentMap<List<String>, Double> map = LastTimeStatsHolder.lastTimeErrCollector.get(buildCollectorKey(stats));
         if (map == null) {
             return 0.0D;
         }
 
-        Counter counter = map.get(key);
-        return counter == null ? 0.0D : counter.count();
+        Double counter = map.get(key);
+        return counter == null ? 0.0D : counter;
     }
 
-    private String buildErrCollectorKey(Stats stats) {
+    private String buildCollectorKey(Stats stats) {
         return stats.getName() + "-" + stats.getNamespace();
     }
 
