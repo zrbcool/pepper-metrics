@@ -14,7 +14,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>pepper-metrics-sample-jedis</module>
+        <module>jedis-sample-jvm</module>
         <module>mybatis-sample-springboot</module>
     </modules>
 
