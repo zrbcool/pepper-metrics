@@ -4,9 +4,6 @@ import com.pepper.metrics.sample.mybatis.domain.City;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
-/**
- * @author Eddú Meléndez
- */
 @Component
 public class CityDao {
 
