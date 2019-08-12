@@ -1,12 +1,15 @@
 package com.pepper.metrics.sample.jediscluster;
 
 import com.pepper.metrics.integration.jedis.PjedisClusterFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.PjedisCluster;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -15,6 +18,7 @@ import java.util.concurrent.TimeUnit;
  * @date 19-8-7
  */
 public class JedisClusterSampleMain {
+    private static final Logger log = LoggerFactory.getLogger(JedisClusterSampleMain.class);
     private final static int defaultConnectTimeout = 2000;
     private final static int defaultConnectMaxAttempts = 20;
 
@@ -27,6 +31,7 @@ public class JedisClusterSampleMain {
     }
 
     private static void testJedisCluster() throws InterruptedException {
+        log.info("testJedisCluster()");
         String address = "192.168.100.180:9700,192.168.100.180:9701,192.168.100.180:9702,192.168.100.180:9703,192.168.100.180:9704,192.168.100.180:9705";
 
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
@@ -54,12 +59,12 @@ public class JedisClusterSampleMain {
          */
         for (int i = 0; i < 100; i++) {
             for (int j = 0; j < 10; j++) {
-                jedisCluster.set("hello", "robin");
+                jedisCluster.set("hello:"+j, "robin");
             }
-            for (JedisPool jedisPool : jedisCluster.getClusterNodes().values()) {
-                System.out.println(String.format("%s NumActive:%s NumIdle:%s", i, jedisPool.getNumActive(), jedisPool.getNumIdle()));
+            for (Map.Entry<String, JedisPool> entry : jedisCluster.getClusterNodes().entrySet()) {
+                log.info(String.format("%s %s NumActive:%s NumIdle:%s", i, entry.getKey(), entry.getValue().getNumActive(), entry.getValue().getNumIdle()));
             }
-            System.out.println("------------------------------------------------------------");
+            log.info("------------------------------------------------------------");
             TimeUnit.SECONDS.sleep(1);
         }
     }
