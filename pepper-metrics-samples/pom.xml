@@ -15,6 +15,7 @@
 
     <modules>
         <module>pepper-metrics-sample-jedis</module>
+        <module>mybatis-sample-springboot</module>
     </modules>
 
 </project>

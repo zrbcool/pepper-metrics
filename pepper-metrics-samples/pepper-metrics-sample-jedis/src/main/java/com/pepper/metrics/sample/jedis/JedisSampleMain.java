@@ -34,7 +34,7 @@ public class JedisSampleMain {
                     jedis.set("hello", "robin");
                 }
             }
-            System.out.println(String.format("%s NumActive:%s NumIdle:%s", j, jedisPool.getNumActive(), jedisPool.getNumIdle()));
+//            System.out.println(String.format("%s NumActive:%s NumIdle:%s", j, jedisPool.getNumActive(), jedisPool.getNumIdle()));
             TimeUnit.SECONDS.sleep(1);
         }
     }
