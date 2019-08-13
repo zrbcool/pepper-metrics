@@ -47,7 +47,6 @@ public class ExtensionTest {
             httpStat.observe(random.nextLong(10000), httpTags);
             httpStat.observe(random.nextLong(10000), httpTags);
             PROFILER_STAT_SET.add(httpStat);
-
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -64,7 +64,7 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
             setPre(stat);
             List<PrinterDomain> printerDomains = collector(stat, currentErrCollector, currentSummaryCollector);
 
-            String prefixStr = "[" + PREFIX + "]";
+            String prefixStr = "[" + PREFIX + "] - ";
             String line = StringUtils.repeat("-", LABEL_SIZE);
 
             pLogger.info(prefixStr + line);
@@ -142,7 +142,6 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
                 name = tag.get(1);
             }
             HistogramSnapshot snapshot = summary.takeSnapshot();
-            System.out.println(snapshot.toString());
 
             domain.setTag(name);
 
@@ -156,9 +155,9 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
                 } else if (vp.percentile() == 0.99D) {
                     domain.setP99(String.valueOf(vp.value(TimeUnit.MILLISECONDS)));
                 } else if (vp.percentile() == 0.999D) {
-                    domain.setP999(String.valueOf(vp.value()));
+                    domain.setP999(String.valueOf(vp.value(TimeUnit.MILLISECONDS)));
                 } else if (vp.percentile() == 0.99999D) {
-                    domain.setMax(String.valueOf(vp.value()));
+                    domain.setMax(String.valueOf(vp.value(TimeUnit.MILLISECONDS)));
                 }
             }
 

@@ -33,5 +33,4 @@ public class PjedisClusterFactory {
         return newPjedisCluster(jedisClusterNodes, defaultConnectTimeout, defaultConnectMaxAttempts, jedisPoolConfig, "default");
     }
 
-
 }

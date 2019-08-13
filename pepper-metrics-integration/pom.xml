@@ -16,6 +16,8 @@
     <modules>
         <module>pepper-metrics-jedis</module>
         <module>pepper-metrics-servlet</module>
+        <module>pepper-metrics-motan</module>
+        <module>pepper-metrics-mybatis</module>
     </modules>
 
 </project>

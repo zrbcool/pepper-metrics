@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <package name="com.pepper.metrics.sample.mybatis.domain"/>
+    </typeAliases>
+    <plugins>
+        <plugin interceptor="com.pepper.metrics.integration.mybatis.MybatisProfilerPlugin" />
+    </plugins>
+    <mappers>
+        <mapper resource="com/pepper/metrics/sample/mybatis/mapper/CityMapper.xml"/>
+        <mapper resource="com/pepper/metrics/sample/mybatis/mapper/HotelMapper.xml"/>
+    </mappers>
+</configuration>

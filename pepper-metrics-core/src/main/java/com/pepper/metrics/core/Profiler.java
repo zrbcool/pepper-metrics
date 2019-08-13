@@ -42,7 +42,7 @@ public class Profiler {
 
     public static class Builder {
         private String name;
-        private String namespace;
+        private String namespace = "default";
 
         public static Builder builder() {
             return new Builder();

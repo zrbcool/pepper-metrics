@@ -14,7 +14,7 @@
 - 完成servlet集成
 - 完成motan集成
 - 完成mybatis集成
-- 重构/重写，ExtensionLoader部分
+- 重构/重写，ExtensionLoader部分 
 - 输出文档，Topic：SPI
 - 输出文档，Topic：基础架构
 - 输出文档，Topic：Servlet集成原理

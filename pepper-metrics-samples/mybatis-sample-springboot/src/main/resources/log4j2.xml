@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="off" monitorInterval="30">
+    <properties>
+        <property name="PATTERN">[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%level] - %msg%xEx%n</property>
+        <property name="PERF_PATTERN">%d{HH:mm:ss} - %msg%xEx%n</property>
+        <property name="EVERY_FILE_SIZE">1000 MB</property>
+    </properties>
+    <appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="${PATTERN}"/>
+        </Console>
+        <RollingRandomAccessFile name="performanceFile"
+                                 fileName="logs/performance.log"
+                                 filePattern="logs/performance/performance.log.%d{yyyyMMdd}.%i"
+                                 immediateFlush="false"
+                                 ignoreExceptions="false">
+            <PatternLayout pattern="${PERF_PATTERN}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="${EVERY_FILE_SIZE}"/>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+            <DefaultRolloverStrategy max="3" >
+                <Delete basePath="logs/performance" maxDepth="1">
+                    <IfLastModified age="15d" />
+                    <!--<IfLastModified age="15M" />-->
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+        <Async name="performanceAppender">
+            <AppenderRef ref="performanceFile"/>
+            <!--<DisruptorBlockingQueue />-->
+        </Async>
+    </appenders>
+
+    <loggers>
+        <!-- Printer logger配置，打印到root的console中 -->
+        <logger name="performance"  level="info" additivity="false">
+            <AppenderRef ref="STDOUT"/>
+            <AppenderRef ref="performanceAppender" />
+        </logger>
+
+        <Logger name="com.pepper.metrics.sample.mybatis" level="info" additivity="false">
+            <AppenderRef ref="STDOUT"/>
+        </Logger>
+
+        <ROOT level="debug">
+            <AppenderRef ref="STDOUT"/>
+        </ROOT>
+    </loggers>
+</configuration>

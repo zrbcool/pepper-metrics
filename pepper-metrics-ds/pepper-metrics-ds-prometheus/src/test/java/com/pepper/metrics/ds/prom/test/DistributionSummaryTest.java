@@ -22,7 +22,7 @@ public class DistributionSummaryTest {
     public void test() throws InterruptedException {
         final PrometheusMeterRegistry prometheusRegistry = new PrometheusMeterRegistry(PrometheusConfig.DEFAULT);
         final Timer summary = Timer.builder("test")
-                .distributionStatisticExpiry(Duration.ofSeconds(30))
+                .distributionStatisticExpiry(Duration.ofSeconds(10))
                 .publishPercentiles(0.9D, 0.99D, 0.999D)
                 .distributionStatisticBufferLength(20)
                 .publishPercentileHistogram(false)
@@ -51,9 +51,10 @@ public class DistributionSummaryTest {
             System.out.println(String.format("second: %s, p90: %s, p99: %s, p999: %s", second.incrementAndGet(), p90, p99, p999));
         }, 1, 1, TimeUnit.SECONDS);
         for (int j = 0; j < 100; j++) {
-            for (long i = 0; i < 1000; i++) {
-                summary.record(i, TimeUnit.MILLISECONDS);
-            }
+//            for (long i = 0; i < 1000; i++) {
+//                summary.record(i, TimeUnit.MILLISECONDS);
+//            }
+            summary.record(j % 10, TimeUnit.MILLISECONDS);
             TimeUnit.SECONDS.sleep(1);
         }
 

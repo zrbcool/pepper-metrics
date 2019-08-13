@@ -1,6 +1,9 @@
 package com.pepper.metrics.core;
 
-import io.micrometer.core.instrument.*;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Gauge;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Timer;
 
 import java.time.Duration;
 import java.util.Arrays;
@@ -18,9 +21,9 @@ public class Stats {
     private String name;
     private String namespace;
 
-    private ConcurrentMap<List<String>, Counter> errCollector = new ConcurrentHashMap<>();
-    private ConcurrentMap<List<String>, AtomicLong> gaugeCollector = new ConcurrentHashMap<>();
-    private ConcurrentMap<List<String>, Timer> summaryCollector = new ConcurrentHashMap<>();
+    private final ConcurrentMap<List<String>, Counter> errCollector = new ConcurrentHashMap<>();
+    private final ConcurrentMap<List<String>, AtomicLong> gaugeCollector = new ConcurrentHashMap<>();
+    private final ConcurrentMap<List<String>, Timer> summaryCollector = new ConcurrentHashMap<>();
 
     public ConcurrentMap<List<String>, Counter> getErrCollector() {
         return errCollector;
@@ -53,31 +56,35 @@ public class Stats {
     }
 
     public void incConc(String...tags) {
-        getOrInitGauge(gaugeCollector, name + ".concurrent.gauge", tags).incrementAndGet();
+        getOrInitGauge( name + ".concurrent.gauge", tags).incrementAndGet();
     }
 
     public void decConc(String...tags) {
-        getOrInitGauge(gaugeCollector, name + ".concurrent.gauge", tags).decrementAndGet();
+        getOrInitGauge(name + ".concurrent.gauge", tags).decrementAndGet();
     }
 
     public void observe(long elapse, String...tags) {
-        getOrInitSummary(summaryCollector, name + ".summary", tags).record(elapse, TimeUnit.MILLISECONDS);
+        getOrInitSummary(name + ".summary", tags).record(elapse, TimeUnit.MILLISECONDS);
     }
 
-    private Timer getOrInitSummary(ConcurrentMap<List<String>, Timer> collector, String sName, String... tags) {
+
+    public void observe(long elapse, TimeUnit timeUnit, String...tags) {
+        getOrInitSummary(name + ".summary", tags).record(elapse, timeUnit);
+    }
+
+    private Timer getOrInitSummary(String sName, String... tags) {
         final List<String> asList = Arrays.asList(tags);
-        Timer timer = collector.get(asList);
+        Timer timer = summaryCollector.get(asList);
         if (timer != null) {
             return timer;
         }
         timer = Timer.builder(sName)
                 .distributionStatisticExpiry(Duration.ofSeconds(60))
-                .publishPercentiles(0.9, 0.99, 0.999)
+                .publishPercentiles(0.9, 0.99, 0.999, 0.99999)
                 .publishPercentileHistogram(false)
                 .tags(tags)
                 .register(registry);
-        collector.putIfAbsent(asList, timer);
-
+        summaryCollector.putIfAbsent(asList, timer);
         return timer;
     }
 
@@ -92,13 +99,15 @@ public class Stats {
         return counter;
     }
 
-    private AtomicLong getOrInitGauge(ConcurrentMap<List<String>, AtomicLong> collector, String gaugeName, String... tags) {
+    private AtomicLong getOrInitGauge(String gaugeName, String... tags) {
         final List<String> asList = Arrays.asList(tags);
-        final AtomicLong g = collector.get(asList);
+        final AtomicLong g = gaugeCollector.get(asList);
         if (g != null) return g;
-        final AtomicLong obj = new AtomicLong();
-        Gauge.builder(gaugeName, obj, AtomicLong::get).tags(tags).register(registry);
-        collector.putIfAbsent(asList, obj);
-        return obj;
+        synchronized (gaugeCollector) {
+            final AtomicLong obj = new AtomicLong();
+            Gauge.builder(gaugeName, obj, AtomicLong::get).tags(tags).register(registry);
+            gaugeCollector.putIfAbsent(asList, obj);
+        }
+        return gaugeCollector.get(asList);
     }
 }
