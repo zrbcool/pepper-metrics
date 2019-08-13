@@ -85,14 +85,14 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
             for (PrinterDomain domain : printerDomains) {
                 String content = prefixStr + SPLIT +
                         StringUtils.rightPad(domain.getTag(), LABEL_SIZE_METRICS) +
-                        StringUtils.leftPad(String.format("%.1f", Float.parseFloat(domain.getMax())), LABEL_SIZE_MAX) +
-                        StringUtils.leftPad(String.format("%.0f", Float.parseFloat(domain.getConcurrent())), LABEL_SIZE_CONCURRENT) +
-                        StringUtils.leftPad(String.format("%.0f", Float.parseFloat(domain.getErr())), LABEL_SIZE_ERR) +
-                        StringUtils.leftPad(String.format("%.0f", Float.parseFloat(domain.getSum())), LABEL_SIZE_SUM) +
-                        StringUtils.leftPad(String.format("%.1f", Float.parseFloat(domain.getP90())), LABEL_SIZE_P90) +
-                        StringUtils.leftPad(String.format("%.1f", Float.parseFloat(domain.getP99())), LABEL_SIZE_P99) +
-                        StringUtils.leftPad(String.format("%.1f", Float.parseFloat(domain.getP999())), LABEL_SIZE_P999) +
-                        StringUtils.leftPad(String.format("%.1f", Float.parseFloat(domain.getQps())), LABEL_SIZE_QPS) +
+                        StringUtils.leftPad(String.format("%.1f", StringUtils.isEmpty(domain.getMax()) ? 0.0F : Float.parseFloat(domain.getMax())), LABEL_SIZE_MAX) +
+                        StringUtils.leftPad(String.format("%.0f", StringUtils.isEmpty(domain.getConcurrent()) ? 0.0F : Float.parseFloat(domain.getConcurrent())), LABEL_SIZE_CONCURRENT) +
+                        StringUtils.leftPad(String.format("%.0f", StringUtils.isEmpty(domain.getErr()) ? 0.0F : Float.parseFloat(domain.getErr())), LABEL_SIZE_ERR) +
+                        StringUtils.leftPad(String.format("%.0f", StringUtils.isEmpty(domain.getSum()) ? 0.0F : Float.parseFloat(domain.getSum())), LABEL_SIZE_SUM) +
+                        StringUtils.leftPad(String.format("%.1f", StringUtils.isEmpty(domain.getP90()) ? 0.0F : Float.parseFloat(domain.getP90())), LABEL_SIZE_P90) +
+                        StringUtils.leftPad(String.format("%.1f", StringUtils.isEmpty(domain.getP99()) ? 0.0F : Float.parseFloat(domain.getP99())), LABEL_SIZE_P99) +
+                        StringUtils.leftPad(String.format("%.1f", StringUtils.isEmpty(domain.getP999()) ? 0.0F : Float.parseFloat(domain.getP999())), LABEL_SIZE_P999) +
+                        StringUtils.leftPad(String.format("%.1f", StringUtils.isEmpty(domain.getQps()) ? 0.0F : Float.parseFloat(domain.getQps())), LABEL_SIZE_QPS) +
                         " " + SPLIT ;
                 pLogger.info(content);
             }
