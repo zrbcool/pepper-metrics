@@ -16,6 +16,7 @@
     <modules>
         <module>jedis-sample-jvm</module>
         <module>mybatis-sample-springboot</module>
+        <module>servlet-sample-springboot</module>
     </modules>
 
 </project>
