@@ -4,6 +4,7 @@ import com.pepper.metrics.core.ScheduledRun;
 import com.pepper.metrics.core.Stats;
 import com.pepper.metrics.core.extension.ExtensionLoader;
 import com.pepper.metrics.core.extension.SpiMeta;
+import org.joda.time.DateTime;
 
 import java.util.List;
 import java.util.Set;
@@ -29,8 +30,9 @@ public class ScheduledPrinter implements ScheduledRun {
     @Override
     public void run(Set<Stats> statsSet) {
         final List<PerfPrinter> perfPrinters = ExtensionLoader.getExtensionLoader(PerfPrinter.class).getExtensions();
+        String timestamp = DateTime.now().toString("yyyyMMddHHmmss");
         for (PerfPrinter perfPrinter : perfPrinters) {
-            perfPrinter.print(statsSet);
+            perfPrinter.print(statsSet, timestamp);
         }
     }
 

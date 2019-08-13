@@ -31,7 +31,7 @@ public interface PerfPrinter {
      * 打印日志
      * @param statsSet 统计信息
      */
-    void print(Set<Stats> statsSet);
+    void print(Set<Stats> statsSet, String timestamp);
 
     /**
      * <pre>
@@ -42,5 +42,13 @@ public interface PerfPrinter {
      * </pre>
      */
     String setPrefix(Stats stats);
+
+    /**
+     * 定义日志第一列【Metrics】的名称格式
+     * @param stats 统计信息
+     * @param tags  当前数据信息
+     * @return Metrics名称
+     */
+    String setMetricsName(Stats stats, List<String> tags);
 
 }

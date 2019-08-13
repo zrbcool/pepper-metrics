@@ -54,7 +54,7 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
     protected static String PREFIX = "";
 
     @Override
-    public void print(Set<Stats> statsSet) {
+    public void print(Set<Stats> statsSet, String timestamp) {
         List<Stats> stats = chooseStats(statsSet);
         // 记录当前时间窗口的error数
         ConcurrentMap<String, ConcurrentMap<List<String>, Double>> currentErrCollector = new ConcurrentHashMap<>();
@@ -64,7 +64,7 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
             setPre(stat);
             List<PrinterDomain> printerDomains = collector(stat, currentErrCollector, currentSummaryCollector);
 
-            String prefixStr = "[" + PREFIX + "] - ";
+            String prefixStr = "[" + PREFIX + "] - [" + timestamp + "]";
             String line = StringUtils.repeat("-", LABEL_SIZE);
 
             pLogger.info(prefixStr + line);
@@ -107,6 +107,15 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
         PREFIX = setPrefix(stats);
     }
 
+    @Override
+    public String setMetricsName(Stats stats, List<String> tags) {
+        String name = "unknown";
+        if (tags.size() > 1) {
+            name = tags.get(1);
+        }
+        return name;
+    }
+
     /**
      * 日志前缀的默认实现
      * @param stats
@@ -137,10 +146,8 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
             AtomicLong concurrent = gaugeCollector.get(tag);
 
             PrinterDomain domain = new PrinterDomain();
-            String name = "unknown";
-            if (tag.size() > 1) {
-                name = tag.get(1);
-            }
+
+            String name = setMetricsName(stats, tag);
             HistogramSnapshot snapshot = summary.takeSnapshot();
 
             domain.setTag(name);
