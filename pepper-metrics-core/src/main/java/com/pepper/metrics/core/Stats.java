@@ -104,9 +104,11 @@ public class Stats {
         final AtomicLong g = gaugeCollector.get(asList);
         if (g != null) return g;
         synchronized (gaugeCollector) {
-            final AtomicLong obj = new AtomicLong();
-            Gauge.builder(gaugeName, obj, AtomicLong::get).tags(tags).register(registry);
-            gaugeCollector.putIfAbsent(asList, obj);
+            if (gaugeCollector.get(asList) == null) {
+                final AtomicLong obj = new AtomicLong();
+                Gauge.builder(gaugeName, obj, AtomicLong::get).tags(tags).register(registry);
+                gaugeCollector.putIfAbsent(asList, obj);
+            }
         }
         return gaugeCollector.get(asList);
     }
