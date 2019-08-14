@@ -1,6 +1,6 @@
 # Pepper Metrics Project  
 ## Architecture  
-Pepper Metrics项目从核心上来说，基于Tom Wilkie的[RED](https://grafana.com/blog/2018/08/02/the-red-method-how-to-instrument-your-services/)理论，即对每个服务
+Pepper Metrics项目从核心概念上来说，基于Tom Wilkie的[RED](https://grafana.com/blog/2018/08/02/the-red-method-how-to-instrument-your-services/)理论，即对每个服务
 （这里的服务特指进程中的某种调用，比如调用一次数据库查询）进行RED指标收集，并持久化到数据库，并通过dashboard进行展示，辅助进行性能趋势分析。  
 更多介绍请点击：[Architecture](./docs/Architecture.md)
 ### Concept
@@ -92,8 +92,11 @@ jedis_concurrent_gauge{method="set",namespace="somens",} 0.0
 </dependencies>
 ```
 ### Next steps  
-- [Pepper Metrics Project ROAD-MAP](./docs/Roadmap.md)
+- [Pepper Metrics User Guide](./docs/User_guide.md)
+- [Pepper Metrics Architecture](./docs/Architecture.md)
+- [Pepper Metrics ROAD-MAP](./docs/Roadmap.md)
 - [Pepper Metrics Development Guide](./docs/Dev_Guide.md)
+- [Pepper Metrics Development Plan](./docs/Dev_plan.md)
 ## Building  
 ```bash
 mvn clean package install

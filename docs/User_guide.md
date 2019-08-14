@@ -1,10 +1,14 @@
 # User Guide
 ## Samples
 样例项目下载：
-> ```bash
-> git clone https://github.com/zrbcool/pepper-metrics.git
-> cd pepper-metrics/pepper-metrics-samples
-> ```
+```bash
+git clone https://github.com/zrbcool/pepper-metrics.git
+cd pepper-metrics/pepper-metrics-samples
+```
+## 快速导航
+> 简单来说使用Pepper Metrics需要进行log日志配置，根据实际情况选用不同的集成插件，两部分组成。  
+> 一般来说直接使用社区提供的各种组件的集成即可，也许有某些组件不是特别流行，或者社区还没有推出集成，大家可以根据Core的使用方式，及参考插件代码自行开发扩展，这里也欢迎大家开发自己的扩展并积极推送给社区，一起完善项目。
+
 日志配置：
 - [Log](User_guide.md#log)  
 

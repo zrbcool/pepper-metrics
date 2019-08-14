@@ -19,7 +19,7 @@
 - 完成mybatis集成(Done)
 - 重构/重写，ExtensionLoader部分(Done)
 - 输出文档，Topic：基础架构(Done)
-- 输出文档，Topic：User Guide
+- 输出文档，Topic：User Guide(Done)
 - 输出文档，Topic：如何参与开发，开发流程，开发规范
 
 ### Sprint 1 Plan
