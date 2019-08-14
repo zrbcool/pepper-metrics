@@ -64,13 +64,13 @@ pom中添加如下依赖
     <dependency>
         <groupId>com.pepper</groupId>
         <artifactId>pepper-metrics-jedis</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
     </dependency>
     <!-- pepper-metrics datasource use prometheus by default -->
     <dependency>
         <groupId>com.pepper</groupId>
         <artifactId>pepper-metrics-ds-prometheus</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
     </dependency>
 </dependencies>
 ```
@@ -212,13 +212,13 @@ pom中增加依赖：
     <dependency>
         <groupId>com.pepper</groupId>
         <artifactId>pepper-metrics-mybatis</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
     </dependency>
     <!-- pepper-metrics datasource use prometheus by default -->
     <dependency>
         <groupId>com.pepper</groupId>
         <artifactId>pepper-metrics-ds-prometheus</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
     </dependency>
 </dependencies>
 ```
