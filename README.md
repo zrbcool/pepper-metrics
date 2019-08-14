@@ -1,9 +1,12 @@
 # Pepper Metrics Project  
 ## Architecture  
+Pepper Metrics项目从核心上来说，基于Tom Wilkie的[RED](https://grafana.com/blog/2018/08/02/the-red-method-how-to-instrument-your-services/)理论，即对每个服务
+（这里的服务特指进程中的某种调用，比如调用一次数据库查询）进行RED指标收集，并持久化到数据库，并通过dashboard进行展示，辅助进行性能趋势分析。  
+更多介绍请点击：[Architecture](./docs/Architecture.md)
 ### Concept
 ![](http://oss.zrbcool.top/picgo/pepper-metrics-concept.png)
 ### Arch
-![](http://oss.zrbcool.top/picgo/pepper-metrics-arch.png)
+![](http://oss.zrbcool.top/picgo/pepper-metrics-arch-2019-08-14.png)
 > 各个组件说明
 > - Profiler， 核心部分，用于启动定期调度任务，并通过ExtensionLoad加载所有的ScheduledRun扩展，按照指定周期发起调度。同时内部维护Stats的构造器Profiler.Builder
 > - Scheduler， 虚拟概念，在Profiler作为一个定时任务存在
