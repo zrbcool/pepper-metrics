@@ -12,7 +12,7 @@
 
     <loggers>
         <!-- Printer logger配置，打印到root的console中 -->
-        <Logger name="performance" level="INFO" additivity="true"/>
+        <Logger name="performance" level="${OUTPUT_LOG_LEVEL}" additivity="true"/>
 
         <ROOT level="${OUTPUT_LOG_LEVEL}">
             <AppenderRef ref="Console"/>

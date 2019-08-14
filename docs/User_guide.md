@@ -5,10 +5,58 @@
 > git clone https://github.com/zrbcool/pepper-metrics.git
 > cd pepper-metrics/pepper-metrics-samples
 > ```
+日志配置：
+- [Log](User_guide.md#log)  
+
 各种开源组件集成索引：
 - [Jedis](User_guide.md#jedis-integration)
 - [Mybatis](User_guide.md#mybatis-integration)
+
+core使用及插件开发基础：
+- [Core](User_guide.md#core-use-case)
+### log配置
+Pepper Metrics中日志打印部分仅依赖slf4j门面库，未依赖任何具体日志实现，但是所有的sample中均以log4j2作为默认配置，这里也以log4j2为例，如果读者使用其他日志组件，请对配置做相应转换即可  
+- 引入log4j2实现依赖：
+```xml
+<dependencies>
+    <!-- log4j2 2.X -->
+    <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-api</artifactId>
+        <version>${log4j2.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>${log4j2.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-slf4j-impl</artifactId>
+        <version>${log4j2.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-jcl</artifactId>
+        <version>${log4j2.version}</version>
+    </dependency>
+</dependencies>
+```
+- 配置log4j2.xml文件，片段如下：
+```xml
+    <loggers>
+        ...
+        <Logger name="performance" level="INFO" additivity="true"/>
+        ...
+    </loggers>
+```
+- performance日志的log4j2的输出参考格式PATTERN：
+由于性能日志有一定格式且行比较宽，所以有必要合理设置log4j去掉多余的显示，这里以log4j2设置为例
+```xml
+<property name="PATTERN">%d{HH:mm:ss} - %msg%xEx%n</property>
+```
 ### jedis integration
+sample项目请参考: [jedis-sample-jvm](../pepper-metrics-samples/jedis-sample-jvm)  
 pom中添加如下依赖
 ```xml
 <dependencies>
@@ -28,60 +76,26 @@ pom中添加如下依赖
 ```
 与Jedis集成（单机），具体参考[JedisSampleMain.java](../pepper-metrics-samples/jedis-sample-jvm/src/main/java/com/pepper/metrics/sample/jedis/JedisSampleMain.java)
 ```java
-JedisPoolConfig config = new JedisPoolConfig();
-config.setMaxTotal(300);
-...//省略jedisPoolConfig的设置代码
-config.setTestOnCreate(false);
-
-// 与正常使用Jedis没有差异
-// 只是这块创建JedisPool的时候换成PjedisPool实现即可
+...
+// 省略构建各种参数过程，与正常使用Jedis没有差异
+// 只修改这一处即可
 // 最后一个参数用于当应用连接多组Redis时在日志打印及指标展示时区分
 PjedisPool jedisPool = new PjedisPool(config, "192.168.100.221", 6379, "somens");
 
-for (int j = 0; j < 100; j++) {
-    for (int i = 0; i < 10; i++) {
-        try (Jedis jedis = jedisPool.getResource()) {
-            jedis.set("hello", "robin");
-        }
-    }
-    log.info(String.format("%s NumActive:%s NumIdle:%s", j, jedisPool.getNumActive(), jedisPool.getNumIdle()));
-    TimeUnit.SECONDS.sleep(1);
+try (Jedis jedis = jedisPool.getResource()) {
+    jedis.set("hello", "robin");
 }
 ```
 
 与JedisCluster集成（集群），具体参考[JedisClusterSampleMain.java](../pepper-metrics-samples/jedis-sample-jvm/src/main/java/com/pepper/metrics/sample/jediscluster/JedisClusterSampleMain.java)
 ```java
-String address = "192.168.100.180:9700,192.168.100.180:9701,192.168.100.180:9702,192.168.100.180:9703,192.168.100.180:9704,192.168.100.180:9705";
-JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
-config.setMaxTotal(300);
-...//省略jedisPoolConfig的设置代码
-config.setTestOnCreate(false);
-
-String[] commonClusterRedisArray = address.split(",");
-Set<HostAndPort> jedisClusterNodes = new HashSet<>();
-for (String clusterHostAndPort : commonClusterRedisArray) {
-    String host = clusterHostAndPort.split(":")[0].trim();
-    int port = Integer.parseInt(clusterHostAndPort.split(":")[1].trim());
-    jedisClusterNodes.add(new HostAndPort(host, port));
-}
-// 与正常使用JedisCluster没有差异
+...
+// 省略构建各种参数过程，与正常使用JedisCluster没有差异
 // 只修改这一处即可，PjedisClusterFactory.newPjedisCluster(...)，PjedisCluster完全兼容JedisCluster的API
+// 第二个参数是namespace，当应用需要连接多组redis集群时用于区分，如果只连接一组，可以不传，默认值是default
 PjedisCluster jedisCluster = PjedisClusterFactory.newPjedisCluster(jedisClusterNodes, defaultConnectTimeout, defaultConnectMaxAttempts, jedisPoolConfig);
 
-/**
- * 重要的步骤，用PjedisClusterFactory.decorateJedisCluster()包装jedisCluster即可拥有pepper-metrics-jedis的metrics能力
- * 第二个参数是namespace，当应用需要连接多组redis集群时用于区分，如果只连接一组，可以不传，默认值是default
- */
-for (int i = 0; i < 100; i++) {
-    for (int j = 0; j < 10; j++) {
-        jedisCluster.set("hello:"+j, "robin");
-    }
-    for (Map.Entry<String, JedisPool> entry : jedisCluster.getClusterNodes().entrySet()) {
-        log.info(String.format("%s %s NumActive:%s NumIdle:%s", i, entry.getKey(), entry.getValue().getNumActive(), entry.getValue().getNumIdle()));
-    }
-    log.info("------------------------------------------------------------");
-    TimeUnit.SECONDS.sleep(1);
-}
+jedisCluster.set("hello:"+j, "robin");
 ```
 日志输出效果:
 ```bash
@@ -190,6 +204,7 @@ jedis_concurrent_gauge{method="getClient",namespace="somens",} 0.0
 jedis_concurrent_gauge{method="resetState",namespace="somens",} 0.0
 ```
 ### mybatis integration
+sample项目请参考: [mybatis-sample-springboot](../pepper-metrics-samples/mybatis-sample-springboot)  
 pom中增加依赖：
 ```xml
 <dependencies>
@@ -226,3 +241,59 @@ pom中增加依赖：
 [perf:mybatis:20190814144344] - --------------------------------------------------------------------------------------------------------------------------------------------------------------
 ```
 prometheus指标输出情况：与其他相似，只是指标名区别
+### core use case
+一般应用都是直接使用各种开源组件的集成，如果有特殊需要，例如需要有自定义的性能收集或者开发扩展插件时才需要了解core的使用，这里简单介绍，详细了解，请查看各个插件的使用方式，参考链接：[pepper-metrics-integration](../pepper-metrics-integration)
+- 性能收集代码使用样例
+```java
+public class CoreSampleMain {
+    public static void main(String[] args) {
+        final Stats stats = Profiler.Builder
+                .builder()
+                .name("custom")
+                .namespace("myns")
+                .build();
+        String[] tags = new String[]{"method", "mockLatency()"};
+        for (int i = 0; i < 10; i++) {
+            stats.incConc(tags);
+            long begin = System.nanoTime();
+            try {
+                mockLatency();
+            } catch (Exception e) {
+                stats.error(tags);
+            } finally {
+                stats.observe(System.nanoTime() - begin, TimeUnit.NANOSECONDS, tags);
+                stats.decConc(tags);
+            }
+        }
+    }
+    
+    private static void mockLatency() {
+        try {
+            TimeUnit.MILLISECONDS.sleep(RandomUtils.nextInt(50, 100));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+- 如果收集的指标需要输出perf日志，则需要开发一个printer插件
+```java
+@SpiMeta(name = "coreSamplePrinter")
+public class CoreSamplePrinter extends AbstractPerfPrinter {
+    @Override
+    public List<Stats> chooseStats(Set<Stats> statsSet) {
+        List<Stats> statsList = new ArrayList<>();
+        for (Stats stats : statsSet) {
+            if ("custom".equalsIgnoreCase(stats.getName())) {
+                statsList.add(stats);
+            }
+        }
+        return statsList;
+    }
+}
+```  
+同时配置SPI使其能被ExtensionLoader发现并加载，完整代码请参考sample项目：[core-sample-jvm](../pepper-metrics-samples/core-sample-jvm)
+
+
+
+
