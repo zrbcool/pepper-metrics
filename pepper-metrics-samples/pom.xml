@@ -23,6 +23,7 @@
         <module>mybatis-sample-springboot</module>
         <module>servlet-sample-springboot</module>
         <module>motan-sample-jvm</module>
+        <module>motan-sample-springboot</module>
     </modules>
 
 </project>
