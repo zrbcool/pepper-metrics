@@ -12,6 +12,7 @@ public class JedisSampleMain {
     private static final Logger log = LoggerFactory.getLogger(JedisSampleMain.class);
     public static void main(String[] args) {
         try {
+
             testJedis();
         } catch (InterruptedException e) {
             e.printStackTrace();
