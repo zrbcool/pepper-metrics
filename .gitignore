@@ -15,7 +15,7 @@ release.properties
 /src/main/webapp/tmpfile/
 /src/main/webapp/index.jsp
 
-
+logs/
 .DS_Store
 /.DS_Store
 nap-admin/src/test/
