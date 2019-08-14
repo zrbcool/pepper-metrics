@@ -1,5 +1,7 @@
 package com.pepper.metrics.sample.motan;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 /**
  * Description:
  *
@@ -10,6 +12,12 @@ package com.pepper.metrics.sample.motan;
 public class HelloServiceImpl implements HelloService {
     @Override
     public void sayHello(String name) {
-        System.out.println("Hello " + name + " !");
+        int waitTime = ThreadLocalRandom.current().nextInt(1000);
+        try {
+            Thread.sleep(waitTime);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Hello " + name + " ! Wait time is " + waitTime);
     }
 }
