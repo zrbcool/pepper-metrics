@@ -18,6 +18,7 @@
         <module>pepper-metrics-servlet</module>
         <module>pepper-metrics-motan</module>
         <module>pepper-metrics-mybatis</module>
+        <module>pepper-metrics-dubbo</module>
     </modules>
 
 </project>

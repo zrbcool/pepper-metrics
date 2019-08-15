@@ -1,0 +1,2 @@
+dubboProviderProfiler=com.pepper.metrics.integration.dubbo.DubboProviderProfilerFilter
+dubboConsumerProfiler=com.pepper.metrics.integration.dubbo.DubboConsumerProfilerFilter
