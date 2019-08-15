@@ -13,7 +13,7 @@ import static org.apache.dubbo.common.constants.CommonConstants.CONSUMER;
  * @package com.pepper.metrics.integration.dubbo
  * @create_time 2019-08-15
  */
-@Activate(group = {CONSUMER}, value = "dubboConsumerProfiler")
+@Activate(group = {CONSUMER})
 public class DubboConsumerProfilerFilter extends DubboProfilerFilterTemplate {
     @Override
     void afterInvoke(String[] tags, long begin, boolean isError) {

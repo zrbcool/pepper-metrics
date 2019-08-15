@@ -24,6 +24,7 @@
         <module>servlet-sample-springboot</module>
         <module>motan-sample-jvm</module>
         <module>motan-sample-springboot</module>
+        <module>dubbo-sample-spring</module>
     </modules>
 
 </project>
