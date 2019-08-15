@@ -8,9 +8,10 @@
 - 完成servlet, motan, mybatis, jedis在CAF中的替换
 - 试点上线
 - 完善开源前的各项准备，文档等
-- 完成dubbo集成
+- 完成dubbo集成(Done)
 - 输出文档，Topic：Servlet集成原理
 - 输出文档，Topic：Jedis集成原理
+- 输出文档，Topic：Dubbo集成原理(Done)
 - 输出文档，Topic：SPI
 
 ### Sprint 2 Plan
@@ -20,7 +21,7 @@
 - 重构/重写，ExtensionLoader部分(Done)
 - 输出文档，Topic：基础架构(Done)
 - 输出文档，Topic：User Guide(Done)
-- 输出文档，Topic：如何参与开发，开发流程，开发规范
+- 输出文档，Topic：如何参与开发(Done)、开发流程(Done)、开发规范
 
 ### Sprint 1 Plan
 - 完成core主体逻辑(Done)
