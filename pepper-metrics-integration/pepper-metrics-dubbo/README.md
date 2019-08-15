@@ -77,7 +77,7 @@ dubboConsumerProfiler=com.pepper.metrics.integration.dubbo.DubboConsumerProfiler
     <dubbo:registry address="multicast://224.5.6.7:1234"/>
 
     <!-- 在这里配置自定义的扩展点 -->
-    <dubbo:reference id="demoService" check="true" interface="com.pepper.metrics.sample.dubbo.spring.api.DemoService" />
+    <dubbo:reference filter="default,dubboConsumerProfiler" id="demoService" check="true" interface="com.pepper.metrics.sample.dubbo.spring.api.DemoService" />
 
 </beans>
 ```
