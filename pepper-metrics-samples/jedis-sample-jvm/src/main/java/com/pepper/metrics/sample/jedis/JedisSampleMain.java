@@ -2,6 +2,7 @@ package com.pepper.metrics.sample.jedis;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import redis.clients.jedis.JedisPropsHolder;
 import redis.clients.jedis.PjedisPool;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPoolConfig;
@@ -32,7 +33,8 @@ public class JedisSampleMain {
         config.setTestOnCreate(false);
 
         log.info("init JedisPoolConfig: {}", config.toString());
-        PjedisPool jedisPool = new PjedisPool(config, "192.168.100.221", 6379, "somens");
+        JedisPropsHolder.NAMESPACE.set("myns");
+        PjedisPool jedisPool = new PjedisPool(config, "192.168.100.221", 6379);
 
         for (int j = 0; j < 100; j++) {
             for (int i = 0; i < 10; i++) {

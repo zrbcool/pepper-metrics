@@ -83,8 +83,9 @@ pom中添加如下依赖
 ...
 // 省略构建各种参数过程，与正常使用Jedis没有差异
 // 只修改这一处即可
-// 最后一个参数用于当应用连接多组Redis时在日志打印及指标展示时区分
-PjedisPool jedisPool = new PjedisPool(config, "192.168.100.221", 6379, "somens");
+// JedisPropsHolder.NAMESPACE是设置namespace，当应用需要连接多个redis时用于区分，如果只连接一个，可以不传，默认值是default
+JedisPropsHolder.NAMESPACE.set("somens");
+PjedisPool jedisPool = new PjedisPool(config, "192.168.100.221", 6379);
 
 try (Jedis jedis = jedisPool.getResource()) {
     jedis.set("hello", "robin");
@@ -96,7 +97,8 @@ try (Jedis jedis = jedisPool.getResource()) {
 ...
 // 省略构建各种参数过程，与正常使用JedisCluster没有差异
 // 只修改这一处即可，PjedisClusterFactory.newPjedisCluster(...)，PjedisCluster完全兼容JedisCluster的API
-// 第二个参数是namespace，当应用需要连接多组redis集群时用于区分，如果只连接一组，可以不传，默认值是default
+// JedisPropsHolder.NAMESPACE是设置namespace，当应用需要连接多组redis集群时用于区分，如果只连接一组，可以不传，默认值是default
+JedisPropsHolder.NAMESPACE.set("somens");
 PjedisCluster jedisCluster = PjedisClusterFactory.newPjedisCluster(jedisClusterNodes, defaultConnectTimeout, defaultConnectMaxAttempts, jedisPoolConfig);
 
 jedisCluster.set("hello:"+j, "robin");
