@@ -64,7 +64,7 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
             setPre(stat);
             List<PrinterDomain> printerDomains = collector(stat, currentErrCollector, currentSummaryCollector);
 
-            String prefixStr = "[" + PREFIX + "] - [" + timestamp + "]";
+            String prefixStr = "[" + PREFIX + ":" + timestamp + "]";
             String line = StringUtils.repeat("-", LABEL_SIZE);
 
             pLogger.info(prefixStr + line);
