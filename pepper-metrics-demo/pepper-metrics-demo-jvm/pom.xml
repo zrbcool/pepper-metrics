@@ -4,25 +4,25 @@
     <parent>
         <artifactId>pepper-metrics-demo</artifactId>
         <groupId>top.pepperx</groupId>
-        <version>1.0.3-SNAPSHOT</version>
+        <version>1.0.3</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>pepper-metrics-demo-jvm</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.3</version>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
             <groupId>top.pepperx</groupId>
             <artifactId>pepper-metrics-core</artifactId>
-            <version>1.0.3-SNAPSHOT</version>
+            <version>1.0.3</version>
         </dependency>
         <dependency>
             <groupId>top.pepperx</groupId>
             <artifactId>pepper-metrics-scheduled-printer</artifactId>
-            <version>1.0.3-SNAPSHOT</version>
+            <version>1.0.3</version>
         </dependency>
     </dependencies>
 
