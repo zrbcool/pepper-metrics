@@ -11,7 +11,10 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>pepper-metrics</artifactId>
     <packaging>pom</packaging>
-
+    <scm>
+        <developerConnection>scm:git:ssh://git@github.com:zrbcool/pepper-metrics.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
     <modules>
         <module>pepper-metrics-parent</module>
         <module>pepper-metrics-core</module>
