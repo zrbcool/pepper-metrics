@@ -54,17 +54,17 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
     protected static String PREFIX = "";
 
     @Override
-    public void print(Set<Stats> statsSet, String timestamp) {
+    public void print(Set<Stats> statsSet, String timestamp, ConcurrentMap<String, ConcurrentMap<List<String>, Double>> currentErrCollector, ConcurrentMap<String, ConcurrentMap<List<String>, Long>> currentSummaryCollector) {
         List<Stats> stats = chooseStats(statsSet);
         // 记录当前时间窗口的error数
-        ConcurrentMap<String, ConcurrentMap<List<String>, Double>> currentErrCollector = new ConcurrentHashMap<>();
-        ConcurrentMap<String, ConcurrentMap<List<String>, Long>> currentSummaryCollector = new ConcurrentHashMap<>();
+//        ConcurrentMap<String, ConcurrentMap<List<String>, Double>> currentErrCollector = new ConcurrentHashMap<>();
+//        ConcurrentMap<String, ConcurrentMap<List<String>, Long>> currentSummaryCollector = new ConcurrentHashMap<>();
 
         for (Stats stat : stats) {
             setPre(stat);
             List<PrinterDomain> printerDomains = collector(stat, currentErrCollector, currentSummaryCollector);
 
-            String prefixStr = "[" + PREFIX + "] - [" + timestamp + "]";
+            String prefixStr = "[" + PREFIX + ":" + timestamp + "]";
             String line = StringUtils.repeat("-", LABEL_SIZE);
 
             pLogger.info(prefixStr + line);
@@ -99,8 +99,8 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
             pLogger.info(prefixStr + line);
         }
 
-        LastTimeStatsHolder.lastTimeErrCollector = currentErrCollector;
-        LastTimeStatsHolder.lastTimeSummaryCollector = currentSummaryCollector;
+//        LastTimeStatsHolder.lastTimeErrCollector = currentErrCollector;
+//        LastTimeStatsHolder.lastTimeSummaryCollector = currentSummaryCollector;
     }
 
     private void setPre(Stats stats) {
