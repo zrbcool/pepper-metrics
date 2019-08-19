@@ -12,6 +12,7 @@
     <artifactId>pepper-metrics</artifactId>
     <packaging>pom</packaging>
     <scm>
+        <connection>scm:git:https://github.com/zrbcool/pepper-metrics.git</connection>
         <developerConnection>scm:git:https://github.com/zrbcool/pepper-metrics.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
