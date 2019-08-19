@@ -26,6 +26,10 @@ import java.util.Set;
 public class PjedisCluster extends PbinaryJedisCluster implements JedisCommands,
         MultiKeyJedisClusterCommands, JedisClusterScriptingCommands {
 
+    public JedisClusterConnectionHandler getConnectionHandler() {
+        return connectionHandler;
+    }
+
     public static enum Reset {
         SOFT, HARD
     }
