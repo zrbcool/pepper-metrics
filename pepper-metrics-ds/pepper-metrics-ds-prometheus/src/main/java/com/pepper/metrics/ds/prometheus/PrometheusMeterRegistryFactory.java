@@ -21,7 +21,7 @@ public class PrometheusMeterRegistryFactory implements MeterRegistryFactory {
 
     static {
         try {
-            HttpServer server = HttpServer.create(new InetSocketAddress(9145), 0);
+            HttpServer server = HttpServer.create(new InetSocketAddress(9146), 0);
             server.createContext("/metrics", httpExchange -> {
                 String response = prometheusRegistry.scrape();
                 httpExchange.sendResponseHeaders(200, response.getBytes().length);
