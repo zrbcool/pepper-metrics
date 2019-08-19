@@ -12,7 +12,8 @@
     <artifactId>pepper-metrics</artifactId>
     <packaging>pom</packaging>
     <scm>
-        <developerConnection>scm:git:ssh://git@github.com:zrbcool/pepper-metrics.git</developerConnection>
+        <connection>scm:git:https://github.com/zrbcool/pepper-metrics.git</connection>
+        <developerConnection>scm:git:https://github.com/zrbcool/pepper-metrics.git</developerConnection>
         <tag>pepper-metrics-1.0.0</tag>
     </scm>
     <modules>
