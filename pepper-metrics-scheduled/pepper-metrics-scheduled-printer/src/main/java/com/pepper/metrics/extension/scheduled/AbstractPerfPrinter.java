@@ -32,8 +32,7 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
     private static final int LABEL_SIZE_METRICS = 75;
     private static final int LABEL_SIZE_MAX = 10;
     private static final int LABEL_SIZE_CONCURRENT = 11;
-    private static final int LABEL_SIZE_ERR = 10;
-    private static final int LABEL_SIZE_SUM = 10;
+    private static final int LABEL_SIZE_COUNT = 15;
     private static final int LABEL_SIZE_P90 = 10;
     private static final int LABEL_SIZE_P99 = 10;
     private static final int LABEL_SIZE_P999 = 10;
@@ -41,8 +40,7 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
     private static final int LABEL_SIZE = LABEL_SIZE_METRICS +
             LABEL_SIZE_MAX +
             LABEL_SIZE_CONCURRENT +
-            LABEL_SIZE_ERR +
-            LABEL_SIZE_SUM +
+            LABEL_SIZE_COUNT +
             LABEL_SIZE_P90 +
             LABEL_SIZE_P99 +
             LABEL_SIZE_P999 +
@@ -56,9 +54,6 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
     @Override
     public void print(Set<Stats> statsSet, String timestamp, ConcurrentMap<String, ConcurrentMap<List<String>, Double>> currentErrCollector, ConcurrentMap<String, ConcurrentMap<List<String>, Long>> currentSummaryCollector) {
         List<Stats> stats = chooseStats(statsSet);
-        // 记录当前时间窗口的error数
-//        ConcurrentMap<String, ConcurrentMap<List<String>, Double>> currentErrCollector = new ConcurrentHashMap<>();
-//        ConcurrentMap<String, ConcurrentMap<List<String>, Long>> currentSummaryCollector = new ConcurrentHashMap<>();
 
         for (Stats stat : stats) {
             setPre(stat);
@@ -71,36 +66,33 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
 
             String header = prefixStr + SPLIT +
                     StringUtils.rightPad("Metrics", LABEL_SIZE_METRICS) +
-                    StringUtils.leftPad("Max(ms)", LABEL_SIZE_MAX) +
                     StringUtils.leftPad("Concurrent", LABEL_SIZE_CONCURRENT) +
-                    StringUtils.leftPad("Error", LABEL_SIZE_ERR) +
-                    StringUtils.leftPad("Count", LABEL_SIZE_SUM) +
+                    StringUtils.leftPad("Count(Err/Sum)", LABEL_SIZE_COUNT) +
                     StringUtils.leftPad("P90(ms)", LABEL_SIZE_P90) +
                     StringUtils.leftPad("P99(ms)", LABEL_SIZE_P99) +
                     StringUtils.leftPad("P999(ms)", LABEL_SIZE_P999) +
+                    StringUtils.leftPad("Max(ms)", LABEL_SIZE_MAX) +
                     StringUtils.leftPad("Qps", LABEL_SIZE_QPS)+
                     " " + SPLIT;
             pLogger.info(header);
 
             for (PrinterDomain domain : printerDomains) {
+                float err = StringUtils.isEmpty(domain.getErr()) ? 0.0F : Float.parseFloat(domain.getErr());
+                float sum = StringUtils.isEmpty(domain.getSum()) ? 0.0F : Float.parseFloat(domain.getSum());
                 String content = prefixStr + SPLIT +
                         StringUtils.rightPad(domain.getTag(), LABEL_SIZE_METRICS) +
-                        StringUtils.leftPad(String.format("%.1f", StringUtils.isEmpty(domain.getMax()) ? 0.0F : Float.parseFloat(domain.getMax())), LABEL_SIZE_MAX) +
                         StringUtils.leftPad(String.format("%.0f", StringUtils.isEmpty(domain.getConcurrent()) ? 0.0F : Float.parseFloat(domain.getConcurrent())), LABEL_SIZE_CONCURRENT) +
-                        StringUtils.leftPad(String.format("%.0f", StringUtils.isEmpty(domain.getErr()) ? 0.0F : Float.parseFloat(domain.getErr())), LABEL_SIZE_ERR) +
-                        StringUtils.leftPad(String.format("%.0f", StringUtils.isEmpty(domain.getSum()) ? 0.0F : Float.parseFloat(domain.getSum())), LABEL_SIZE_SUM) +
+                        StringUtils.leftPad(String.format("%.0f/%.0f", err, sum), LABEL_SIZE_COUNT) +
                         StringUtils.leftPad(String.format("%.1f", StringUtils.isEmpty(domain.getP90()) ? 0.0F : Float.parseFloat(domain.getP90())), LABEL_SIZE_P90) +
                         StringUtils.leftPad(String.format("%.1f", StringUtils.isEmpty(domain.getP99()) ? 0.0F : Float.parseFloat(domain.getP99())), LABEL_SIZE_P99) +
                         StringUtils.leftPad(String.format("%.1f", StringUtils.isEmpty(domain.getP999()) ? 0.0F : Float.parseFloat(domain.getP999())), LABEL_SIZE_P999) +
+                        StringUtils.leftPad(String.format("%.1f", StringUtils.isEmpty(domain.getMax()) ? 0.0F : Float.parseFloat(domain.getMax())), LABEL_SIZE_MAX) +
                         StringUtils.leftPad(String.format("%.1f", StringUtils.isEmpty(domain.getQps()) ? 0.0F : Float.parseFloat(domain.getQps())), LABEL_SIZE_QPS) +
                         " " + SPLIT ;
                 pLogger.info(content);
             }
             pLogger.info(prefixStr + line);
         }
-
-//        LastTimeStatsHolder.lastTimeErrCollector = currentErrCollector;
-//        LastTimeStatsHolder.lastTimeSummaryCollector = currentSummaryCollector;
     }
 
     private void setPre(Stats stats) {
