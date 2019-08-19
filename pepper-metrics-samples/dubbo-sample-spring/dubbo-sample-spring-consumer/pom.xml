@@ -3,7 +3,7 @@
     <parent>
         <artifactId>dubbo-sample-spring</artifactId>
         <groupId>top.pepperx</groupId>
-        <version>1.0.0</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -13,7 +13,7 @@
         <dependency>
             <groupId>top.pepperx</groupId>
             <artifactId>dubbo-sample-spring-api</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
