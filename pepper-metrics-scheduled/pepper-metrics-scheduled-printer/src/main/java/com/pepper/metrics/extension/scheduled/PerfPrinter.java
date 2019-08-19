@@ -6,6 +6,7 @@ import com.pepper.metrics.core.extension.Spi;
 
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * Description:
@@ -31,7 +32,7 @@ public interface PerfPrinter {
      * 打印日志
      * @param statsSet 统计信息
      */
-    void print(Set<Stats> statsSet, String timestamp);
+    void print(Set<Stats> statsSet, String timestamp, ConcurrentMap<String, ConcurrentMap<List<String>, Double>> currentErrCollector, ConcurrentMap<String, ConcurrentMap<List<String>, Long>> currentSummaryCollector);
 
     /**
      * <pre>

@@ -8,6 +8,8 @@ import org.joda.time.DateTime;
 
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * <pre>
@@ -31,9 +33,16 @@ public class ScheduledPrinter implements ScheduledRun {
     public void run(Set<Stats> statsSet) {
         final List<PerfPrinter> perfPrinters = ExtensionLoader.getExtensionLoader(PerfPrinter.class).getExtensions();
         String timestamp = DateTime.now().toString("yyyyMMddHHmmss");
+        // 记录当前时间窗口的error数和count值
+        ConcurrentMap<String, ConcurrentMap<List<String>, Double>> currentErrCollector = new ConcurrentHashMap<>();
+        ConcurrentMap<String, ConcurrentMap<List<String>, Long>> currentSummaryCollector = new ConcurrentHashMap<>();
+
         for (PerfPrinter perfPrinter : perfPrinters) {
-            perfPrinter.print(statsSet, timestamp);
+            perfPrinter.print(statsSet, timestamp, currentErrCollector, currentSummaryCollector);
         }
+
+        LastTimeStatsHolder.lastTimeErrCollector = currentErrCollector;
+        LastTimeStatsHolder.lastTimeSummaryCollector = currentSummaryCollector;
     }
 
 }
