@@ -247,6 +247,99 @@ pom中增加依赖：
 [perf:mybatis:20190814144344] - --------------------------------------------------------------------------------------------------------------------------------------------------------------
 ```
 prometheus指标输出情况：与其他相似，只是指标名区别
+
+### Dubbo integration
+sample项目请参考：[dubbo-sample-spring](https://github.com/Lord-X/pepper-metrics/tree/master/pepper-metrics-samples/dubbo-sample-spring)
+
+pom中添加依赖即可:
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>com.pepper</groupId>
+        <artifactId>pepper-metrics-dubbo</artifactId>
+        <version>1.0.0</version>
+    </dependency>
+    <dependency>
+        <groupId>com.pepper</groupId>
+        <artifactId>pepper-metrics-ds-prometheus</artifactId>
+        <version>1.0.0</version>
+    </dependency>
+</dependencies>
+```
+
+### http integration
+sample项目请参考：[servlet-sample-springboot](https://github.com/Lord-X/pepper-metrics/tree/master/pepper-metrics-samples/servlet-sample-springboot)
+
+pom中添加依赖：
+```xml
+<dependencies>
+    <dependency>
+        <groupId>com.pepper</groupId>
+        <artifactId>pepper-metrics-servlet</artifactId>
+        <version>1.0.0</version>
+    </dependency>
+    <dependency>
+        <groupId>com.pepper</groupId>
+        <artifactId>pepper-metrics-ds-prometheus</artifactId>
+        <version>1.0.0</version>
+    </dependency>
+</dependencies>
+```
+* 在web.xml或springboot的Configuration中配置PerfFilter，以SpringBoot为例：
+```java
+@Configuration
+@ConditionalOnClass(HttpServletRequest.class)
+@AutoConfigureOrder(Ordered.HIGHEST_PRECEDENCE)
+@ConditionalOnWebApplication
+public class WebAutoConfig {
+
+    @Bean
+    public FilterRegistrationBean profilerFilterRegistration() {
+        FilterRegistrationBean<Filter> registration = new FilterRegistrationBean<>();
+        registration.setFilter(new PerfFilter());
+        registration.addUrlPatterns("/*");
+        registration.setName("profilerHttpFilter");
+        registration.setOrder(1);
+
+        return registration;
+    }
+}
+```
+
+### motan integration
+sample项目请参考：[motan-sample-jvm](https://github.com/Lord-X/pepper-metrics/tree/master/pepper-metrics-samples/motan-sample-jvm)，[motan-sample-springboot](https://github.com/Lord-X/pepper-metrics/tree/master/pepper-metrics-samples/motan-sample-springboot)
+
+在pom中添加依赖：
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>com.pepper</groupId>
+        <artifactId>pepper-metrics-motan</artifactId>
+        <version>1.0.0</version>
+    </dependency>
+    <dependency>
+        <groupId>com.pepper</groupId>
+        <artifactId>pepper-metrics-ds-prometheus</artifactId>
+        <version>1.0.0</version>
+    </dependency>
+</dependencies>
+```
+
+给Motan的ProtocolConfig添加Filter配置，名称为"pepperProfiler"，以SpringBoot为例：
+```java
+ProtocolConfigBean config = new ProtocolConfigBean();
+config.setDefault(true);
+config.setName("motan");
+config.setMaxContentLength(1048576);
+// 添加Filter
+config.setFilter("pepperProfiler");
+return config;
+```
+这里注意，Filter的名称一定为pepperProfiler。可在Server端和Client端同时添加。
+
+
 ### core use case
 一般应用都是直接使用各种开源组件的集成，如果有特殊需要，例如需要有自定义的性能收集或者开发扩展插件时才需要了解core的使用，这里简单介绍，详细了解，请查看各个插件的使用方式，参考链接：[pepper-metrics-integration](../pepper-metrics-integration)
 - 性能收集代码使用样例
