@@ -20,13 +20,13 @@ Pepper Metrics项目从核心概念上来说，基于Tom Wilkie的[RED](https://
 <dependencies>
     <!-- pepper metrics dependencies -->
     <dependency>
-        <groupId>com.pepper</groupId>
+        <groupId>top.pepperx</groupId>
         <artifactId>pepper-metrics-mybatis</artifactId>
         <version>1.0.0</version>
     </dependency>
     <!-- pepper-metrics datasource use prometheus by default -->
     <dependency>
-        <groupId>com.pepper</groupId>
+        <groupId>top.pepperx</groupId>
         <artifactId>pepper-metrics-ds-prometheus</artifactId>
         <version>1.0.0</version>
     </dependency>
@@ -79,13 +79,13 @@ jedis_concurrent_gauge{method="set",namespace="somens",} 0.0
 <dependencies>
     <!-- pepper metrics dependencies -->
     <dependency>
-        <groupId>com.pepper</groupId>
+        <groupId>top.pepperx</groupId>
         <artifactId>pepper-metrics-mybatis</artifactId>
         <version>1.0.0</version>
     </dependency>
     <!-- pepper-metrics datasource use prometheus by default -->
     <dependency>
-        <groupId>com.pepper</groupId>
+        <groupId>top.pepperx</groupId>
         <artifactId>pepper-metrics-ds-prometheus</artifactId>
         <version>1.0.0</version>
     </dependency>
