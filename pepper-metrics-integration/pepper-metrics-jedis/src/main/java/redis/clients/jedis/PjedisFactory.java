@@ -2,6 +2,7 @@ package redis.clients.jedis;
 
 import com.pepper.metrics.core.extension.ExtensionLoader;
 import com.pepper.metrics.integration.jedis.ProxyFactory;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.PooledObjectFactory;
 import org.apache.commons.pool2.impl.DefaultPooledObject;
@@ -32,20 +33,12 @@ class PjedisFactory implements PooledObjectFactory<Jedis> {
   private final SSLSocketFactory sslSocketFactory;
   private SSLParameters sslParameters;
   private HostnameVerifier hostnameVerifier;
-  private String namespace;
+  private String namespace = "default";
 
   public PjedisFactory(final String host, final int port, final int connectionTimeout,
-                       final int soTimeout, final String password, final int database, final String clientName,
-                       final boolean ssl, final SSLSocketFactory sslSocketFactory, final SSLParameters sslParameters,
-                       final HostnameVerifier hostnameVerifier) {
-    this(host, port, connectionTimeout, soTimeout, password, database, clientName, ssl, sslSocketFactory, sslParameters,
-            hostnameVerifier, "default");
-  }
-
-  public PjedisFactory(final String host, final int port, final int connectionTimeout,
-                       final int soTimeout, final String password, final int database, final String clientName,
-                       final boolean ssl, final SSLSocketFactory sslSocketFactory, final SSLParameters sslParameters,
-                       final HostnameVerifier hostnameVerifier, final String namespace) {
+                      final int soTimeout, final String password, final int database, final String clientName,
+                      final boolean ssl, final SSLSocketFactory sslSocketFactory, final SSLParameters sslParameters,
+                      final HostnameVerifier hostnameVerifier) {
     this.hostAndPort.set(new HostAndPort(host, port));
     this.connectionTimeout = connectionTimeout;
     this.soTimeout = soTimeout;
@@ -56,15 +49,17 @@ class PjedisFactory implements PooledObjectFactory<Jedis> {
     this.sslSocketFactory = sslSocketFactory;
     this.sslParameters = sslParameters;
     this.hostnameVerifier = hostnameVerifier;
-    this.namespace = namespace;
+    if (StringUtils.isNotEmpty(JedisPropsHolder.NAMESPACE.get())) {
+      this.namespace = JedisPropsHolder.NAMESPACE.get();
+    }
   }
 
   public PjedisFactory(final URI uri, final int connectionTimeout, final int soTimeout,
-                       final String clientName, final boolean ssl, final SSLSocketFactory sslSocketFactory,
-                       final SSLParameters sslParameters, final HostnameVerifier hostnameVerifier, final String namespace) {
+                      final String clientName, final boolean ssl, final SSLSocketFactory sslSocketFactory,
+                      final SSLParameters sslParameters, final HostnameVerifier hostnameVerifier) {
     if (!JedisURIHelper.isValid(uri)) {
       throw new InvalidURIException(String.format(
-        "Cannot open Redis connection due invalid URI. %s", uri.toString()));
+              "Cannot open Redis connection due invalid URI. %s", uri.toString()));
     }
 
     this.hostAndPort.set(new HostAndPort(uri.getHost(), uri.getPort()));
@@ -77,14 +72,9 @@ class PjedisFactory implements PooledObjectFactory<Jedis> {
     this.sslSocketFactory = sslSocketFactory;
     this.sslParameters = sslParameters;
     this.hostnameVerifier = hostnameVerifier;
-    this.namespace = namespace;
-  }
-
-
-  public PjedisFactory(final URI uri, final int connectionTimeout, final int soTimeout,
-                       final String clientName, final boolean ssl, final SSLSocketFactory sslSocketFactory,
-                       final SSLParameters sslParameters, final HostnameVerifier hostnameVerifier) {
-    this(uri, connectionTimeout, soTimeout, clientName, ssl, sslSocketFactory, sslParameters, hostnameVerifier, "default");
+    if (StringUtils.isNotEmpty(JedisPropsHolder.NAMESPACE.get())) {
+      this.namespace = JedisPropsHolder.NAMESPACE.get();
+    }
   }
 
   public void setHostAndPort(final HostAndPort hostAndPort) {
@@ -130,7 +120,7 @@ class PjedisFactory implements PooledObjectFactory<Jedis> {
             hostAndPort.getHost(), hostAndPort.getPort(), connectionTimeout,
             soTimeout, ssl, sslSocketFactory, sslParameters, hostnameVerifier
     });
-    
+
     try {
       jedis.connect();
       if (null != this.password) {

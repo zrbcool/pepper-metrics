@@ -3,10 +3,7 @@ package com.pepper.metrics.sample.jediscluster;
 import com.pepper.metrics.integration.jedis.PjedisClusterFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import redis.clients.jedis.HostAndPort;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
-import redis.clients.jedis.PjedisCluster;
+import redis.clients.jedis.*;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -51,6 +48,7 @@ public class JedisClusterSampleMain {
             int port = Integer.parseInt(clusterHostAndPort.split(":")[1].trim());
             jedisClusterNodes.add(new HostAndPort(host, port));
         }
+        JedisPropsHolder.NAMESPACE.set("cluster");
         PjedisCluster jedisCluster = PjedisClusterFactory.newPjedisCluster(jedisClusterNodes, defaultConnectTimeout, defaultConnectMaxAttempts, jedisPoolConfig);
 
         /**

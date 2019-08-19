@@ -1,8 +1,10 @@
 package com.pepper.metrics.integration.jedis;
 
 import com.pepper.metrics.core.extension.ExtensionLoader;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import redis.clients.jedis.HostAndPort;
+import redis.clients.jedis.JedisPropsHolder;
 import redis.clients.jedis.PjedisCluster;
 
 import java.util.Set;
@@ -20,7 +22,15 @@ public class PjedisClusterFactory {
     }
 
     public static PjedisCluster decorateJedisCluster(PjedisCluster jedisCluster) {
-        return decorateJedisCluster(jedisCluster, "default");
+        return decorateJedisCluster(jedisCluster, fixNamespace());
+    }
+
+    private static String fixNamespace() {
+        String namespace = "default";
+        if (StringUtils.isNotEmpty(JedisPropsHolder.NAMESPACE.get())) {
+            namespace = JedisPropsHolder.NAMESPACE.get();
+        }
+        return namespace;
     }
 
     public static PjedisCluster newPjedisCluster(Set<HostAndPort> jedisClusterNodes, int defaultConnectTimeout, int defaultConnectMaxAttempts, GenericObjectPoolConfig jedisPoolConfig, String namespace) {
@@ -30,7 +40,7 @@ public class PjedisClusterFactory {
     }
 
     public static PjedisCluster newPjedisCluster(Set<HostAndPort> jedisClusterNodes, int defaultConnectTimeout, int defaultConnectMaxAttempts, GenericObjectPoolConfig jedisPoolConfig) {
-        return newPjedisCluster(jedisClusterNodes, defaultConnectTimeout, defaultConnectMaxAttempts, jedisPoolConfig, "default");
+        return newPjedisCluster(jedisClusterNodes, defaultConnectTimeout, defaultConnectMaxAttempts, jedisPoolConfig, fixNamespace());
     }
 
 }
