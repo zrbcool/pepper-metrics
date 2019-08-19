@@ -4,20 +4,20 @@
     <parent>
         <artifactId>pepper-metrics-ds</artifactId>
         <groupId>top.pepperx</groupId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>1.0.1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>pepper-metrics-ds-prometheus</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
             <groupId>top.pepperx</groupId>
             <artifactId>pepper-metrics-core</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
+            <version>1.0.1</version>
         </dependency>
         <dependency>
             <groupId>io.micrometer</groupId>
