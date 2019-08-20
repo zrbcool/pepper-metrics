@@ -49,7 +49,7 @@ public class JedisClusterSampleMain {
             jedisClusterNodes.add(new HostAndPort(host, port));
         }
         JedisPropsHolder.NAMESPACE.set("cluster");
-        PjedisCluster jedisCluster = PjedisClusterFactory.newPjedisCluster(jedisClusterNodes, defaultConnectTimeout, defaultConnectMaxAttempts, jedisPoolConfig);
+        JedisCluster jedisCluster = PjedisClusterFactory.newJedisCluster(jedisClusterNodes, defaultConnectTimeout, defaultConnectMaxAttempts, jedisPoolConfig);
 
         /**
          * 重要的步骤，用PjedisClusterFactory.decorateJedisCluster()包装jedisCluster即可拥有pepper-metrics-jedis的metrics能力

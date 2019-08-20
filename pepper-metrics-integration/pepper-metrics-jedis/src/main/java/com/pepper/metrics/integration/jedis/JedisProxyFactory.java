@@ -1,7 +1,6 @@
 package com.pepper.metrics.integration.jedis;
 
 import com.pepper.metrics.core.extension.Spi;
-import redis.clients.jedis.PjedisCluster;
 
 /**
  * @author zhangrongbincool@163.com
@@ -10,10 +9,7 @@ import redis.clients.jedis.PjedisCluster;
  * 动态代理的生成工厂SPI扩展
  */
 @Spi
-public interface ProxyFactory {
+public interface JedisProxyFactory {
 
     <T> T getProxy(Class<T> clz, String namespace, Class[] argumentTypes, Object[] arguments);
-
-    @SuppressWarnings("unchecked")
-    <T> T getProxy(Class<T> clz, PjedisCluster jedisCluster, String namespace);
 }

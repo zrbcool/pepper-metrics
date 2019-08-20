@@ -1,7 +1,7 @@
 package redis.clients.jedis;
 
 import com.pepper.metrics.core.extension.ExtensionLoader;
-import com.pepper.metrics.integration.jedis.ProxyFactory;
+import com.pepper.metrics.integration.jedis.JedisProxyFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.PooledObjectFactory;
@@ -108,7 +108,7 @@ class PjedisFactory implements PooledObjectFactory<Jedis> {
   private static final Class[] classes = {String.class, int.class, int.class,
           int.class, boolean.class, SSLSocketFactory.class,
           SSLParameters.class, HostnameVerifier.class};
-  private static final ProxyFactory proxyFactory = ExtensionLoader.getExtensionLoader(ProxyFactory.class).getExtension("cglib");
+  private static final JedisProxyFactory proxyFactory = ExtensionLoader.getExtensionLoader(JedisProxyFactory.class).getExtension("cglib");
 
   @Override
   public PooledObject<Jedis> makeObject() throws Exception {

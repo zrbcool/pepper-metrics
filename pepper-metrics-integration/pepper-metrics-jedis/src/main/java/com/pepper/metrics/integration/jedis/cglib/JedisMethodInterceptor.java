@@ -11,7 +11,7 @@ import java.lang.reflect.Method;
  */
 public class JedisMethodInterceptor extends BaseMethodInterceptor {
 
-    public JedisMethodInterceptor(Jedis jedis, String namespace) {
+    public JedisMethodInterceptor(String namespace) {
         this.namespace = namespace;
     }
 

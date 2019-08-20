@@ -24,6 +24,7 @@ import java.util.Set;
  * 万般无奈之下将JedisCluster及BinaryJedisCluster搬到了项目当中，基于2.9.0进行修改
  * 只增加了无参构造函数，未做其他修改，可放心使用。
  */
+@Deprecated
 public class PbinaryJedisCluster implements BasicCommands, BinaryJedisClusterCommands,
         MultiKeyBinaryJedisClusterCommands, JedisClusterBinaryScriptingCommands, Closeable {
 

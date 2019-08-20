@@ -1,7 +1,6 @@
 package com.pepper.metrics.integration.jedis.cglib;
 
 import net.sf.cglib.proxy.MethodProxy;
-import redis.clients.jedis.PjedisCluster;
 
 import java.lang.reflect.Method;
 
@@ -10,16 +9,14 @@ import java.lang.reflect.Method;
  * @date 19-8-7
  */
 public class JedisClusterMethodInterceptor extends BaseMethodInterceptor {
-    private PjedisCluster pjedisCluster;
 
-    public JedisClusterMethodInterceptor(PjedisCluster jedisCluster, String namespace) {
+    public JedisClusterMethodInterceptor(String namespace) {
         this.namespace = namespace;
-        this.pjedisCluster = jedisCluster;
     }
 
     @Override
     protected Object innerInvoke(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
-        return method.invoke(pjedisCluster, args);
+        return proxy.invokeSuper(obj, args);
     }
 
     @Override
