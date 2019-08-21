@@ -4,7 +4,7 @@
     <parent>
         <artifactId>pepper-metrics-parent</artifactId>
         <groupId>top.pepperx</groupId>
-        <version>1.0.5-SNAPSHOT</version>
+        <version>1.0.5</version>
         <relativePath>./pepper-metrics-parent/pom.xml</relativePath>
     </parent>
 
@@ -14,7 +14,7 @@
     <scm>
         <connection>scm:git:https://github.com/zrbcool/pepper-metrics.git</connection>
         <developerConnection>scm:git:https://github.com/zrbcool/pepper-metrics.git</developerConnection>
-        <tag>pepper-metrics-1.0.0</tag>
+        <tag>pepper-metrics-1.0.5</tag>
     </scm>
     <modules>
         <module>pepper-metrics-parent</module>
