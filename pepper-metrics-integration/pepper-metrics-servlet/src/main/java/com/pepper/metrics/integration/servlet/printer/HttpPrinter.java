@@ -34,4 +34,10 @@ public class HttpPrinter extends AbstractPerfPrinter implements PerfPrinter {
         // 格式：[Http Method] [url]
         return tags.get(1) + " " + tags.get(3);
     }
+
+    @Override
+    protected boolean printFilter(Stats stats, List<String> tag) {
+        // 如果 > 6，说明记录的是httpStatus指标，不打印到日志中
+        return tag.size() <= 6;
+    }
 }
