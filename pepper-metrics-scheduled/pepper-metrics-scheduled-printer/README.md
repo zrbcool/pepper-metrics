@@ -172,3 +172,43 @@ That's all！需要额外说明的是，日志最终打印格式依赖于这里�
 ```
 
 剩下的工作是日志配置，同 `Http Quick Start`。
+
+### Dubbo Quick Start
+
+#### Step1：添加依赖
+
+```xml
+<dependency>
+    <groupId>com.pepper</groupId>
+    <artifactId>pepper-metrics-dubbo</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+</dependency>
+```
+
+剩下的工作是日志配置，同 `Http Quick Start`。
+
+### Motan Quick Start
+
+#### Step1：添加依赖
+
+```xml
+<dependency>
+    <groupId>com.pepper</groupId>
+    <artifactId>pepper-metrics-motan</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+</dependency>
+```
+
+#### Step：为Motan的Protocol配置Filter
+
+可在 `Provider` 端和 `Consumer` 端配置。
+
+Filter名称：pepperProfiler
+
+```java
+ProtocolConfigBean config = new ProtocolConfigBean();
+config.setFilter("pepperProfiler");
+```
+
+剩下的工作是日志配置，同 `Http Quick Start`。
+
