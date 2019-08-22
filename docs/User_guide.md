@@ -59,6 +59,7 @@ Pepper Metrics中日志打印部分仅依赖slf4j门面库，未依赖任何具�
 ```xml
 <property name="PATTERN">%d{HH:mm:ss} - %msg%xEx%n</property>
 ```
+- 一个完整的log4j2.xml例子请参考[log4j2.xml](../pepper-metrics-samples/jedis-sample-jvm/src/main/resources/log4j2.xml)
 ### jedis integration
 sample项目请参考: [jedis-sample-jvm](../pepper-metrics-samples/jedis-sample-jvm)  
 pom中添加如下依赖
@@ -84,7 +85,7 @@ pom中添加如下依赖
 // 省略构建各种参数过程，与正常使用Jedis没有差异
 // 只修改这一处即可
 // JedisPropsHolder.NAMESPACE是设置namespace，当应用需要连接多个redis时用于区分，如果只连接一个，可以不传，默认值是default
-JedisPropsHolder.NAMESPACE.set("somens");
+JedisPropsHolder.NAMESPACE.set("myns");
 PjedisPool jedisPool = new PjedisPool(config, "192.168.100.221", 6379);
 
 try (Jedis jedis = jedisPool.getResource()) {
@@ -95,119 +96,119 @@ try (Jedis jedis = jedisPool.getResource()) {
 与JedisCluster集成（集群），具体参考[JedisClusterSampleMain.java](../pepper-metrics-samples/jedis-sample-jvm/src/main/java/com/pepper/metrics/sample/jediscluster/JedisClusterSampleMain.java)
 ```java
 ...
-// 省略构建各种参数过程，与正常使用JedisCluster没有差异
-// 只修改这一处即可，PjedisClusterFactory.newPjedisCluster(...)，PjedisCluster完全兼容JedisCluster的API
+// 只修改这一处即可，将正常构造JedisCluster的参数传递给如下工厂方法，其支持所有jedisCluster的构造方法
+// PjedisClusterFactory.newjedisCluster(...)
 // JedisPropsHolder.NAMESPACE是设置namespace，当应用需要连接多组redis集群时用于区分，如果只连接一组，可以不传，默认值是default
-JedisPropsHolder.NAMESPACE.set("somens");
-PjedisCluster jedisCluster = PjedisClusterFactory.newPjedisCluster(jedisClusterNodes, defaultConnectTimeout, defaultConnectMaxAttempts, jedisPoolConfig);
+JedisPropsHolder.NAMESPACE.set("cluster");
+JedisCluster jedisCluster = PjedisClusterFactory.newJedisCluster(jedisClusterNodes, defaultConnectTimeout, defaultConnectMaxAttempts, jedisPoolConfig);
 
 jedisCluster.set("hello:"+j, "robin");
 ```
 日志输出效果:
 ```bash
-[perf:jedis:somens:20190814143441] - --------------------------------------------------------------------------------------------------------------------------------------------------------------
-[perf:jedis:somens:20190814143441] - | Metrics                                                                       Max(ms) Concurrent     Error     Count   P90(ms)   P99(ms)  P999(ms)     Qps | 
-[perf:jedis:somens:20190814143441] - | close                                                                             2.0          0         0       290       0.0       1.0       2.0     4.8 | 
-[perf:jedis:somens:20190814143441] - | getClient                                                                         1.0          0         0         2       1.0       1.0       1.0     0.0 | 
-[perf:jedis:somens:20190814143441] - | resetState                                                                        1.0          0         0       290       0.0       0.0       1.0     4.8 | 
-[perf:jedis:somens:20190814143441] - | connect                                                                         159.4          0         0         5     159.4     159.4     159.4     0.1 | 
-[perf:jedis:somens:20190814143441] - | isConnected                                                                       0.0          0         0         1       0.0       0.0       0.0     0.0 | 
-[perf:jedis:somens:20190814143441] - | set                                                                             209.7          0         0       290       1.0     209.7     209.7     4.8 | 
-[perf:jedis:somens:20190814143441] - | checkIsInMultiOrPipeline                                                          1.0          0         0       291       0.0       0.0       1.0     4.8 | 
-[perf:jedis:somens:20190814143441] - | ping                                                                              1.0          0         0         1       1.0       1.0       1.0     0.0 | 
-[perf:jedis:somens:20190814143441] - | setDataSource                                                                    22.0          0         0       290       0.0       0.0      22.0     4.8 | 
-[perf:jedis:somens:20190814143441] - | getDB                                                                             2.0          0         0       291       0.0       0.0       2.0     4.8 | 
-[perf:jedis:somens:20190814143441] - --------------------------------------------------------------------------------------------------------------------------------------------------------------
+17:59:07 [perf-jedis-myns:20190822175907] ---------------------------------------------------------------------------------------------------------------------------------------------------------
+17:59:07 [perf-jedis-myns:20190822175907] | Metrics                                                                     Concurrent Count(Err/Sum)   P90(ms)   P99(ms)  P999(ms)   Max(ms)     Qps | 
+17:59:07 [perf-jedis-myns:20190822175907] | isConnected                                                                          0            0/1       1.0       1.0       1.0       1.0     0.0 | 
+17:59:07 [perf-jedis-myns:20190822175907] | connect                                                                              0            0/5     142.6     142.6     142.6     142.6     0.1 | 
+17:59:07 [perf-jedis-myns:20190822175907] | getClient                                                                            0            0/2       1.0       1.0       1.0       1.0     0.0 | 
+17:59:07 [perf-jedis-myns:20190822175907] | set                                                                                  0          0/300       1.0       5.2     218.1     218.1     5.0 | 
+17:59:07 [perf-jedis-myns:20190822175907] | close                                                                                0          0/300       0.0       1.0       4.0       4.0     5.0 | 
+17:59:07 [perf-jedis-myns:20190822175907] | setDataSource                                                                        0          0/300       0.0       1.0      19.9      19.9     5.0 | 
+17:59:07 [perf-jedis-myns:20190822175907] | ping                                                                                 0            0/1       1.0       1.0       1.0       1.0     0.0 | 
+17:59:07 [perf-jedis-myns:20190822175907] | checkIsInMultiOrPipeline                                                             0          0/301       0.0       0.0       1.0       1.0     5.0 | 
+17:59:07 [perf-jedis-myns:20190822175907] | getDB                                                                                0          0/301       0.0       1.0       2.0       2.0     5.0 | 
+17:59:07 [perf-jedis-myns:20190822175907] | resetState                                                                           0          0/300       0.0       0.0       1.0       1.0     5.0 | 
+17:59:07 [perf-jedis-myns:20190822175907] ---------------------------------------------------------------------------------------------------------------------------------------------------------
 ```
 prometheus指标输出情况：
 ```bash
- ✗ curl localhost:9145/metrics
+✗ curl localhost:9145/metrics
 # HELP jedis_summary_seconds  
 # TYPE jedis_summary_seconds summary
-jedis_summary_seconds{method="close",namespace="somens",quantile="0.9",} 0.0
-jedis_summary_seconds{method="close",namespace="somens",quantile="0.99",} 9.8304E-4
-jedis_summary_seconds{method="close",namespace="somens",quantile="0.999",} 0.001998848
-jedis_summary_seconds{method="close",namespace="somens",quantile="0.99999",} 0.001998848
-jedis_summary_seconds_count{method="close",namespace="somens",} 440.0
-jedis_summary_seconds_sum{method="close",namespace="somens",} 0.025
-jedis_summary_seconds{method="ping",namespace="somens",quantile="0.9",} 0.0
-jedis_summary_seconds{method="ping",namespace="somens",quantile="0.99",} 0.0
-jedis_summary_seconds{method="ping",namespace="somens",quantile="0.999",} 0.0
-jedis_summary_seconds{method="ping",namespace="somens",quantile="0.99999",} 0.0
-jedis_summary_seconds_count{method="ping",namespace="somens",} 1.0
-jedis_summary_seconds_sum{method="ping",namespace="somens",} 0.0
-jedis_summary_seconds{method="getDB",namespace="somens",quantile="0.9",} 0.0
-jedis_summary_seconds{method="getDB",namespace="somens",quantile="0.99",} 9.8304E-4
-jedis_summary_seconds{method="getDB",namespace="somens",quantile="0.999",} 0.001998848
-jedis_summary_seconds{method="getDB",namespace="somens",quantile="0.99999",} 0.001998848
-jedis_summary_seconds_count{method="getDB",namespace="somens",} 441.0
-jedis_summary_seconds_sum{method="getDB",namespace="somens",} 0.007
-jedis_summary_seconds{method="connect",namespace="somens",quantile="0.9",} 0.142573568
-jedis_summary_seconds{method="connect",namespace="somens",quantile="0.99",} 0.142573568
-jedis_summary_seconds{method="connect",namespace="somens",quantile="0.999",} 0.142573568
-jedis_summary_seconds{method="connect",namespace="somens",quantile="0.99999",} 0.142573568
-jedis_summary_seconds_count{method="connect",namespace="somens",} 5.0
-jedis_summary_seconds_sum{method="connect",namespace="somens",} 0.144
-jedis_summary_seconds{method="isConnected",namespace="somens",quantile="0.9",} 9.8304E-4
-jedis_summary_seconds{method="isConnected",namespace="somens",quantile="0.99",} 9.8304E-4
-jedis_summary_seconds{method="isConnected",namespace="somens",quantile="0.999",} 9.8304E-4
-jedis_summary_seconds{method="isConnected",namespace="somens",quantile="0.99999",} 9.8304E-4
-jedis_summary_seconds_count{method="isConnected",namespace="somens",} 1.0
-jedis_summary_seconds_sum{method="isConnected",namespace="somens",} 0.001
-jedis_summary_seconds{method="setDataSource",namespace="somens",quantile="0.9",} 0.0
-jedis_summary_seconds{method="setDataSource",namespace="somens",quantile="0.99",} 0.0
-jedis_summary_seconds{method="setDataSource",namespace="somens",quantile="0.999",} 0.013074432
-jedis_summary_seconds{method="setDataSource",namespace="somens",quantile="0.99999",} 0.013074432
-jedis_summary_seconds_count{method="setDataSource",namespace="somens",} 440.0
-jedis_summary_seconds_sum{method="setDataSource",namespace="somens",} 0.015
-jedis_summary_seconds{method="checkIsInMultiOrPipeline",namespace="somens",quantile="0.9",} 0.0
-jedis_summary_seconds{method="checkIsInMultiOrPipeline",namespace="somens",quantile="0.99",} 0.0
-jedis_summary_seconds{method="checkIsInMultiOrPipeline",namespace="somens",quantile="0.999",} 9.8304E-4
-jedis_summary_seconds{method="checkIsInMultiOrPipeline",namespace="somens",quantile="0.99999",} 9.8304E-4
-jedis_summary_seconds_count{method="checkIsInMultiOrPipeline",namespace="somens",} 441.0
-jedis_summary_seconds_sum{method="checkIsInMultiOrPipeline",namespace="somens",} 0.001
-jedis_summary_seconds{method="set",namespace="somens",quantile="0.9",} 9.8304E-4
-jedis_summary_seconds{method="set",namespace="somens",quantile="0.99",} 9.8304E-4
-jedis_summary_seconds{method="set",namespace="somens",quantile="0.999",} 0.209682432
-jedis_summary_seconds{method="set",namespace="somens",quantile="0.99999",} 0.209682432
-jedis_summary_seconds_count{method="set",namespace="somens",} 440.0
-jedis_summary_seconds_sum{method="set",namespace="somens",} 0.609
-jedis_summary_seconds{method="getClient",namespace="somens",quantile="0.9",} 9.8304E-4
-jedis_summary_seconds{method="getClient",namespace="somens",quantile="0.99",} 9.8304E-4
-jedis_summary_seconds{method="getClient",namespace="somens",quantile="0.999",} 9.8304E-4
-jedis_summary_seconds{method="getClient",namespace="somens",quantile="0.99999",} 9.8304E-4
-jedis_summary_seconds_count{method="getClient",namespace="somens",} 2.0
-jedis_summary_seconds_sum{method="getClient",namespace="somens",} 0.001
-jedis_summary_seconds{method="resetState",namespace="somens",quantile="0.9",} 0.0
-jedis_summary_seconds{method="resetState",namespace="somens",quantile="0.99",} 0.0
-jedis_summary_seconds{method="resetState",namespace="somens",quantile="0.999",} 9.8304E-4
-jedis_summary_seconds{method="resetState",namespace="somens",quantile="0.99999",} 9.8304E-4
-jedis_summary_seconds_count{method="resetState",namespace="somens",} 440.0
-jedis_summary_seconds_sum{method="resetState",namespace="somens",} 0.003
+jedis_summary_seconds{method="close",namespace="myns",quantile="0.9",} 0.0
+jedis_summary_seconds{method="close",namespace="myns",quantile="0.99",} 9.8304E-4
+jedis_summary_seconds{method="close",namespace="myns",quantile="0.999",} 0.001998848
+jedis_summary_seconds{method="close",namespace="myns",quantile="0.99999",} 0.001998848
+jedis_summary_seconds_count{method="close",namespace="myns",} 440.0
+jedis_summary_seconds_sum{method="close",namespace="myns",} 0.025
+jedis_summary_seconds{method="ping",namespace="myns",quantile="0.9",} 0.0
+jedis_summary_seconds{method="ping",namespace="myns",quantile="0.99",} 0.0
+jedis_summary_seconds{method="ping",namespace="myns",quantile="0.999",} 0.0
+jedis_summary_seconds{method="ping",namespace="myns",quantile="0.99999",} 0.0
+jedis_summary_seconds_count{method="ping",namespace="myns",} 1.0
+jedis_summary_seconds_sum{method="ping",namespace="myns",} 0.0
+jedis_summary_seconds{method="getDB",namespace="myns",quantile="0.9",} 0.0
+jedis_summary_seconds{method="getDB",namespace="myns",quantile="0.99",} 9.8304E-4
+jedis_summary_seconds{method="getDB",namespace="myns",quantile="0.999",} 0.001998848
+jedis_summary_seconds{method="getDB",namespace="myns",quantile="0.99999",} 0.001998848
+jedis_summary_seconds_count{method="getDB",namespace="myns",} 441.0
+jedis_summary_seconds_sum{method="getDB",namespace="myns",} 0.007
+jedis_summary_seconds{method="connect",namespace="myns",quantile="0.9",} 0.142573568
+jedis_summary_seconds{method="connect",namespace="myns",quantile="0.99",} 0.142573568
+jedis_summary_seconds{method="connect",namespace="myns",quantile="0.999",} 0.142573568
+jedis_summary_seconds{method="connect",namespace="myns",quantile="0.99999",} 0.142573568
+jedis_summary_seconds_count{method="connect",namespace="myns",} 5.0
+jedis_summary_seconds_sum{method="connect",namespace="myns",} 0.144
+jedis_summary_seconds{method="isConnected",namespace="myns",quantile="0.9",} 9.8304E-4
+jedis_summary_seconds{method="isConnected",namespace="myns",quantile="0.99",} 9.8304E-4
+jedis_summary_seconds{method="isConnected",namespace="myns",quantile="0.999",} 9.8304E-4
+jedis_summary_seconds{method="isConnected",namespace="myns",quantile="0.99999",} 9.8304E-4
+jedis_summary_seconds_count{method="isConnected",namespace="myns",} 1.0
+jedis_summary_seconds_sum{method="isConnected",namespace="myns",} 0.001
+jedis_summary_seconds{method="setDataSource",namespace="myns",quantile="0.9",} 0.0
+jedis_summary_seconds{method="setDataSource",namespace="myns",quantile="0.99",} 0.0
+jedis_summary_seconds{method="setDataSource",namespace="myns",quantile="0.999",} 0.013074432
+jedis_summary_seconds{method="setDataSource",namespace="myns",quantile="0.99999",} 0.013074432
+jedis_summary_seconds_count{method="setDataSource",namespace="myns",} 440.0
+jedis_summary_seconds_sum{method="setDataSource",namespace="myns",} 0.015
+jedis_summary_seconds{method="checkIsInMultiOrPipeline",namespace="myns",quantile="0.9",} 0.0
+jedis_summary_seconds{method="checkIsInMultiOrPipeline",namespace="myns",quantile="0.99",} 0.0
+jedis_summary_seconds{method="checkIsInMultiOrPipeline",namespace="myns",quantile="0.999",} 9.8304E-4
+jedis_summary_seconds{method="checkIsInMultiOrPipeline",namespace="myns",quantile="0.99999",} 9.8304E-4
+jedis_summary_seconds_count{method="checkIsInMultiOrPipeline",namespace="myns",} 441.0
+jedis_summary_seconds_sum{method="checkIsInMultiOrPipeline",namespace="myns",} 0.001
+jedis_summary_seconds{method="set",namespace="myns",quantile="0.9",} 9.8304E-4
+jedis_summary_seconds{method="set",namespace="myns",quantile="0.99",} 9.8304E-4
+jedis_summary_seconds{method="set",namespace="myns",quantile="0.999",} 0.209682432
+jedis_summary_seconds{method="set",namespace="myns",quantile="0.99999",} 0.209682432
+jedis_summary_seconds_count{method="set",namespace="myns",} 440.0
+jedis_summary_seconds_sum{method="set",namespace="myns",} 0.609
+jedis_summary_seconds{method="getClient",namespace="myns",quantile="0.9",} 9.8304E-4
+jedis_summary_seconds{method="getClient",namespace="myns",quantile="0.99",} 9.8304E-4
+jedis_summary_seconds{method="getClient",namespace="myns",quantile="0.999",} 9.8304E-4
+jedis_summary_seconds{method="getClient",namespace="myns",quantile="0.99999",} 9.8304E-4
+jedis_summary_seconds_count{method="getClient",namespace="myns",} 2.0
+jedis_summary_seconds_sum{method="getClient",namespace="myns",} 0.001
+jedis_summary_seconds{method="resetState",namespace="myns",quantile="0.9",} 0.0
+jedis_summary_seconds{method="resetState",namespace="myns",quantile="0.99",} 0.0
+jedis_summary_seconds{method="resetState",namespace="myns",quantile="0.999",} 9.8304E-4
+jedis_summary_seconds{method="resetState",namespace="myns",quantile="0.99999",} 9.8304E-4
+jedis_summary_seconds_count{method="resetState",namespace="myns",} 440.0
+jedis_summary_seconds_sum{method="resetState",namespace="myns",} 0.003
 # HELP jedis_summary_seconds_max  
 # TYPE jedis_summary_seconds_max gauge
-jedis_summary_seconds_max{method="close",namespace="somens",} 0.002
-jedis_summary_seconds_max{method="ping",namespace="somens",} 0.0
-jedis_summary_seconds_max{method="getDB",namespace="somens",} 0.002
-jedis_summary_seconds_max{method="connect",namespace="somens",} 0.142
-jedis_summary_seconds_max{method="isConnected",namespace="somens",} 0.001
-jedis_summary_seconds_max{method="setDataSource",namespace="somens",} 0.013
-jedis_summary_seconds_max{method="checkIsInMultiOrPipeline",namespace="somens",} 0.001
-jedis_summary_seconds_max{method="set",namespace="somens",} 0.208
-jedis_summary_seconds_max{method="getClient",namespace="somens",} 0.001
-jedis_summary_seconds_max{method="resetState",namespace="somens",} 0.001
+jedis_summary_seconds_max{method="close",namespace="myns",} 0.002
+jedis_summary_seconds_max{method="ping",namespace="myns",} 0.0
+jedis_summary_seconds_max{method="getDB",namespace="myns",} 0.002
+jedis_summary_seconds_max{method="connect",namespace="myns",} 0.142
+jedis_summary_seconds_max{method="isConnected",namespace="myns",} 0.001
+jedis_summary_seconds_max{method="setDataSource",namespace="myns",} 0.013
+jedis_summary_seconds_max{method="checkIsInMultiOrPipeline",namespace="myns",} 0.001
+jedis_summary_seconds_max{method="set",namespace="myns",} 0.208
+jedis_summary_seconds_max{method="getClient",namespace="myns",} 0.001
+jedis_summary_seconds_max{method="resetState",namespace="myns",} 0.001
 # HELP jedis_concurrent_gauge  
 # TYPE jedis_concurrent_gauge gauge
-jedis_concurrent_gauge{method="close",namespace="somens",} 0.0
-jedis_concurrent_gauge{method="ping",namespace="somens",} 0.0
-jedis_concurrent_gauge{method="getDB",namespace="somens",} 0.0
-jedis_concurrent_gauge{method="connect",namespace="somens",} 0.0
-jedis_concurrent_gauge{method="isConnected",namespace="somens",} 0.0
-jedis_concurrent_gauge{method="setDataSource",namespace="somens",} 0.0
-jedis_concurrent_gauge{method="checkIsInMultiOrPipeline",namespace="somens",} 0.0
-jedis_concurrent_gauge{method="set",namespace="somens",} 0.0
-jedis_concurrent_gauge{method="getClient",namespace="somens",} 0.0
-jedis_concurrent_gauge{method="resetState",namespace="somens",} 0.0
+jedis_concurrent_gauge{method="close",namespace="myns",} 0.0
+jedis_concurrent_gauge{method="ping",namespace="myns",} 0.0
+jedis_concurrent_gauge{method="getDB",namespace="myns",} 0.0
+jedis_concurrent_gauge{method="connect",namespace="myns",} 0.0
+jedis_concurrent_gauge{method="isConnected",namespace="myns",} 0.0
+jedis_concurrent_gauge{method="setDataSource",namespace="myns",} 0.0
+jedis_concurrent_gauge{method="checkIsInMultiOrPipeline",namespace="myns",} 0.0
+jedis_concurrent_gauge{method="set",namespace="myns",} 0.0
+jedis_concurrent_gauge{method="getClient",namespace="myns",} 0.0
+jedis_concurrent_gauge{method="resetState",namespace="myns",} 0.0
 ```
 ### mybatis integration
 sample项目请参考: [mybatis-sample-springboot](../pepper-metrics-samples/mybatis-sample-springboot)  
@@ -240,16 +241,16 @@ pom中增加依赖：
 ```
 日志输出格式：
 ```bash
-[perf:mybatis:20190814144344] - --------------------------------------------------------------------------------------------------------------------------------------------------------------
-[perf:mybatis:20190814144344] - | Metrics                                                                       Max(ms) Concurrent     Error     Count   P90(ms)   P99(ms)  P999(ms)     Qps | 
-[perf:mybatis:20190814144344] - | com.pepper.metrics.sample.mybatis.mapper.HotelMapper.selectByCityId               3.4          0         0      1950       0.7       1.7       3.3    32.5 | 
-[perf:mybatis:20190814144344] - | sample.mybatis.mapper.CityMapper.selectCityById                                  58.7          0         0      1950       0.7       2.4      58.7    32.5 | 
-[perf:mybatis:20190814144344] - --------------------------------------------------------------------------------------------------------------------------------------------------------------
+18:27:28 [perf-mybatis:20190822182728] ---------------------------------------------------------------------------------------------------------------------------------------------------------
+18:27:28 [perf-mybatis:20190822182728] | Metrics                                                                     Concurrent Count(Err/Sum)   P90(ms)   P99(ms)  P999(ms)   Max(ms)     Qps | 
+18:27:28 [perf-mybatis:20190822182728] | com.pepper.metrics.sample.mybatis.mapper.HotelMapper.selectByCityId                  0         0/1950       0.6       1.4       2.5       3.5    32.5 | 
+18:27:28 [perf-mybatis:20190822182728] | sample.mybatis.mapper.CityMapper.selectCityById                                      0         0/1950       0.8       2.4      56.6      56.6    32.5 | 
+18:27:28 [perf-mybatis:20190822182728] ---------------------------------------------------------------------------------------------------------------------------------------------------------
 ```
 prometheus指标输出情况：与其他相似，只是指标名区别
 
 ### Dubbo integration
-sample项目请参考：[dubbo-sample-spring](https://github.com/Lord-X/pepper-metrics/tree/master/pepper-metrics-samples/dubbo-sample-spring)
+sample项目请参考：[dubbo-sample-spring](../pepper-metrics-samples/dubbo-sample-spring)
 
 pom中添加依赖即可:
 
@@ -269,7 +270,7 @@ pom中添加依赖即可:
 ```
 
 ### http integration
-sample项目请参考：[servlet-sample-springboot](https://github.com/Lord-X/pepper-metrics/tree/master/pepper-metrics-samples/servlet-sample-springboot)
+sample项目请参考：[servlet-sample-springboot](../pepper-metrics-samples/servlet-sample-springboot)
 
 pom中添加依赖：
 ```xml
@@ -306,9 +307,21 @@ public class WebAutoConfig {
     }
 }
 ```
+* 如果不是使用spring-boot，以小于servlet3.0版本为例，web.xml中增加Filter配置：
+```xml
+<filter>
+    <filter-name>ProfilerHttpFilter</filter-name>
+    <filter-class>com.pepper.metrics.integration.servlet.PerfFilter</filter-class>
+</filter>
+
+<filter-mapping>
+    <filter-name>ProfilerHttpFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+</filter-mapping>
+```
 
 ### motan integration
-sample项目请参考：[motan-sample-jvm](https://github.com/Lord-X/pepper-metrics/tree/master/pepper-metrics-samples/motan-sample-jvm)，[motan-sample-springboot](https://github.com/Lord-X/pepper-metrics/tree/master/pepper-metrics-samples/motan-sample-springboot)
+sample项目请参考：[motan-sample-jvm](../pepper-metrics-samples/motan-sample-jvm)，[motan-sample-springboot](https://github.com/Lord-X/pepper-metrics/tree/master/pepper-metrics-samples/motan-sample-springboot)
 
 在pom中添加依赖：
 

@@ -49,29 +49,38 @@ Pepper Metrics项目从核心概念上来说，基于Tom Wilkie的[RED](https://
 ```
 - 日志输出效果：
 ```bash
-[perf:mybatis:20190814144344] - --------------------------------------------------------------------------------------------------------------------------------------------------------------
-[perf:mybatis:20190814144344] - | Metrics                                                                       Max(ms) Concurrent     Error     Count   P90(ms)   P99(ms)  P999(ms)     Qps | 
-[perf:mybatis:20190814144344] - | com.pepper.metrics.sample.mybatis.mapper.HotelMapper.selectByCityId               3.4          0         0      1950       0.7       1.7       3.3    32.5 | 
-[perf:mybatis:20190814144344] - | sample.mybatis.mapper.CityMapper.selectCityById                                  58.7          0         0      1950       0.7       2.4      58.7    32.5 | 
-[perf:mybatis:20190814144344] - --------------------------------------------------------------------------------------------------------------------------------------------------------------
+18:27:28 [perf-mybatis:20190822182728] ---------------------------------------------------------------------------------------------------------------------------------------------------------
+18:27:28 [perf-mybatis:20190822182728] | Metrics                                                                     Concurrent Count(Err/Sum)   P90(ms)   P99(ms)  P999(ms)   Max(ms)     Qps | 
+18:27:28 [perf-mybatis:20190822182728] | com.pepper.metrics.sample.mybatis.mapper.HotelMapper.selectByCityId                  0         0/1950       0.6       1.4       2.5       3.5    32.5 | 
+18:27:28 [perf-mybatis:20190822182728] | sample.mybatis.mapper.CityMapper.selectCityById                                      0         0/1950       0.8       2.4      56.6      56.6    32.5 | 
+18:27:28 [perf-mybatis:20190822182728] ---------------------------------------------------------------------------------------------------------------------------------------------------------[perf:mybatis:20190814144344] - --------------------------------------------------------------------------------------------------------------------------------------------------------------
 ```
 - Prometheus指标输出效果（默认的实现，可以修改为其他数据库）
 ```bash
- ✗ curl localhost:9145/metrics
-# HELP jedis_summary_seconds  
-# TYPE jedis_summary_seconds summary
-jedis_summary_seconds{method="set",namespace="somens",quantile="0.9",} 9.8304E-4
-jedis_summary_seconds{method="set",namespace="somens",quantile="0.99",} 9.8304E-4
-jedis_summary_seconds{method="set",namespace="somens",quantile="0.999",} 0.209682432
-jedis_summary_seconds{method="set",namespace="somens",quantile="0.99999",} 0.209682432
-jedis_summary_seconds_count{method="set",namespace="somens",} 440.0
-jedis_summary_seconds_sum{method="set",namespace="somens",} 0.609
-# HELP jedis_summary_seconds_max  
-# TYPE jedis_summary_seconds_max gauge
-jedis_summary_seconds_max{method="set",namespace="somens",} 0.208
-# HELP jedis_concurrent_gauge  
-# TYPE jedis_concurrent_gauge gauge
-jedis_concurrent_gauge{method="set",namespace="somens",} 0.0
+ ✗ curl localhost:9146/metrics
+# HELP app_mapper_summary_seconds_max  
+# TYPE app_mapper_summary_seconds_max gauge
+app_mapper_summary_seconds_max{class="com/pepper/metrics/sample/mybatis/mapper/CityMapper.xml",operation="sample.mybatis.mapper.CityMapper.selectCityById",} 0.051129036
+app_mapper_summary_seconds_max{class="com/pepper/metrics/sample/mybatis/mapper/HotelMapper.xml",operation="com.pepper.metrics.sample.mybatis.mapper.HotelMapper.selectByCityId",} 0.011559611
+# HELP app_mapper_summary_seconds  
+# TYPE app_mapper_summary_seconds summary
+app_mapper_summary_seconds{class="com/pepper/metrics/sample/mybatis/mapper/CityMapper.xml",operation="sample.mybatis.mapper.CityMapper.selectCityById",quantile="0.9",} 5.5296E-4
+app_mapper_summary_seconds{class="com/pepper/metrics/sample/mybatis/mapper/CityMapper.xml",operation="sample.mybatis.mapper.CityMapper.selectCityById",quantile="0.99",} 0.001765376
+app_mapper_summary_seconds{class="com/pepper/metrics/sample/mybatis/mapper/CityMapper.xml",operation="sample.mybatis.mapper.CityMapper.selectCityById",quantile="0.999",} 0.052424704
+app_mapper_summary_seconds{class="com/pepper/metrics/sample/mybatis/mapper/CityMapper.xml",operation="sample.mybatis.mapper.CityMapper.selectCityById",quantile="0.99999",} 0.052424704
+app_mapper_summary_seconds_count{class="com/pepper/metrics/sample/mybatis/mapper/CityMapper.xml",operation="sample.mybatis.mapper.CityMapper.selectCityById",} 3040.0
+app_mapper_summary_seconds_sum{class="com/pepper/metrics/sample/mybatis/mapper/CityMapper.xml",operation="sample.mybatis.mapper.CityMapper.selectCityById",} 1.45711331
+app_mapper_summary_seconds{class="com/pepper/metrics/sample/mybatis/mapper/HotelMapper.xml",operation="com.pepper.metrics.sample.mybatis.mapper.HotelMapper.selectByCityId",quantile="0.9",} 4.4032E-4
+app_mapper_summary_seconds{class="com/pepper/metrics/sample/mybatis/mapper/HotelMapper.xml",operation="com.pepper.metrics.sample.mybatis.mapper.HotelMapper.selectByCityId",quantile="0.99",} 0.001308672
+app_mapper_summary_seconds{class="com/pepper/metrics/sample/mybatis/mapper/HotelMapper.xml",operation="com.pepper.metrics.sample.mybatis.mapper.HotelMapper.selectByCityId",quantile="0.999",} 0.002881536
+app_mapper_summary_seconds{class="com/pepper/metrics/sample/mybatis/mapper/HotelMapper.xml",operation="com.pepper.metrics.sample.mybatis.mapper.HotelMapper.selectByCityId",quantile="0.99999",} 0.012056576
+app_mapper_summary_seconds_count{class="com/pepper/metrics/sample/mybatis/mapper/HotelMapper.xml",operation="com.pepper.metrics.sample.mybatis.mapper.HotelMapper.selectByCityId",} 3040.0
+app_mapper_summary_seconds_sum{class="com/pepper/metrics/sample/mybatis/mapper/HotelMapper.xml",operation="com.pepper.metrics.sample.mybatis.mapper.HotelMapper.selectByCityId",} 0.772147736
+# HELP app_mapper_concurrent_gauge  
+# TYPE app_mapper_concurrent_gauge gauge
+app_mapper_concurrent_gauge{class="com/pepper/metrics/sample/mybatis/mapper/CityMapper.xml",operation="sample.mybatis.mapper.CityMapper.selectCityById",} 0.0
+app_mapper_concurrent_gauge{class="com/pepper/metrics/sample/mybatis/mapper/HotelMapper.xml",operation="com.pepper.metrics.sample.mybatis.mapper.HotelMapper.selectByCityId",} 0.0
+
 ```
 ### Maven dependency
 以Mybatis为例，更多其他请参考：[User Guide](./docs/User_guide.md#samples)  

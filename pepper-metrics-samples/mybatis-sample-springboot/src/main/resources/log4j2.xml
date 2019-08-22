@@ -2,7 +2,7 @@
 <configuration status="off" monitorInterval="30">
     <properties>
         <property name="PATTERN">[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%level] - %msg%xEx%n</property>
-        <property name="PERF_PATTERN">%d{HH:mm:ss} - %msg%xEx%n</property>
+        <property name="PERF_PATTERN">%d{HH:mm:ss} %msg%xEx%n</property>
         <property name="EVERY_FILE_SIZE">1000 MB</property>
     </properties>
     <appenders>
