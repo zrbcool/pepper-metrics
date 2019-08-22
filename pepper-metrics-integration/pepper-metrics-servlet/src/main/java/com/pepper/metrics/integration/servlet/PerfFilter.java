@@ -37,7 +37,7 @@ public class PerfFilter implements Filter {
 
         long begin = System.currentTimeMillis();
 
-        String[] tags = {"method", sRequest.getMethod(), "url", url};
+        String[] tags = {"method", sRequest.getMethod(), "url", url, "type", "exception"};
 
         PROFILER_STAT.incConc(tags);
         try {
@@ -47,7 +47,10 @@ public class PerfFilter implements Filter {
             throw e;
         } finally {
             PROFILER_STAT.decConc(tags);
+            String httpStatus = String.valueOf(sResponse.getStatus());
+            String[] httpStatusTags = {"method", sRequest.getMethod(), "url", url, "type", "status", "status", httpStatus};
             PROFILER_STAT.observe(System.currentTimeMillis() - begin, TimeUnit.MILLISECONDS, tags);
+            PROFILER_STAT.observe(System.currentTimeMillis() - begin, TimeUnit.MILLISECONDS, httpStatusTags);
         }
     }
 
