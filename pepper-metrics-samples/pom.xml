@@ -4,13 +4,13 @@
     <parent>
         <artifactId>pepper-metrics-parent</artifactId>
         <groupId>top.pepperx</groupId>
-        <version>1.0.6</version>
+        <version>1.0.7-SNAPSHOT</version>
         <relativePath>../pepper-metrics-parent/pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>pepper-metrics-samples</artifactId>
-    <version>1.0.6</version>
+    <version>1.0.7-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
