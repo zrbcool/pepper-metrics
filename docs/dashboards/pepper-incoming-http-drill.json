@@ -53,7 +53,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1566458940399,
+  "iteration": 1566474997329,
   "links": [
     {
       "asDropdown": true,
@@ -129,7 +129,7 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 5,
+        "h": 4,
         "w": 6,
         "x": 0,
         "y": 1
@@ -285,7 +285,7 @@
       },
       "yaxes": [
         {
-          "decimals": 2,
+          "decimals": null,
           "format": "s",
           "label": null,
           "logBase": 1,
@@ -381,7 +381,7 @@
       },
       "yaxes": [
         {
-          "decimals": 2,
+          "decimals": null,
           "format": "s",
           "label": null,
           "logBase": 1,
@@ -476,7 +476,7 @@
       },
       "yaxes": [
         {
-          "decimals": 2,
+          "decimals": null,
           "format": "s",
           "label": null,
           "logBase": 1,
@@ -507,10 +507,10 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 5,
+        "h": 4,
         "w": 6,
         "x": 0,
-        "y": 6
+        "y": 5
       },
       "id": 18,
       "legend": {
@@ -568,6 +568,102 @@
         {
           "decimals": 3,
           "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_PROMETHEUS-APP}",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 9
+      },
+      "id": 19,
+      "interval": "30s",
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "max": true,
+        "min": false,
+        "rightSide": false,
+        "show": false,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "repeatDirection": "h",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "max(http_summary_seconds{app=\"$app\", quantile=\"0.99999\", method=~\"$method\", url=\"$url\", pod=~\"$pod\"}) by (pod)",
+          "format": "time_series",
+          "hide": false,
+          "interval": "1m",
+          "intervalFactor": 1,
+          "legendFormat": "{{pod}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "MAX - $url",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": 2,
+          "format": "s",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -680,7 +776,7 @@
       },
       "yaxes": [
         {
-          "decimals": 2,
+          "decimals": null,
           "format": "s",
           "label": null,
           "logBase": 1,
@@ -794,7 +890,7 @@
       },
       "yaxes": [
         {
-          "decimals": 2,
+          "decimals": null,
           "format": "s",
           "label": null,
           "logBase": 1,
@@ -908,7 +1004,7 @@
       },
       "yaxes": [
         {
-          "decimals": 2,
+          "decimals": null,
           "format": "s",
           "label": null,
           "logBase": 1,
@@ -932,32 +1028,37 @@
     },
     {
       "aliasColors": {},
-      "bars": false,
+      "bars": true,
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PROMETHEUS-APP}",
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 6,
+        "h": 4,
         "w": 6,
         "x": 0,
-        "y": 11
+        "y": 13
       },
-      "id": 19,
-      "interval": "30s",
+      "id": 46,
+      "interval": "",
       "legend": {
         "alignAsTable": true,
         "avg": true,
         "current": false,
+        "hideEmpty": true,
+        "hideZero": true,
         "max": true,
         "min": false,
-        "rightSide": false,
-        "show": true,
+        "rightSide": true,
+        "show": false,
+        "sideWidth": null,
+        "sort": "max",
+        "sortDesc": true,
         "total": false,
         "values": true
       },
-      "lines": true,
+      "lines": false,
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
@@ -968,17 +1069,15 @@
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
-      "repeatDirection": "h",
       "seriesOverrides": [],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "max(http_summary_seconds{app=\"$app\", quantile=\"0.99999\", method=~\"$method\", url=\"$url\", pod=~\"$pod\"}) by (pod)",
+          "expr": "sum by (pod) (increase(http_status_summary_seconds_count{app=\"$app\", method=~\"$method\", url=\"$url\", pod=~\"$pod\", status!~\"2..\"}[2m]))",
           "format": "time_series",
-          "hide": false,
-          "interval": "1m",
+          "instant": false,
           "intervalFactor": 1,
           "legendFormat": "{{pod}}",
           "refId": "A"
@@ -988,10 +1087,10 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "MAX - $url",
+      "title": "not 2XX By Instance - 2m",
       "tooltip": {
         "shared": true,
-        "sort": 0,
+        "sort": 2,
         "value_type": "individual"
       },
       "type": "graph",
@@ -1004,12 +1103,12 @@
       },
       "yaxes": [
         {
-          "decimals": 2,
-          "format": "s",
+          "decimals": null,
+          "format": "none",
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -1145,7 +1244,7 @@
     ]
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
@@ -1176,5 +1275,5 @@
   "timezone": "",
   "title": "PEPPER / INCOMING / HTTP / DRILL",
   "uid": "EO0fwqOZz",
-  "version": 12
+  "version": 16
 }

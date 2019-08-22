@@ -59,7 +59,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1566457614437,
+  "iteration": 1566475094556,
   "links": [
     {
       "asDropdown": true,
@@ -356,7 +356,7 @@
           "format": "time_series",
           "instant": false,
           "intervalFactor": 2,
-          "legendFormat": "{{method}}:{{url}}",
+          "legendFormat": "{{method}} {{url}}",
           "refId": "A"
         }
       ],
@@ -451,11 +451,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (url) (increase(app_http_incoming_requests_latency_seconds_histogram_count{appId=~\"ad-web-impl\", status!~\"2..\"}[1m]))",
+          "expr": "sum by (method, url) (increase(http_status_summary_seconds_count{app=~\"$app\", status!~\"2..\"}[2m]))",
           "format": "time_series",
           "instant": false,
           "intervalFactor": 2,
-          "legendFormat": "{{url}}",
+          "legendFormat": "{{method}} {{url}}",
           "refId": "A"
         }
       ],
@@ -463,7 +463,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "not 2XX - 1m",
+      "title": "not 2XX - 2m",
       "tooltip": {
         "shared": true,
         "sort": 2,
@@ -479,7 +479,7 @@
       },
       "yaxes": [
         {
-          "decimals": 3,
+          "decimals": null,
           "format": "none",
           "label": null,
           "logBase": 1,
@@ -800,7 +800,7 @@
     },
     {
       "aliasColors": {},
-      "bars": false,
+      "bars": true,
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PROMETHEUS-APP}",
@@ -830,7 +830,7 @@
         "total": false,
         "values": true
       },
-      "lines": true,
+      "lines": false,
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
@@ -847,7 +847,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (pod) (increase(app_http_incoming_requests_latency_seconds_histogram_count{appId=~\"ad-web-impl\", status!~\"2..\"}[1m]))",
+          "expr": "sum by (pod) (increase(http_status_summary_seconds_count{app=~\"$app\", status!~\"2..\"}[2m]))",
           "format": "time_series",
           "instant": false,
           "intervalFactor": 1,
@@ -859,7 +859,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "not 2XX By Instance - 1m",
+      "title": "not 2XX By Instance - 2m",
       "tooltip": {
         "shared": true,
         "sort": 2,
@@ -875,8 +875,8 @@
       },
       "yaxes": [
         {
-          "decimals": 3,
-          "format": "percent",
+          "decimals": null,
+          "format": "none",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -914,7 +914,7 @@
       "scroll": false,
       "showHeader": true,
       "sort": {
-        "col": 2,
+        "col": 3,
         "desc": true
       },
       "styles": [
@@ -937,7 +937,7 @@
           "link": true,
           "linkTargetBlank": true,
           "linkTooltip": "点击进入详情",
-          "linkUrl": "/d/EO0fwqOZz/pepper-incoming-http-drill?var-url=${__cell_1}&var-app=${app}",
+          "linkUrl": "/d/EO0fwqOZz/pepper-incoming-http-drill?var-method=${__cell_1}&var-url=${__cell_2}&var-app=${app}",
           "mappingType": 1,
           "pattern": "url",
           "thresholds": [],
@@ -1028,6 +1028,22 @@
           "unit": "none"
         },
         {
+          "alias": "METHOD",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "method",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        },
+        {
           "alias": "",
           "colorMode": null,
           "colors": [
@@ -1044,7 +1060,7 @@
       ],
       "targets": [
         {
-          "expr": "sum by(url) (rate(http_summary_seconds_count{app=~\"$app\"}[3m]))",
+          "expr": "sum by(method, url) (rate(http_summary_seconds_count{app=~\"$app\"}[3m]))",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
@@ -1176,5 +1192,5 @@
   "timezone": "",
   "title": "PEPPER / INCOMING / HTTP",
   "uid": "qUdOy3OWz",
-  "version": 8
+  "version": 15
 }
