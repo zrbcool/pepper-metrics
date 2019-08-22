@@ -59,7 +59,7 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
             setPre(stat);
             List<PrinterDomain> printerDomains = collector(stat, currentErrCollector, currentSummaryCollector);
 
-            String prefixStr = "[" + PREFIX + ":" + timestamp + "]";
+            String prefixStr = "[" + PREFIX + ":" + timestamp + "] ";
             String line = StringUtils.repeat("-", LABEL_SIZE);
 
             pLogger.info(prefixStr + line);
@@ -132,9 +132,6 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
 
         for (Map.Entry<List<String>, Timer> entry : summaryCollector.entrySet()) {
             List<String> tag = entry.getKey();
-            if (!printFilter(stats, tag)) {
-                continue;
-            }
             Timer summary= entry.getValue();
 
             Counter counter = errCollector.get(tag);
@@ -170,16 +167,6 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
         }
 
         return retList;
-    }
-
-    /**
-     * 模板方法。处理PrinterDomain是否打印的过滤器
-     * @param stats
-     * @param tag
-     * @return true - 如果允许当前PrinterDomain打印，else - false
-     */
-    protected boolean printFilter(Stats stats, List<String> tag) {
-        return true;
     }
 
     private ConcurrentMap<List<String>, Long> parseSummaryCollector(ConcurrentMap<List<String>, Timer> summaryCollector) {
