@@ -25,6 +25,12 @@ public class PerfFilter implements Filter {
             .namespace("default")
             .build();
 
+    private static final Stats PROFILER_STAT_HTTPSTATUS = Profiler.Builder
+            .builder()
+            .name("http-status")
+            .namespace("default")
+            .build();
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException { }
 
@@ -50,7 +56,7 @@ public class PerfFilter implements Filter {
             String httpStatus = String.valueOf(sResponse.getStatus());
             String[] httpStatusTags = {"method", sRequest.getMethod(), "url", url, "type", "status", "status", httpStatus};
             PROFILER_STAT.observe(System.currentTimeMillis() - begin, TimeUnit.MILLISECONDS, tags);
-            PROFILER_STAT.observe(System.currentTimeMillis() - begin, TimeUnit.MILLISECONDS, httpStatusTags);
+            PROFILER_STAT_HTTPSTATUS.observe(System.currentTimeMillis() - begin, TimeUnit.MILLISECONDS, httpStatusTags);
         }
     }
 
