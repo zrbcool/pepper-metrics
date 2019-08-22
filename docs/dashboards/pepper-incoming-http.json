@@ -59,7 +59,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1566475094556,
+  "iteration": 1566474574015,
   "links": [
     {
       "asDropdown": true,
@@ -479,7 +479,7 @@
       },
       "yaxes": [
         {
-          "decimals": null,
+          "decimals": 3,
           "format": "none",
           "label": null,
           "logBase": 1,
@@ -800,7 +800,7 @@
     },
     {
       "aliasColors": {},
-      "bars": true,
+      "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PROMETHEUS-APP}",
@@ -830,7 +830,7 @@
         "total": false,
         "values": true
       },
-      "lines": false,
+      "lines": true,
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
@@ -875,8 +875,8 @@
       },
       "yaxes": [
         {
-          "decimals": null,
-          "format": "none",
+          "decimals": 3,
+          "format": "percent",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -1192,5 +1192,5 @@
   "timezone": "",
   "title": "PEPPER / INCOMING / HTTP",
   "uid": "qUdOy3OWz",
-  "version": 15
+  "version": 14
 }

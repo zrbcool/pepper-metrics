@@ -46,7 +46,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1566460609659,
+  "iteration": 1566475818517,
   "links": [
     {
       "asDropdown": true,
@@ -977,11 +977,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(increase(app_motan_request_out_err_counter_total{appId=~\"$app\"}[1m]))",
+          "expr": "sum(increase(app_motan_request_out_err_counter_total{appId=~\"$app\"}[2m]))",
           "format": "time_series",
           "instant": false,
           "intervalFactor": 1,
-          "legendFormat": "错误数 - 1m",
+          "legendFormat": "ERR - 1m",
           "refId": "A"
         }
       ],
@@ -989,7 +989,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "错误数 - 1m",
+      "title": "ERR  - 1m",
       "tooltip": {
         "shared": true,
         "sort": 2,
@@ -1115,5 +1115,5 @@
   "timezone": "",
   "title": "PEPPER / OUTGOING / MOTAN / DRILL",
   "uid": "m8G39qOWz",
-  "version": 4
+  "version": 6
 }

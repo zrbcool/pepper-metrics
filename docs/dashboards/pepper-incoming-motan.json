@@ -59,7 +59,7 @@
   "gnetId": null,
   "graphTooltip": 1,
   "id": null,
-  "iteration": 1566445613623,
+  "iteration": 1566476132374,
   "links": [
     {
       "asDropdown": true,
@@ -405,7 +405,7 @@
     },
     {
       "aliasColors": {},
-      "bars": false,
+      "bars": true,
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PROMETHEUS-APP}",
@@ -435,7 +435,7 @@
         "total": false,
         "values": true
       },
-      "lines": true,
+      "lines": false,
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
@@ -452,7 +452,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "((sum\n  by(method) (increase(app_motan_request_in_err_counter{appId=~\"$app\"}[10m]))\n  / sum by(method) (increase(app_motan_request_in_summary_seconds_count{}[10m]))) * 100) + 0.00001 > 0.00001",
+          "expr": "sum(increase(app_motan_request_in_err_counter{app=~\"$app\"}[2m])) by (method)",
           "format": "time_series",
           "instant": false,
           "intervalFactor": 2,
@@ -464,7 +464,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "错误率 by Method",
+      "title": "ERR By method - 2m",
       "tooltip": {
         "shared": true,
         "sort": 2,
@@ -480,8 +480,8 @@
       },
       "yaxes": [
         {
-          "decimals": 3,
-          "format": "percent",
+          "decimals": null,
+          "format": "none",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -794,7 +794,7 @@
     },
     {
       "aliasColors": {},
-      "bars": false,
+      "bars": true,
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PROMETHEUS-APP}",
@@ -824,7 +824,7 @@
         "total": false,
         "values": true
       },
-      "lines": true,
+      "lines": false,
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
@@ -841,7 +841,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "((sum\n  by(pod) (increase(app_motan_requests_in_err_counter{appId=~\"$app\"}[10m]))\n  / sum by(pod) (increase(app_motan_requests_in_latency_seconds_histogram_count{}[10m]))) * 100) + 0.00001 > 0.00001",
+          "expr": "sum(increase(app_motan_requests_in_err_counter{appId=~\"$app\"}[2m])) by (pod)",
           "format": "time_series",
           "instant": false,
           "intervalFactor": 2,
@@ -853,7 +853,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "错误率 by Instance",
+      "title": "ERR By Instance - 2m",
       "tooltip": {
         "shared": true,
         "sort": 2,
@@ -869,8 +869,8 @@
       },
       "yaxes": [
         {
-          "decimals": 3,
-          "format": "percent",
+          "decimals": null,
+          "format": "none",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -1135,7 +1135,7 @@
     ]
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
@@ -1166,5 +1166,5 @@
   "timezone": "",
   "title": "PEPPER / INCOMING / MOTAN",
   "uid": "0QKfd3dZk",
-  "version": 10
+  "version": 11
 }
