@@ -97,6 +97,12 @@ jedis_concurrent_gauge{method="set",namespace="somens",} 0.0
 - [Pepper Metrics ROAD-MAP](./docs/Roadmap.md)
 - [Pepper Metrics Development Guide](./docs/Dev_Guide.md)
 - [Pepper Metrics Development Plan](./docs/Dev_plan.md)
+
+## Theory
+- [Dubbo集成原理](./pepper-metrics-integration/pepper-metrics-dubbo/README.md)
+- [Http-Servlet集成原理](./pepper-metrics-integration/pepper-metrics-servlet/README.md)
+- [Pepper-Metrics-Printer用户及设计文档](./pepper-metrics-scheduled/pepper-metrics-scheduled-printer/README.md)
+
 ## Building  
 ```bash
 mvn clean package install
