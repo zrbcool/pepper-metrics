@@ -10,10 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
@@ -58,6 +55,9 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
         for (Stats stat : stats) {
             setPre(stat);
             List<PrinterDomain> printerDomains = collector(stat, currentErrCollector, currentSummaryCollector);
+
+            Collections.sort(printerDomains);
+            Collections.reverse(printerDomains);
 
             String prefixStr = "[" + PREFIX + ":" + timestamp + "] ";
             String line = StringUtils.repeat("-", LABEL_SIZE);
