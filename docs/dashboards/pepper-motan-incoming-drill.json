@@ -46,7 +46,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1566475818517,
+  "iteration": 1566530442190,
   "links": [
     {
       "asDropdown": true,
@@ -110,7 +110,7 @@
       "id": 14,
       "panels": [],
       "repeat": "method",
-      "title": "Motan：Outgoing- $method",
+      "title": "Motan：Incoming - $method",
       "type": "row"
     },
     {
@@ -159,7 +159,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by(pod) (rate(app_motan_request_out_summary_seconds_count{app=~\"$app\", method=~\"$method\"}[3m]))",
+          "expr": "sum by(pod) (rate(app_motan_request_in_summary_seconds_count{app=~\"$app\", method=~\"$method\"}[3m]))",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{pod}}",
@@ -254,7 +254,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "max(app_motan_request_out_summary_seconds{appId=\"$app\", quantile=\"0.9\", method=~\"$method\"}) by (pod)",
+          "expr": "max(app_motan_request_in_summary_seconds{appId=\"$app\", quantile=\"0.9\", method=~\"$method\"}) by (pod)",
           "format": "time_series",
           "hide": false,
           "interval": "1m",
@@ -350,7 +350,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "max(app_motan_request_out_summary_seconds{appId=\"$app\", quantile=\"0.99\", method=~\"$method\"}) by (pod)",
+          "expr": "max(app_motan_request_in_summary_seconds{appId=\"$app\", quantile=\"0.99\", method=~\"$method\"}) by (pod)",
           "format": "time_series",
           "hide": false,
           "interval": "1m",
@@ -446,7 +446,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "max(app_motan_request_out_summary_seconds{appId=\"$app\", quantile=\"0.999\", method=~\"$method\"}) by (pod)",
+          "expr": "max(app_motan_request_in_summary_seconds{appId=\"$app\", quantile=\"0.999\", method=~\"$method\"}) by (pod)",
           "format": "time_series",
           "interval": "1m",
           "intervalFactor": 1,
@@ -537,7 +537,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "floor(sum (app_motan_request_out_concurrent_gauge{appId=~\"$app\", method=~\"$method\"} offset 1m ) by (pod))",
+          "expr": "floor(sum (app_motan_request_in_concurrent_gauge{appId=~\"$app\", method=~\"$method\"} offset 1m ) by (pod))",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{pod}}",
@@ -631,7 +631,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "max(app_motan_request_out_summary_seconds{appId=\"$app\", quantile=\"0.9\", method=~\"$method\"})",
+          "expr": "max(app_motan_request_in_summary_seconds{appId=\"$app\", quantile=\"0.9\", method=~\"$method\"})",
           "format": "time_series",
           "hide": false,
           "interval": "1m",
@@ -640,7 +640,7 @@
           "refId": "C"
         },
         {
-          "expr": "max(app_motan_request_out_summary_seconds{appId=\"$app\", quantile=\"0.9\", method=~\"$method\"} offset 24h)",
+          "expr": "max(app_motan_request_in_summary_seconds{appId=\"$app\", quantile=\"0.9\", method=~\"$method\"} offset 24h)",
           "format": "time_series",
           "hide": false,
           "interval": "1m",
@@ -649,7 +649,7 @@
           "refId": "A"
         },
         {
-          "expr": "max(app_motan_request_out_summary_seconds{appId=\"$app\", quantile=\"0.9\", method=~\"$method\"} offset 7d)",
+          "expr": "max(app_motan_request_in_summary_seconds{appId=\"$app\", quantile=\"0.9\", method=~\"$method\"} offset 7d)",
           "format": "time_series",
           "hide": false,
           "interval": "1m",
@@ -745,7 +745,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "max(app_motan_request_out_summary_seconds{appId=\"$app\", quantile=\"0.99\", method=~\"$method\"}) by (pod)",
+          "expr": "max(app_motan_request_in_summary_seconds{appId=\"$app\", quantile=\"0.99\", method=~\"$method\"}) by (pod)",
           "format": "time_series",
           "hide": false,
           "interval": "1m",
@@ -754,7 +754,7 @@
           "refId": "C"
         },
         {
-          "expr": "max(app_motan_request_out_summary_seconds{appId=\"$app\", quantile=\"0.99\", method=~\"$method\"} offset 24h) by (pod)",
+          "expr": "max(app_motan_request_in_summary_seconds{appId=\"$app\", quantile=\"0.99\", method=~\"$method\"} offset 24h) by (pod)",
           "format": "time_series",
           "hide": false,
           "interval": "1m",
@@ -763,7 +763,7 @@
           "refId": "A"
         },
         {
-          "expr": "max(app_motan_request_out_summary_seconds{appId=\"$app\", quantile=\"0.99\", method=~\"$method\"} offset 7d) by (pod)",
+          "expr": "max(app_motan_request_in_summary_seconds{appId=\"$app\", quantile=\"0.99\", method=~\"$method\"} offset 7d) by (pod)",
           "format": "time_series",
           "hide": false,
           "interval": "1m",
@@ -859,7 +859,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "max(app_motan_request_out_summary_seconds{appId=\"$app\", quantile=\"0.999\", method=~\"$method\"}) by (pod)",
+          "expr": "max(app_motan_request_in_summary_seconds{appId=\"$app\", quantile=\"0.999\", method=~\"$method\"}) by (pod)",
           "format": "time_series",
           "hide": false,
           "interval": "1m",
@@ -868,7 +868,7 @@
           "refId": "C"
         },
         {
-          "expr": "max(app_motan_request_out_summary_seconds{appId=\"$app\", quantile=\"0.999\", method=~\"$method\"} offset 24h) by (pod)",
+          "expr": "max(app_motan_request_in_summary_seconds{appId=\"$app\", quantile=\"0.999\", method=~\"$method\"} offset 24h) by (pod)",
           "format": "time_series",
           "hide": false,
           "interval": "1m",
@@ -877,7 +877,7 @@
           "refId": "A"
         },
         {
-          "expr": "max(app_motan_request_out_summary_seconds{appId=\"$app\", quantile=\"0.999\", method=~\"$method\"} offset 7d) by (pod)",
+          "expr": "max(app_motan_request_in_summary_seconds{appId=\"$app\", quantile=\"0.999\", method=~\"$method\"} offset 7d) by (pod)",
           "format": "time_series",
           "hide": false,
           "interval": "1m",
@@ -977,11 +977,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(increase(app_motan_request_out_err_counter_total{appId=~\"$app\"}[2m]))",
+          "expr": "sum(increase(app_motan_request_in_err_counter{appId=~\"$app\"}[1m]))",
           "format": "time_series",
           "instant": false,
           "intervalFactor": 1,
-          "legendFormat": "ERR - 1m",
+          "legendFormat": "错误数 - 1m",
           "refId": "A"
         }
       ],
@@ -989,7 +989,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "ERR  - 1m",
+      "title": "错误数 - 1m",
       "tooltip": {
         "shared": true,
         "sort": 2,
@@ -1032,8 +1032,8 @@
   "schemaVersion": 19,
   "style": "dark",
   "tags": [
-    "motan",
-    "outgoing"
+    "incoming",
+    "motan"
   ],
   "templating": {
     "list": [
@@ -1063,14 +1063,14 @@
         "allValue": null,
         "current": {},
         "datasource": "${DS_PROMETHEUS-APP}",
-        "definition": "query_result(sum(increase(app_motan_request_out_summary_seconds_count{appId=\"$app\"}[1d])) by (method) > 30) ",
+        "definition": "query_result(sum(increase(app_motan_requests_in_latency_seconds_histogram_count{appId=\"$app\"}[1d])) by (method) > 30) ",
         "hide": 0,
         "includeAll": false,
         "label": "method",
         "multi": true,
         "name": "method",
         "options": [],
-        "query": "query_result(sum(increase(app_motan_request_out_summary_seconds_count{appId=\"$app\"}[1d])) by (method) > 30) ",
+        "query": "query_result(sum(increase(app_motan_requests_in_latency_seconds_histogram_count{appId=\"$app\"}[1d])) by (method) > 30) ",
         "refresh": 1,
         "regex": "/\"([^\"]+)\"/",
         "skipUrlSync": false,
@@ -1113,7 +1113,7 @@
     ]
   },
   "timezone": "",
-  "title": "PEPPER / OUTGOING / MOTAN / DRILL",
-  "uid": "m8G39qOWz",
-  "version": 6
+  "title": "PEPPER / MOTAN / INCOMING / DRILL",
+  "uid": "pxUGt3OWz",
+  "version": 7
 }
