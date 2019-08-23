@@ -4,25 +4,25 @@
     <parent>
         <artifactId>pepper-metrics-integration</artifactId>
         <groupId>top.pepperx</groupId>
-        <version>1.0.8-SNAPSHOT</version>
+        <version>1.0.8</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>pepper-metrics-mybatis</artifactId>
-    <version>1.0.8-SNAPSHOT</version>
+    <version>1.0.8</version>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
             <groupId>top.pepperx</groupId>
             <artifactId>pepper-metrics-core</artifactId>
-            <version>1.0.8-SNAPSHOT</version>
+            <version>1.0.8</version>
         </dependency>
         <dependency>
             <groupId>top.pepperx</groupId>
             <artifactId>pepper-metrics-scheduled-printer</artifactId>
-            <version>1.0.8-SNAPSHOT</version>
+            <version>1.0.8</version>
         </dependency>
         <dependency>
             <groupId>org.mybatis</groupId>
