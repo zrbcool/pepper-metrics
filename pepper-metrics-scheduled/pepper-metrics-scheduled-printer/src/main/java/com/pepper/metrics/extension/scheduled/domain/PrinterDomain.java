@@ -1,5 +1,7 @@
 package com.pepper.metrics.extension.scheduled.domain;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Description:
  *
@@ -7,7 +9,7 @@ package com.pepper.metrics.extension.scheduled.domain;
  * @package com.pepper.metrics.extension.scheduled.domain
  * @create_time 2019-08-07
  */
-public class PrinterDomain {
+public class PrinterDomain implements Comparable<PrinterDomain> {
 
     // 具体监控项 名称
     private String tag;
@@ -121,5 +123,12 @@ public class PrinterDomain {
                 ", p999='" + p999 + '\'' +
                 ", qps='" + qps + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(PrinterDomain other) {
+        int thisSum = StringUtils.isNotEmpty(this.sum) ? Integer.parseInt(this.sum) : 0;
+        int otherSum = StringUtils.isNotEmpty(other.sum) ? Integer.parseInt(other.sum) : 0;
+        return Integer.compare(thisSum, otherSum);
     }
 }
