@@ -31,15 +31,33 @@
         <developerConnection>scm:git:https://github.com/zrbcool/pepper-metrics.git</developerConnection>
         <tag>pepper-metrics-1.0.0</tag>
     </scm>
-    <modules>
-        <module>pepper-metrics-parent</module>
-        <module>pepper-metrics-core</module>
-        <module>pepper-metrics-scheduled</module>
-        <module>pepper-metrics-integration</module>
-        <module>pepper-metrics-ds</module>
-        <module>pepper-metrics-demo</module>
-        <module>pepper-metrics-samples</module>
-    </modules>
+    <profiles>
+        <profile>
+            <id>coohua</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>pepper-metrics-parent</module>
+                <module>pepper-metrics-core</module>
+                <module>pepper-metrics-scheduled</module>
+                <module>pepper-metrics-integration</module>
+                <module>pepper-metrics-ds</module>
+                <module>pepper-metrics-demo</module>
+                <module>pepper-metrics-samples</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>release</id>
+            <modules>
+                <module>pepper-metrics-parent</module>
+                <module>pepper-metrics-core</module>
+                <module>pepper-metrics-scheduled</module>
+                <module>pepper-metrics-integration</module>
+                <module>pepper-metrics-ds</module>
+            </modules>
+        </profile>
+    </profiles>
 
     <build>
         <plugins>
