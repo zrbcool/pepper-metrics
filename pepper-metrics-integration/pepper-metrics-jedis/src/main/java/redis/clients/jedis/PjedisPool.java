@@ -12,10 +12,11 @@ import javax.net.ssl.SSLSocketFactory;
 import java.net.URI;
 
 /**
- * @author zhangrongbincool@163.com
- * @date 19-8-7
- * @description
+ *
  * 定制版JedisPool，基于jedis2.9.0，实现namespace的注入
+ *
+ * @author zhangrongbincool@163.com
+ * @version 19-8-7
  */
 
 public class PjedisPool extends Pool<Jedis> {

@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author zhangrongbincool@163.com
- * @date 19-8-7
+ * @version 19-8-7
  */
 public class JedisClusterSampleMain {
     private static final Logger log = LoggerFactory.getLogger(JedisClusterSampleMain.class);

@@ -11,11 +11,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 /**
- * @author zhangrongbincool@163.com
- * @date 19-8-7
- * @description
+ *
  * 核心调度类，被度量目标流程中使用Profiler.Builder来构建{@link Stats}完成各项性能指标的统计，
  * 同时伴随类被加载会启动定时任务，每60秒调起所有实现了{@link ScheduledRun}的扩展点
+ *
+ * @author zhangrongbincool@163.com
+ * @version 19-8-7
  */
 public class Profiler {
     private static final Set<Stats> PROFILER_STAT_SET = Sets.newConcurrentHashSet();

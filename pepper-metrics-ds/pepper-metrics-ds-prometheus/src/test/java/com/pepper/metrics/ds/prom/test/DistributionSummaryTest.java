@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author zhangrongbincool@163.com
- * @date 19-8-10
+ * @version 19-8-10
  */
 public class DistributionSummaryTest {
 

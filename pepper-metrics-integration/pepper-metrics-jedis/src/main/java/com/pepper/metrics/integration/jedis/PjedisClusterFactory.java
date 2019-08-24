@@ -12,7 +12,7 @@ import java.util.Set;
 
 /**
  * @author zhangrongbincool@163.com
- * @date 19-8-7
+ * @version 19-8-7
  */
 public class PjedisClusterFactory {
 

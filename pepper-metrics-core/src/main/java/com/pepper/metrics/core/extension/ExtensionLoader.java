@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentMap;
 
 /**
  * @author zhangrongbincool@163.com
- * @date 19-8-10
+ * @version 19-8-10
  * 实现SPI扩展点的加载，由于默认JDK的ServiceLoader无法实现很多复杂元数据的表达
  * 所以使用classloader读取所有jar包中META-INF/services/文件内容的方式实现复杂的表达语义
  * 此处代码参考了Apache Dubbo/Apache Motan两个项目的ExtensionLoader部分，并做了大量精简，在这里对原作者表示感谢

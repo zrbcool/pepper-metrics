@@ -10,7 +10,7 @@ import java.util.Set;
 
 /**
  * @author zhangrongbincool@163.com
- * @date 19-8-14
+ * @version 19-8-14
  */
 @SpiMeta(name = "coreSamplePrinter")
 public class CoreSamplePrinter extends AbstractPerfPrinter {

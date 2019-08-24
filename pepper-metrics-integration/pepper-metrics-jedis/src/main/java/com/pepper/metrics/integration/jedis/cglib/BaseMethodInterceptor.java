@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author zhangrongbincool@163.com
- * @date 19-8-7
+ * @version 19-8-7
  */
 public abstract class BaseMethodInterceptor implements MethodInterceptor {
     private static Map<String, Stats> statsMap = new ConcurrentHashMap<>();

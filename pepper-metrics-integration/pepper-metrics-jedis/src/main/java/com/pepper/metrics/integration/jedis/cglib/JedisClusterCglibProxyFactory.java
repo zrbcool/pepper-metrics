@@ -6,7 +6,7 @@ import net.sf.cglib.proxy.Enhancer;
 
 /**
  * @author zhangrongbincool@163.com
- * @date 19-8-20
+ * @version 19-8-20
  */
 @SpiMeta(name = "cglib")
 public class JedisClusterCglibProxyFactory implements JedisClusterProxyFactory {

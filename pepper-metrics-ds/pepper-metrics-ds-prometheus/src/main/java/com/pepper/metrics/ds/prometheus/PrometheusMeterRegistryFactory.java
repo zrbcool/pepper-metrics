@@ -13,7 +13,7 @@ import java.net.InetSocketAddress;
 
 /**
  * @author zhangrongbincool@163.com
- * @date 19-8-9
+ * @version 19-8-9
  */
 @SpiMeta(name = "promMeterRegistryFactory")
 public class PrometheusMeterRegistryFactory implements MeterRegistryFactory {

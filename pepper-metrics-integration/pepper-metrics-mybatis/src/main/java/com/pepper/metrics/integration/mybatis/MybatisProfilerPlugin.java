@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author zhangrongbincool@163.com
- * @date 19-8-12
+ * @version 19-8-12
  */
 @Intercepts(
     value = {

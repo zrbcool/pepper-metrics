@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 
 /**
  * @author zhangrongbincool@163.com
- * @date 19-8-7
+ * @version 19-8-7
  */
 public class JedisClusterMethodInterceptor extends BaseMethodInterceptor {
 

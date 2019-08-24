@@ -17,10 +17,11 @@ import java.net.URI;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * @author zhangrongbincool@163.com
- * @date 19-8-7
- * @description
+ *
  * 定制版PjedisFactory，基于jedis2.9.0，实现namespace的注入，及为Jedis对象包装动态代理
+ *
+ * @author zhangrongbincool@163.com
+ * @version 19-8-7
  */
 class PjedisFactory implements PooledObjectFactory<Jedis> {
   private final AtomicReference<HostAndPort> hostAndPort = new AtomicReference<HostAndPort>();

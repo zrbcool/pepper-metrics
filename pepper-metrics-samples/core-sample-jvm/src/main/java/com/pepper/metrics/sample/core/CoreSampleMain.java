@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author zhangrongbincool@163.com
- * @date 19-8-14
+ * @version 19-8-14
  */
 public class CoreSampleMain {
     public static void main(String[] args) {
