@@ -10,8 +10,7 @@ import org.springframework.context.annotation.Configuration;
  * Description:
  *
  * @author zhiminxu
- * @package com.pepper.metrics.sample.motan.springboot.config
- * @create_time 2019-08-14
+ * @version 2019-08-14
  */
 @Configuration
 public class MotanConfig {

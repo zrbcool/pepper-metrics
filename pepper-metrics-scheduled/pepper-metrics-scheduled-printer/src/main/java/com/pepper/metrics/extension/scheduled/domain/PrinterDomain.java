@@ -6,8 +6,7 @@ import org.apache.commons.lang3.StringUtils;
  * Description:
  *
  * @author zhiminxu
- * @package com.pepper.metrics.extension.scheduled.domain
- * @create_time 2019-08-07
+ * @version 2019-08-07
  */
 public class PrinterDomain implements Comparable<PrinterDomain> {
 

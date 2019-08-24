@@ -16,8 +16,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * Description:
  *
  * @author zhiminxu
- * @package com.pepper.metrics.printer.test
- * @create_time 2019-08-07
+ * @version 2019-08-07
  */
 public class JedisPrinterTest {
     private Set<Stats> PROFILER_STAT_SET = Sets.newConcurrentHashSet();

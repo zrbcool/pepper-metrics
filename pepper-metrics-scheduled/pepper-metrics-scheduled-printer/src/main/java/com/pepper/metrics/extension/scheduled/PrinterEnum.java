@@ -4,8 +4,7 @@ package com.pepper.metrics.extension.scheduled;
  * Description:
  *  可打印的维度
  * @author zhiminxu
- * @package com.pepper.metrics.extension.scheduled
- * @create_time 2019-08-07
+ * @version 2019-08-07
  */
 public enum PrinterEnum {
 

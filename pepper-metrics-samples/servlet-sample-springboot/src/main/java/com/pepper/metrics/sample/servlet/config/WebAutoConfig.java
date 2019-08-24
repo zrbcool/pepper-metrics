@@ -16,8 +16,7 @@ import javax.servlet.http.HttpServletRequest;
  * Description:
  *
  * @author zhiminxu
- * @package com.pepper.metrics.sample.servlet.config
- * @create_time 2019-08-13
+ * @version 2019-08-13
  */
 @Configuration
 @ConditionalOnClass(HttpServletRequest.class)

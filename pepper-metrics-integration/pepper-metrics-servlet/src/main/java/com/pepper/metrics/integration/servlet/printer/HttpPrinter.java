@@ -13,8 +13,7 @@ import java.util.Set;
  * Description:
  *
  * @author zhiminxu
- * @package com.pepper.metrics.integration.servlet.printer
- * @create_time 2019-08-13
+ * @version 2019-08-13
  */
 @SpiMeta(name = "httpPrinter")
 public class HttpPrinter extends AbstractPerfPrinter implements PerfPrinter {

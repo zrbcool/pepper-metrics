@@ -9,8 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * Description:
  *
  * @author zhiminxu
- * @package com.pepper.metrics.sample.motan.springboot
- * @create_time 2019-08-14
+ * @version 2019-08-14
  */
 @MotanService(export = "demoMotan:8002")
 public class HelloServiceImpl implements HelloService {

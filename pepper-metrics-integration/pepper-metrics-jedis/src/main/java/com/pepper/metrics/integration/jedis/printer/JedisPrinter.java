@@ -13,8 +13,7 @@ import java.util.Set;
  * Description:
  *  Printer的Jedis适配
  * @author zhiminxu
- * @package com.pepper.metrics.integration.jedis.printer
- * @create_time 2019-08-07
+ * @version 2019-08-07
  */
 @SpiMeta(name = "jedisPrinter")
 public class JedisPrinter extends AbstractPerfPrinter implements PerfPrinter {

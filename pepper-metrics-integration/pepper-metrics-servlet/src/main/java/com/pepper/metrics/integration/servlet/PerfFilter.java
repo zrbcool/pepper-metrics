@@ -15,8 +15,7 @@ import java.util.concurrent.TimeUnit;
  *  Servlet系 Web容器过滤器，性能数据收集统计
  *
  * @author zhiminxu
- * @package com.pepper.metrics.integration.servlet
- * @create_time 2019-08-13
+ * @version 2019-08-13
  */
 public class PerfFilter implements Filter {
     private static final Stats PROFILER_STAT = Profiler.Builder

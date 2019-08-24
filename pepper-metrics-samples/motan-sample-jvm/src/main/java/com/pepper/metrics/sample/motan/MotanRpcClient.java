@@ -8,8 +8,7 @@ import com.weibo.api.motan.config.RegistryConfig;
  * Description:
  *
  * @author zhiminxu
- * @package com.pepper.metrics.sample.motan
- * @create_time 2019-08-14
+ * @version 2019-08-14
  */
 public class MotanRpcClient {
     public static void main(String[] args) {

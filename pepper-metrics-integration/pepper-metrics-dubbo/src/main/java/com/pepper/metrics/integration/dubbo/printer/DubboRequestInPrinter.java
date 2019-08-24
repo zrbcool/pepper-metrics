@@ -13,8 +13,7 @@ import java.util.Set;
  * Description:
  *
  * @author zhiminxu
- * @package com.pepper.metrics.integration.dubbo.printer
- * @create_time 2019-08-15
+ * @version 2019-08-15
  */
 @SpiMeta(name = "dubboRequestInPrinter")
 public class DubboRequestInPrinter extends AbstractPerfPrinter implements PerfPrinter {

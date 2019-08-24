@@ -7,8 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Description:
  *
  * @author zhiminxu
- * @package com.pepper.metrics.sample.servlet
- * @create_time 2019-08-13
+ * @version 2019-08-13
  */
 @SpringBootApplication
 public class SampleApplication {

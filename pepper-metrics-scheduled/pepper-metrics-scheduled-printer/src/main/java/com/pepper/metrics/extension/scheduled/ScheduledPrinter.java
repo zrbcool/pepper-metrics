@@ -23,8 +23,7 @@ import java.util.concurrent.ConcurrentMap;
  *
  * </pre>
  * @author zhiminxu
- * @package com.pepper.metrics.extension.scheduled
- * @create_time 2019-08-07
+ * @version 2019-08-07
  */
 @SpiMeta(name = "printer")
 public class ScheduledPrinter implements ScheduledRun {

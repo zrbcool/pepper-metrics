@@ -9,8 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * Description:
  *
  * @author zhiminxu
- * @package com.pepper.metrics.sample.servlet.controller
- * @create_time 2019-08-13
+ * @version 2019-08-13
  */
 @RestController
 @RequestMapping("/perf")

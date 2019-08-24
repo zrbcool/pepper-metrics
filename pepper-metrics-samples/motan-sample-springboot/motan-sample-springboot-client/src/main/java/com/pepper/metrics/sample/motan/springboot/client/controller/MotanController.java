@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Description:
  *
  * @author zhiminxu
- * @package com.pepper.metrics.sample.motan.springboot.client.controller
- * @create_time 2019-08-14
+ * @version 2019-08-14
  */
 @RestController
 @RequestMapping("/motan")

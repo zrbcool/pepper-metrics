@@ -13,8 +13,7 @@ import org.apache.dubbo.rpc.*;
  *  2）abstract void beforeInvoke(String[] tags);
  * </pre>
  * @author zhiminxu
- * @package com.pepper.metrics.integration.dubbo
- * @create_time 2019-08-15
+ * @version 2019-08-15
  */
 public abstract class DubboProfilerFilterTemplate implements Filter {
 

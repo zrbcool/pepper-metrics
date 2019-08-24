@@ -13,8 +13,7 @@ import java.util.concurrent.ConcurrentMap;
  *  Performance信息日志打印，可通过SPI方式进行扩展。
  *
  * @author zhiminxu
- * @package com.pepper.metrics.extension.scheduled
- * @create_time 2019-08-07
+ * @version 2019-08-07
  */
 @Spi(scope = Scope.SINGLETON)
 public interface PerfPrinter {
@@ -29,8 +28,9 @@ public interface PerfPrinter {
     List<Stats> chooseStats(Set<Stats> statsSet);
 
     /**
+     *
      * 打印日志
-     * @param statsSet 统计信息
+     * statsSet 统计信息
      */
     void print(Set<Stats> statsSet, String timestamp, ConcurrentMap<String, ConcurrentMap<List<String>, Double>> currentErrCollector, ConcurrentMap<String, ConcurrentMap<List<String>, Long>> currentSummaryCollector);
 

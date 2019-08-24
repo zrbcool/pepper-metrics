@@ -20,8 +20,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * Description:
  *
  * @author zhiminxu
- * @package com.pepper.metrics.extension.scheduled
- * @create_time 2019-08-07
+ * @version 2019-08-07
  */
 public abstract class AbstractPerfPrinter implements PerfPrinter {
 
@@ -110,8 +109,6 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
 
     /**
      * 日志前缀的默认实现
-     * @param stats
-     * @return
      */
     @Override
     public String setPrefix(Stats stats) {

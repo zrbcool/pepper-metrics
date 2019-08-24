@@ -8,8 +8,7 @@ import java.util.concurrent.CountDownLatch;
  * Description:
  *
  * @author zhiminxu
- * @package com.pepper.metrics.sample.dubbo.spring.provider
- * @create_time 2019-08-15
+ * @version 2019-08-15
  */
 public class Provider {
 

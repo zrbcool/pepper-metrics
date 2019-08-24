@@ -10,8 +10,7 @@ import static org.apache.dubbo.common.constants.CommonConstants.CONSUMER;
  * Description:
  *  Dubbo服务调用方profile收集
  * @author zhiminxu
- * @package com.pepper.metrics.integration.dubbo
- * @create_time 2019-08-15
+ * @version 2019-08-15
  */
 @Activate(group = {CONSUMER})
 public class DubboConsumerProfilerFilter extends DubboProfilerFilterTemplate {

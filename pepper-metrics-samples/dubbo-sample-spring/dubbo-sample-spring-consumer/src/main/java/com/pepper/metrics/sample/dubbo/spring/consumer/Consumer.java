@@ -9,8 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * Description:
  *
  * @author zhiminxu
- * @package com.pepper.metrics.sample.dubbo.spring.consumer
- * @create_time 2019-08-15
+ * @version 2019-08-15
  */
 public class Consumer {
 

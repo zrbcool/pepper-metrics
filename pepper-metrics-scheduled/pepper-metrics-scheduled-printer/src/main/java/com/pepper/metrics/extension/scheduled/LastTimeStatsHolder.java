@@ -8,8 +8,7 @@ import java.util.concurrent.ConcurrentMap;
  * Description:
  *
  * @author zhiminxu
- * @package com.pepper.metrics.extension.scheduled
- * @create_time 2019-08-10
+ * @version 2019-08-10
  */
 public class LastTimeStatsHolder {
 
