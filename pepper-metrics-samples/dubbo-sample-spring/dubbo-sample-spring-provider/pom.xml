@@ -3,7 +3,7 @@
     <parent>
         <artifactId>dubbo-sample-spring</artifactId>
         <groupId>top.zrbcool</groupId>
-        <version>1.0.9-SNAPSHOT</version>
+        <version>1.0.9</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -13,7 +13,7 @@
         <dependency>
             <groupId>top.zrbcool</groupId>
             <artifactId>dubbo-sample-spring-api</artifactId>
-            <version>1.0.9-SNAPSHOT</version>
+            <version>1.0.9</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
