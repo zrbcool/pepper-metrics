@@ -67,13 +67,13 @@ pom中添加如下依赖
 <dependencies>
     <!-- pepper-metrics-jedis dependency -->
     <dependency>
-        <groupId>top.pepperx</groupId>
+        <groupId>top.zrbcool</groupId>
         <artifactId>pepper-metrics-jedis</artifactId>
         <version>1.0.0</version>
     </dependency>
     <!-- pepper-metrics datasource use prometheus by default -->
     <dependency>
-        <groupId>top.pepperx</groupId>
+        <groupId>top.zrbcool</groupId>
         <artifactId>pepper-metrics-ds-prometheus</artifactId>
         <version>1.0.0</version>
     </dependency>
@@ -217,13 +217,13 @@ pom中增加依赖：
 <dependencies>
     <!-- pepper metrics dependencies -->
     <dependency>
-        <groupId>top.pepperx</groupId>
+        <groupId>top.zrbcool</groupId>
         <artifactId>pepper-metrics-mybatis</artifactId>
         <version>1.0.0</version>
     </dependency>
     <!-- pepper-metrics datasource use prometheus by default -->
     <dependency>
-        <groupId>top.pepperx</groupId>
+        <groupId>top.zrbcool</groupId>
         <artifactId>pepper-metrics-ds-prometheus</artifactId>
         <version>1.0.0</version>
     </dependency>
@@ -257,12 +257,12 @@ pom中添加依赖即可:
 ```xml
 <dependencies>
     <dependency>
-        <groupId>top.pepperx</groupId>
+        <groupId>top.zrbcool</groupId>
         <artifactId>pepper-metrics-dubbo</artifactId>
         <version>1.0.0</version>
     </dependency>
     <dependency>
-        <groupId>top.pepperx</groupId>
+        <groupId>top.zrbcool</groupId>
         <artifactId>pepper-metrics-ds-prometheus</artifactId>
         <version>1.0.0</version>
     </dependency>
@@ -276,12 +276,12 @@ pom中添加依赖：
 ```xml
 <dependencies>
     <dependency>
-        <groupId>top.pepperx</groupId>
+        <groupId>top.zrbcool</groupId>
         <artifactId>pepper-metrics-servlet</artifactId>
         <version>1.0.0</version>
     </dependency>
     <dependency>
-        <groupId>top.pepperx</groupId>
+        <groupId>top.zrbcool</groupId>
         <artifactId>pepper-metrics-ds-prometheus</artifactId>
         <version>1.0.0</version>
     </dependency>
@@ -328,12 +328,12 @@ sample项目请参考：[motan-sample-jvm](../pepper-metrics-samples/motan-sampl
 ```xml
 <dependencies>
     <dependency>
-        <groupId>top.pepperx</groupId>
+        <groupId>top.zrbcool</groupId>
         <artifactId>pepper-metrics-motan</artifactId>
         <version>1.0.0</version>
     </dependency>
     <dependency>
-        <groupId>top.pepperx</groupId>
+        <groupId>top.zrbcool</groupId>
         <artifactId>pepper-metrics-ds-prometheus</artifactId>
         <version>1.0.0</version>
     </dependency>
