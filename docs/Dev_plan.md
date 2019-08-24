@@ -3,16 +3,18 @@
 - 开源
 - 发表文章，宣传
 - 推动内部使用
+- 输出文档，Topic：SPI及扩展实现原理
 
 ### Sprint 3 Plan
-- 完成servlet, motan, mybatis, jedis在CAF中的替换
-- 试点上线
-- 完善开源前的各项准备，文档等
+- 完成servlet, motan, mybatis, jedis在CAF中的替换(Done)
+- 试点上线(Done)
+- 完善开源前的各项准备，文档等(Done)
 - 完成dubbo集成(Done)
-- 输出文档，Topic：Servlet集成原理
-- 输出文档，Topic：Jedis集成原理
+- 完成dashboard的开发(Done)
+- 输出文档，Topic：Servlet集成原理(Done)
 - 输出文档，Topic：Dubbo集成原理(Done)
-- 输出文档，Topic：SPI
+- 输出文档，Topic：Jedis集成原理
+- 输出文档，Topic：Mybatis集成原理
 
 ### Sprint 2 Plan
 - 完成servlet集成(Done)

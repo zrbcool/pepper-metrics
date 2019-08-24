@@ -1,4 +1,9 @@
 # Pepper Metrics Project  
+## Who use
+酷划在线成立于2014年，是国内激励广告行业的领军者。酷划致力于打造一个用户、广告主、平台三方共赢的激励广告生态体系，旗下产品“酷划锁屏”“淘新闻”分别为锁屏、资讯行业的领跑者。  
+- [![](docs/logos/coohua-logo.png)](https://www.coohua.com/)  
+- [![](docs/logos/taonews-logo.png)](https://www.coohua.com/)
+
 ## Architecture  
 Pepper Metrics项目从核心概念上来说，基于Tom Wilkie的[RED](https://grafana.com/blog/2018/08/02/the-red-method-how-to-instrument-your-services/)理论，即对每个服务
 （这里的服务特指进程中的某种调用，比如调用一次数据库查询）进行RED指标收集，并持久化到数据库，并通过dashboard进行展示，辅助进行性能趋势分析。  
@@ -123,3 +128,9 @@ mvn clean package install
 * Developer
     * [@zrbcool](https://github.com/zrbcool)
     * [@Lord-X](https://github.com/Lord-X)
+
+## Special Thanks
+感谢作者所在公司[酷划在线](https://www.coohua.com/)给作者提供开放的技术环境，并充分支持回馈开源社区项目。
+
+# License
+Pepper Metrics is released under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
