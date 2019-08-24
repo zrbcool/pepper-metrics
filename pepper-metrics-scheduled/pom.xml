@@ -10,6 +10,8 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>pepper-metrics-scheduled</artifactId>
+    <name>${project.artifactId}</name>
+    <description>${project.artifactId}</description>
     <version>1.0.12-SNAPSHOT</version>
     <packaging>pom</packaging>
 

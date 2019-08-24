@@ -27,13 +27,13 @@ Pepper Metrics项目从核心概念上来说，基于Tom Wilkie的[RED](https://
     <dependency>
         <groupId>top.zrbcool</groupId>
         <artifactId>pepper-metrics-mybatis</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.11</version>
     </dependency>
     <!-- pepper-metrics datasource use prometheus by default -->
     <dependency>
         <groupId>top.zrbcool</groupId>
         <artifactId>pepper-metrics-ds-prometheus</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.11</version>
     </dependency>
 </dependencies>
 ```
@@ -95,13 +95,13 @@ app_mapper_concurrent_gauge{class="com/pepper/metrics/sample/mybatis/mapper/Hote
     <dependency>
         <groupId>top.zrbcool</groupId>
         <artifactId>pepper-metrics-mybatis</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.11</version>
     </dependency>
     <!-- pepper-metrics datasource use prometheus by default -->
     <dependency>
         <groupId>top.zrbcool</groupId>
         <artifactId>pepper-metrics-ds-prometheus</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.11</version>
     </dependency>
 </dependencies>
 ```

@@ -69,13 +69,13 @@ pom中添加如下依赖
     <dependency>
         <groupId>top.zrbcool</groupId>
         <artifactId>pepper-metrics-jedis</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.11</version>
     </dependency>
     <!-- pepper-metrics datasource use prometheus by default -->
     <dependency>
         <groupId>top.zrbcool</groupId>
         <artifactId>pepper-metrics-ds-prometheus</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.11</version>
     </dependency>
 </dependencies>
 ```
@@ -219,13 +219,13 @@ pom中增加依赖：
     <dependency>
         <groupId>top.zrbcool</groupId>
         <artifactId>pepper-metrics-mybatis</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.11</version>
     </dependency>
     <!-- pepper-metrics datasource use prometheus by default -->
     <dependency>
         <groupId>top.zrbcool</groupId>
         <artifactId>pepper-metrics-ds-prometheus</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.11</version>
     </dependency>
 </dependencies>
 ```
@@ -259,12 +259,12 @@ pom中添加依赖即可:
     <dependency>
         <groupId>top.zrbcool</groupId>
         <artifactId>pepper-metrics-dubbo</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.11</version>
     </dependency>
     <dependency>
         <groupId>top.zrbcool</groupId>
         <artifactId>pepper-metrics-ds-prometheus</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.11</version>
     </dependency>
 </dependencies>
 ```
@@ -278,12 +278,12 @@ pom中添加依赖：
     <dependency>
         <groupId>top.zrbcool</groupId>
         <artifactId>pepper-metrics-servlet</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.11</version>
     </dependency>
     <dependency>
         <groupId>top.zrbcool</groupId>
         <artifactId>pepper-metrics-ds-prometheus</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.11</version>
     </dependency>
 </dependencies>
 ```
@@ -330,12 +330,12 @@ sample项目请参考：[motan-sample-jvm](../pepper-metrics-samples/motan-sampl
     <dependency>
         <groupId>top.zrbcool</groupId>
         <artifactId>pepper-metrics-motan</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.11</version>
     </dependency>
     <dependency>
         <groupId>top.zrbcool</groupId>
         <artifactId>pepper-metrics-ds-prometheus</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.11</version>
     </dependency>
 </dependencies>
 ```

@@ -12,6 +12,8 @@
     <artifactId>pepper-metrics-integration</artifactId>
     <version>1.0.12-SNAPSHOT</version>
     <packaging>pom</packaging>
+    <name>${project.artifactId}</name>
+    <description>${project.artifactId}</description>
 
     <modules>
         <module>pepper-metrics-jedis</module>
