@@ -79,60 +79,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	<!--<distributionManagement>-->
-		<!--<repository>-->
-			<!--<id>coohua_releases</id>-->
-			<!--<name>releases</name>-->
-			<!--<url>http://maven.coohua.com:8002/nexus/content/repositories/releases</url>-->
-		<!--</repository>-->
-		<!--<snapshotRepository>-->
-			<!--<id>coohua_snapshots</id>-->
-			<!--<name>snapshots</name>-->
-			<!--<url>http://maven.coohua.com:8002/nexus/content/repositories/snapshots</url>-->
-		<!--</snapshotRepository>-->
-	<!--</distributionManagement>-->
-	<distributionManagement>
-		<snapshotRepository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-		</snapshotRepository>
-		<repository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-		</repository>
-	</distributionManagement>
-	<!--<repositories>
-		<repository>
-			<id>coohua_releases</id>
-			<url>http://maven.coohua.com:8002/nexus/content/repositories/releases</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>coohua_snapshots</id>
-			<url>http://maven.coohua.com:8002/nexus/content/repositories/snapshots</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>coohua_3rdparty</id>
-			<url>http://maven.coohua.com:8002/nexus/content/repositories/thirdparty/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>-->
+
 	<build>
 		<plugins>
 			<plugin>
@@ -219,7 +166,64 @@
 	</build>
 	<profiles>
 		<profile>
+			<id>coohua</id>
+			<repositories>
+                <repository>
+                    <id>coohua_releases</id>
+                    <url>http://maven.coohua.com:8002/nexus/content/repositories/releases</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+                <repository>
+                    <id>coohua_snapshots</id>
+                    <url>http://maven.coohua.com:8002/nexus/content/repositories/snapshots</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+                <repository>
+                    <id>coohua_3rdparty</id>
+                    <url>http://maven.coohua.com:8002/nexus/content/repositories/thirdparty/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+			<distributionManagement>
+				<repository>
+					<id>coohua_releases</id>
+					<name>releases</name>
+					<url>http://maven.coohua.com:8002/nexus/content/repositories/releases</url>
+				</repository>
+				<snapshotRepository>
+					<id>coohua_snapshots</id>
+					<name>snapshots</name>
+					<url>http://maven.coohua.com:8002/nexus/content/repositories/snapshots</url>
+				</snapshotRepository>
+			</distributionManagement>
+		</profile>
+		<profile>
 			<id>release</id>
+			<distributionManagement>
+				<snapshotRepository>
+					<id>ossrh</id>
+					<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+				</snapshotRepository>
+				<repository>
+					<id>ossrh</id>
+					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+				</repository>
+			</distributionManagement>
 			<build>
 				<plugins>
                         <plugin>
