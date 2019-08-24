@@ -79,17 +79,27 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+	<!--<distributionManagement>-->
+		<!--<repository>-->
+			<!--<id>coohua_releases</id>-->
+			<!--<name>releases</name>-->
+			<!--<url>http://maven.coohua.com:8002/nexus/content/repositories/releases</url>-->
+		<!--</repository>-->
+		<!--<snapshotRepository>-->
+			<!--<id>coohua_snapshots</id>-->
+			<!--<name>snapshots</name>-->
+			<!--<url>http://maven.coohua.com:8002/nexus/content/repositories/snapshots</url>-->
+		<!--</snapshotRepository>-->
+	<!--</distributionManagement>-->
 	<distributionManagement>
-		<repository>
-			<id>coohua_releases</id>
-			<name>releases</name>
-			<url>http://maven.coohua.com:8002/nexus/content/repositories/releases</url>
-		</repository>
 		<snapshotRepository>
-			<id>coohua_snapshots</id>
-			<name>snapshots</name>
-			<url>http://maven.coohua.com:8002/nexus/content/repositories/snapshots</url>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+		</repository>
 	</distributionManagement>
 	<repositories>
 		<repository>

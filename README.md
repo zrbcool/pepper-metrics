@@ -121,6 +121,7 @@ app_mapper_concurrent_gauge{class="com/pepper/metrics/sample/mybatis/mapper/Hote
 ```bash
 mvn clean package install
 ```
+
 ## Contact  
 * Bugs: [Issues](https://github.com/zrbcool/pepper-metrics/issues/new?template=dubbo-issue-report-template.md)
 * Plan & Progress: [Trello](https://trello.com/b/WfTQtssJ/pepper-metrics)
@@ -129,7 +130,6 @@ mvn clean package install
 * Developer
     * [@zrbcool](https://github.com/zrbcool)
     * [@Lord-X](https://github.com/Lord-X)
-
 
 ## Special Thanks
 感谢作者所在公司[酷划在线](https://www.coohua.com/)给作者提供开放的技术环境，并充分支持回馈开源社区项目。
