@@ -15,6 +15,11 @@ cd pepper-metrics/pepper-metrics-samples
 各种开源组件集成索引：
 - [Jedis](User_guide.md#jedis-integration)
 - [Mybatis](User_guide.md#mybatis-integration)
+- [Motan](User_guide.md#motan-integration)
+- [Http / Servlet](User_guide.md#http-integration)
+- [Dubbo](User_guide.md#dubbo-integration)
+
+
 
 core使用及插件开发基础：
 - [Core](User_guide.md#core-use-case)
