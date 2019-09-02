@@ -64,9 +64,9 @@ Pepper Metrics中日志打印部分仅依赖slf4j门面库，未依赖任何具�
 ```xml
 <property name="PATTERN">%d{HH:mm:ss} - %msg%xEx%n</property>
 ```
-- 一个完整的log4j2.xml例子请参考[log4j2.xml](../pepper-metrics-samples/jedis-sample-jvm/src/main/resources/log4j2.xml)
+- 一个完整的log4j2.xml例子请参考[log4j2.xml](../../pepper-metrics-samples/jedis-sample-jvm/src/main/resources/log4j2.xml)
 ### jedis integration
-sample项目请参考: [jedis-sample-jvm](../pepper-metrics-samples/jedis-sample-jvm)  
+sample项目请参考: [jedis-sample-jvm](../../pepper-metrics-samples/jedis-sample-jvm)  
 pom中添加如下依赖
 ```xml
 <dependencies>
@@ -84,7 +84,7 @@ pom中添加如下依赖
     </dependency>
 </dependencies>
 ```
-与Jedis集成（单机），具体参考[JedisSampleMain.java](../pepper-metrics-samples/jedis-sample-jvm/src/main/java/com/pepper/metrics/sample/jedis/JedisSampleMain.java)
+与Jedis集成（单机），具体参考[JedisSampleMain.java](../../pepper-metrics-samples/jedis-sample-jvm/src/main/java/com/pepper/metrics/sample/jedis/JedisSampleMain.java)
 ```java
 ...
 // 省略构建各种参数过程，与正常使用Jedis没有差异
@@ -98,7 +98,7 @@ try (Jedis jedis = jedisPool.getResource()) {
 }
 ```
 
-与JedisCluster集成（集群），具体参考[JedisClusterSampleMain.java](../pepper-metrics-samples/jedis-sample-jvm/src/main/java/com/pepper/metrics/sample/jediscluster/JedisClusterSampleMain.java)
+与JedisCluster集成（集群），具体参考[JedisClusterSampleMain.java](../../pepper-metrics-samples/jedis-sample-jvm/src/main/java/com/pepper/metrics/sample/jediscluster/JedisClusterSampleMain.java)
 ```java
 ...
 // 只修改这一处即可，将正常构造JedisCluster的参数传递给如下工厂方法，其支持所有jedisCluster的构造方法
@@ -216,7 +216,7 @@ jedis_concurrent_gauge{method="getClient",namespace="myns",} 0.0
 jedis_concurrent_gauge{method="resetState",namespace="myns",} 0.0
 ```
 ### mybatis integration
-sample项目请参考: [mybatis-sample-springboot](../pepper-metrics-samples/mybatis-sample-springboot)  
+sample项目请参考: [mybatis-sample-springboot](../../pepper-metrics-samples/mybatis-sample-springboot)  
 pom中增加依赖：
 ```xml
 <dependencies>
@@ -255,7 +255,7 @@ pom中增加依赖：
 prometheus指标输出情况：与其他相似，只是指标名区别
 
 ### Dubbo integration
-sample项目请参考：[dubbo-sample-spring](../pepper-metrics-samples/dubbo-sample-spring)
+sample项目请参考：[dubbo-sample-spring](../../pepper-metrics-samples/dubbo-sample-spring)
 
 pom中添加依赖即可:
 
@@ -275,7 +275,7 @@ pom中添加依赖即可:
 ```
 
 ### http integration
-sample项目请参考：[servlet-sample-springboot](../pepper-metrics-samples/servlet-sample-springboot)
+sample项目请参考：[servlet-sample-springboot](../../pepper-metrics-samples/servlet-sample-springboot)
 
 pom中添加依赖：
 ```xml
@@ -326,7 +326,7 @@ public class WebAutoConfig {
 ```
 
 ### motan integration
-sample项目请参考：[motan-sample-jvm](../pepper-metrics-samples/motan-sample-jvm)，[motan-sample-springboot](https://github.com/Lord-X/pepper-metrics/tree/master/pepper-metrics-samples/motan-sample-springboot)
+sample项目请参考：[motan-sample-jvm](../../pepper-metrics-samples/motan-sample-jvm)，[motan-sample-springboot](https://github.com/Lord-X/pepper-metrics/tree/master/pepper-metrics-samples/motan-sample-springboot)
 
 在pom中添加依赖：
 
@@ -359,7 +359,7 @@ return config;
 
 
 ### core use case
-一般应用都是直接使用各种开源组件的集成，如果有特殊需要，例如需要有自定义的性能收集或者开发扩展插件时才需要了解core的使用，这里简单介绍，详细了解，请查看各个插件的使用方式，参考链接：[pepper-metrics-integration](../pepper-metrics-integration)
+一般应用都是直接使用各种开源组件的集成，如果有特殊需要，例如需要有自定义的性能收集或者开发扩展插件时才需要了解core的使用，这里简单介绍，详细了解，请查看各个插件的使用方式，参考链接：[pepper-metrics-integration](../../pepper-metrics-integration)
 - 性能收集代码使用样例
 ```java
 public class CoreSampleMain {
@@ -409,7 +409,7 @@ public class CoreSamplePrinter extends AbstractPerfPrinter {
     }
 }
 ```  
-同时配置SPI使其能被ExtensionLoader发现并加载，完整代码请参考sample项目：[core-sample-jvm](../pepper-metrics-samples/core-sample-jvm)
+同时配置SPI使其能被ExtensionLoader发现并加载，完整代码请参考sample项目：[core-sample-jvm](../../pepper-metrics-samples/core-sample-jvm)
 
 
 

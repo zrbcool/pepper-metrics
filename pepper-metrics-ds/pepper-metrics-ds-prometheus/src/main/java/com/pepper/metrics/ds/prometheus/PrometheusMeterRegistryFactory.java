@@ -6,6 +6,7 @@ import com.sun.net.httpserver.HttpServer;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.prometheus.PrometheusConfig;
 import io.micrometer.prometheus.PrometheusMeterRegistry;
+import org.apache.commons.lang3.math.NumberUtils;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -21,7 +22,8 @@ public class PrometheusMeterRegistryFactory implements MeterRegistryFactory {
 
     static {
         try {
-            HttpServer server = HttpServer.create(new InetSocketAddress(9146), 0);
+            final int port = NumberUtils.toInt(System.getProperty("pepper.port"), 9146);
+            HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
             server.createContext("/metrics", httpExchange -> {
                 String response = prometheusRegistry.scrape();
                 httpExchange.sendResponseHeaders(200, response.getBytes().length);
