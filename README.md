@@ -3,7 +3,9 @@
 酷划在线成立于2014年，是国内激励广告行业的领军者。酷划致力于打造一个用户、广告主、平台三方共赢的激励广告生态体系，旗下产品“酷划锁屏”“淘新闻”分别为锁屏、资讯行业的领跑者。  
 - [![](docs/logos/coohua-logo.png)](https://www.coohua.com/)  
 - [![](docs/logos/taonews-logo.png)](https://www.coohua.com/)
-
+## Quickly Run A Demo Within 10 minutes
+请参考独立项目：  
+[https://github.com/zrbcool/pepper-metrics-demo](https://github.com/zrbcool/pepper-metrics-demo)
 ## Architecture  
 Pepper Metrics项目从核心概念上来说，基于Tom Wilkie的[RED](https://grafana.com/blog/2018/08/02/the-red-method-how-to-instrument-your-services/)理论，即对每个服务
 （这里的服务特指进程中的某种调用，比如调用一次数据库查询）进行RED指标收集，并持久化到数据库，并通过dashboard进行展示，辅助进行性能趋势分析。  
@@ -58,7 +60,7 @@ Pepper Metrics项目从核心概念上来说，基于Tom Wilkie的[RED](https://
 18:27:28 [perf-mybatis:20190822182728] | Metrics                                                                     Concurrent Count(Err/Sum)   P90(ms)   P99(ms)  P999(ms)   Max(ms)     Qps | 
 18:27:28 [perf-mybatis:20190822182728] | com.pepper.metrics.sample.mybatis.mapper.HotelMapper.selectByCityId                  0         0/1950       0.6       1.4       2.5       3.5    32.5 | 
 18:27:28 [perf-mybatis:20190822182728] | sample.mybatis.mapper.CityMapper.selectCityById                                      0         0/1950       0.8       2.4      56.6      56.6    32.5 | 
-18:27:28 [perf-mybatis:20190822182728] ---------------------------------------------------------------------------------------------------------------------------------------------------------[perf:mybatis:20190814144344] - --------------------------------------------------------------------------------------------------------------------------------------------------------------
+18:27:28 [perf-mybatis:20190822182728] ---------------------------------------------------------------------------------------------------------------------------------------------------------
 ```
 - Prometheus指标输出效果（默认的实现，可以修改为其他数据库）
 ```bash
