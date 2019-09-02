@@ -95,7 +95,7 @@ app_mapper_concurrent_gauge{class="com/pepper/metrics/sample/mybatis/mapper/Hote
 
 ```
 ### Maven dependency
-以Mybatis为例，更多其他请参考：[User Guide](docs/removed2wiki/User_guide.md#samples)  
+以Mybatis为例，更多其他请参考：[User Guide](https://github.com/zrbcool/pepper-metrics/wiki/ZH-User-Guide#samples)  
 ```xml
 <dependencies>
     <!-- pepper metrics dependencies -->
