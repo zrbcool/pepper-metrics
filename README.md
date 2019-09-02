@@ -26,7 +26,7 @@ https://github.com/zrbcool/pepper-metrics/wiki
 
 
 ## Quick Start  
-以Mybatis集成为例，更多其他请参考：[User Guide](docs/removed2wiki/User_guide.md#samples)  
+以Mybatis集成为例，更多其他请参考：[User Guide](https://github.com/zrbcool/pepper-metrics/wiki/ZH-User-Guide#samples)  
 - 增加maven依赖
 ```xml
 <dependencies>
