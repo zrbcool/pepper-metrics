@@ -1,4 +1,7 @@
 # Pepper Metrics Project  
+![GitHub stars](https://img.shields.io/github/stars/zrbcool/pepper-metrics.svg?style=social)
+![GitHub followers](https://img.shields.io/github/followers/zrbcool.svg?style=social)
+
 ## Overview
 Pepper Metrics基于[RED](https://grafana.com/blog/2018/08/02/the-red-method-how-to-instrument-your-services/)理论，即对每个服务
 （这里的服务特指进程中的某种调用，比如调用一次数据库查询）进行RED指标收集，并持久化到数据库，并通过dashboard进行展示，辅助进行性能趋势分析。  
