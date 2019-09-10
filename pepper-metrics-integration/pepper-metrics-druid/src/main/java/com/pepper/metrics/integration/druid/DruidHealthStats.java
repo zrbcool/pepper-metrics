@@ -56,7 +56,7 @@ public class DruidHealthStats extends HealthStats {
     }
 
     private AtomicLong getOrInitGauge(String gaugeName) {
-        String[] tags = {"GaugeName", gaugeName};
+        String[] tags = {"GaugeName", gaugeName, "DataSourceName", druidDataSource.getName()};
         final AtomicLong gauge = gaugeCollector.get(gaugeName);
         if (gauge != null) return gauge;
         synchronized (gaugeCollector) {
