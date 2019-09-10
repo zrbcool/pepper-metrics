@@ -1,7 +1,6 @@
 package com.pepper.metrics.sample.druid;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.alibaba.druid.util.JdbcUtils;
 import com.pepper.metrics.integration.druid.DruidHealthTracker;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

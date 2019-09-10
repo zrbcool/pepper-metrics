@@ -13,8 +13,6 @@ import java.util.concurrent.atomic.AtomicLong;
  * Description:
  *
  * @author zhiminxu
- * @package com.pepper.metrics.integration.druid.printer
- * @create_time 2019-09-09
  */
 @SpiMeta(name = "druidHealthPrinter")
 public class DruidHealthPrinter extends AbstractHealthPrinter {
