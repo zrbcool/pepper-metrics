@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  *  服务健康状态追踪器
  * @author zhiminxu
  */
-public class HealthTracker extends PepperMetrics {
+public class HealthTracker {
 
     protected static final Set<HealthStats> HEALTH_STAT_SET = Sets.newConcurrentHashSet();
     private static final ScheduledExecutorService scheduledExecutor;
@@ -32,5 +32,9 @@ public class HealthTracker extends PepperMetrics {
             }
 
         }, 30, 60, TimeUnit.SECONDS);
+    }
+
+    public static void addStats(HealthStats stats) {
+        HEALTH_STAT_SET.add(stats);
     }
 }

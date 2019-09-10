@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  * @author zhangrongbincool@163.com
  * @version 19-8-7
  */
-public class Profiler extends PepperMetrics {
+public class Profiler {
     private static final Set<Stats> PROFILER_STAT_SET = Sets.newConcurrentHashSet();
     private static final ScheduledExecutorService scheduledExecutor;
 
@@ -58,7 +58,7 @@ public class Profiler extends PepperMetrics {
         }
 
         public Stats build() {
-            final Stats stats = new Stats(REGISTRY, name, namespace);
+            final Stats stats = new Stats(MetricsRegistry.getREGISTRY(), name, namespace);
             PROFILER_STAT_SET.add(stats);
             return stats;
         }

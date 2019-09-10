@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author zhiminxu
  */
-class PepperMetrics {
+public class MetricsRegistry {
     protected static MeterRegistry REGISTRY = new SimpleMeterRegistry();
 
     static {
@@ -22,5 +22,9 @@ class PepperMetrics {
         if (factories != null && factories.size() > 0) {
             REGISTRY = factories.get(0).createMeterRegistry();
         }
+    }
+
+    public static MeterRegistry getREGISTRY() {
+        return REGISTRY;
     }
 }

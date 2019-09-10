@@ -2,6 +2,7 @@ package com.pepper.metrics.integration.druid;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.pepper.metrics.core.HealthTracker;
+import com.pepper.metrics.core.MetricsRegistry;
 import com.sun.tools.javac.util.Assert;
 import org.apache.commons.lang3.StringUtils;
 
@@ -13,7 +14,7 @@ import java.util.concurrent.ConcurrentSkipListSet;
  *
  * @author zhiminxu
  */
-public class DruidHealthTracker extends HealthTracker {
+public class DruidHealthTracker {
 
     private static Set<String> UNIQUE_NAME = new ConcurrentSkipListSet<>();
 
@@ -35,8 +36,8 @@ public class DruidHealthTracker extends HealthTracker {
         }
         UNIQUE_NAME.add(uniqueName);
         druidDataSource.setName(uniqueName);
-        DruidHealthStats stats = new DruidHealthStats(REGISTRY, name, namespace, druidDataSource);
-        HEALTH_STAT_SET.add(stats);
+        DruidHealthStats stats = new DruidHealthStats(MetricsRegistry.getREGISTRY(), name, namespace, druidDataSource);
+        HealthTracker.addStats(stats);
         return this;
     }
 
