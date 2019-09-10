@@ -2,8 +2,6 @@ package com.pepper.metrics.core;
 
 import com.google.common.collect.Sets;
 import com.pepper.metrics.core.extension.ExtensionLoader;
-import io.micrometer.core.instrument.MeterRegistry;
-import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 
 import java.util.List;
 import java.util.Set;
@@ -18,20 +16,20 @@ import java.util.concurrent.TimeUnit;
  * @author zhangrongbincool@163.com
  * @version 19-8-7
  */
-public class Profiler {
+public class Profiler extends PepperMetrics {
     private static final Set<Stats> PROFILER_STAT_SET = Sets.newConcurrentHashSet();
     private static final ScheduledExecutorService scheduledExecutor;
 
-    private static MeterRegistry REGISTRY = new SimpleMeterRegistry();
+//    private static MeterRegistry REGISTRY = new SimpleMeterRegistry();
 
     static {
-        /**
-         * 如果配置了多个REGISTRY工厂，仅第一个生效，防止错误产生
-         */
-        final List<MeterRegistryFactory> factories = ExtensionLoader.getExtensionLoader(MeterRegistryFactory.class).getExtensions();
-        if (factories != null && factories.size() > 0) {
-            REGISTRY = factories.get(0).createMeterRegistry();
-        }
+//        /**
+//         * 如果配置了多个REGISTRY工厂，仅第一个生效，防止错误产生
+//         */
+//        final List<MeterRegistryFactory> factories = ExtensionLoader.getExtensionLoader(MeterRegistryFactory.class).getExtensions();
+//        if (factories != null && factories.size() > 0) {
+//            REGISTRY = factories.get(0).createMeterRegistry();
+//        }
         scheduledExecutor = Executors.newSingleThreadScheduledExecutor(new ThreadFactory());
         scheduledExecutor.scheduleAtFixedRate(() -> {
             final List<ScheduledRun> extensions = ExtensionLoader.getExtensionLoader(ScheduledRun.class).getExtensions();
