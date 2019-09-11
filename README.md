@@ -7,10 +7,10 @@ Pepper Metrics基于[RED](https://grafana.com/blog/2018/08/02/the-red-method-how
 （这里的服务特指进程中的某种调用，比如调用一次数据库查询）进行RED指标收集，并持久化到数据库，并通过dashboard进行展示，辅助进行性能趋势分析。
 
 ## Support Us
-如果项目对你有帮助，请狠击右上角那个叫star的按钮，如下图：
+如果项目对你有帮助，请狠击右上角那个叫**Star**的按钮，如下图：  
 ![](http://oss.zrbcool.top/picgo/give-us-star.png)  
   
-或者觉得我们有很多不足，请狠击Issues然后留下你的问题，我们会第一时间回复
+或者觉得我们有很多不足，请狠击**Issues**然后留下你的问题，我们会第一时间回复
 ## WIKI
 https://github.com/zrbcool/pepper-metrics/wiki
 ## Features
