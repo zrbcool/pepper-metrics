@@ -13,34 +13,6 @@
     <name>${project.artifactId}</name>
     <description>${project.artifactId}</description>
     <packaging>pom</packaging>
-    <url>http://pepper-metrics.zrbcool.top</url>
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-    <developers>
-        <developer>
-            <name>zrbcool</name>
-            <email>zhangrongbincool@163.com</email>
-            <organization>http://www.coohua.com</organization>
-            <organizationUrl>http://www.coohua.com</organizationUrl>
-        </developer>
-        <developer>
-            <name>Lord-X</name>
-            <email>xzm_rainbow@126.com</email>
-            <organization>http://www.coohua.com</organization>
-            <organizationUrl>http://www.coohua.com</organizationUrl>
-        </developer>
-    </developers>
-    <scm>
-        <connection>scm:git:https://github.com/zrbcool</connection>
-        <developerConnection>scm:git:https://github.com/zrbcool</developerConnection>
-        <tag>pepper-metrics-1.0.11</tag>
-        <url>http://pepper-metrics.zrbcool.top</url>
-    </scm>
     <profiles>
         <profile>
             <id>coohua</id>
