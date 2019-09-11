@@ -18,6 +18,7 @@ cd pepper-metrics/pepper-metrics-samples
 - [Motan](User_guide.md#motan-integration)
 - [Http / Servlet](User_guide.md#http-integration)
 - [Dubbo](User_guide.md#dubbo-integration)
+- [Druid](User_guide.md)
 
 
 
@@ -356,6 +357,44 @@ config.setFilter("pepperProfiler");
 return config;
 ```
 这里注意，Filter的名称一定为pepperProfiler。可在Server端和Client端同时添加。
+
+
+### druid integration
+
+sample项目请参考：[druid-sample-spring](../../pepper-metrics-samples/druid-sample-spring)
+
+在pom中添加依赖：
+
+```xml
+<dependency>
+    <groupId>top.zrbcool</groupId>
+    <artifactId>pepper-metrics-druid</artifactId>
+    <version>1.0.12-SNAPSHOT</version>
+</dependency>
+<dependency>
+    <groupId>top.zrbcool</groupId>
+    <artifactId>pepper-metrics-ds-prometheus</artifactId>
+    <version>1.0.12-SNAPSHOT</version>
+</dependency>
+```
+
+为Druid数据源添加属性，以Spring xml配置形式为例：
+
+```xml
+<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close" primary="true">
+    <!-- ... -->
+    <property name="filters" value="stat"/>
+</bean>
+```
+
+然后用任何形式调用以下方法，将上面创建好的Druid数据源bean实例传给PepperMetrics，即可开启对指定数据源的健康信息采集：
+
+```java
+// 向DruidHealthTracker中添加数据源，即可收集健康信息
+// 第一个参数：namespace：定义当前数据源名称，必须唯一且非空。例子中是广告业务的数据源，以"ad"命名
+// 第二个参数：DruidDataSource：DruidDataSource数据源实例，将对这个实例进行健康数据采集，多个数据源add多次即可。
+DruidHealthTracker.addDataSource("ad", dataSource);
+```
 
 
 ### core use case
