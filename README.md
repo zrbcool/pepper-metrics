@@ -11,7 +11,7 @@ Pepper Metrics基于[RED](https://grafana.com/blog/2018/08/02/the-red-method-how
 ![](http://oss.zrbcool.top/picgo/give-us-star.png)  
   
 或者觉得我们有很多不足，请狠击**Issues**然后留下你的问题，我们会第一时间回复
-## WIKI
+## Document / WIKI
 https://github.com/zrbcool/pepper-metrics/wiki
 ## Features
 - 对Jedis/JedisCluster操作进行性能收集分析
@@ -22,13 +22,10 @@ https://github.com/zrbcool/pepper-metrics/wiki
 - 开箱即用的Grafana Dashboard，方便对历史趋势进行分析
 - 基于SPI的可扩展架构，非常容易开发插件支持更多的开源组件
 
-
 ## Who use
 酷划在线成立于2014年，是国内激励广告行业的领军者。酷划致力于打造一个用户、广告主、平台三方共赢的激励广告生态体系，旗下产品“酷划锁屏”“淘新闻”分别为锁屏、资讯行业的领跑者。  
 [![](docs/logos/coohua-logo.png)](https://www.coohua.com/) [![](docs/logos/taonews-logo.png)](https://www.coohua.com/)
 
-## Document
-- [WIKI](https://github.com/zrbcool/pepper-metrics/wiki)
 ## Quickly Run A Demo Within 10 minutes
 请参考独立项目：[https://github.com/zrbcool/pepper-metrics-demo](https://github.com/zrbcool/pepper-metrics-demo)    
 线上Demo：[http://metrics.pepperx.top/](http://metrics.pepperx.top/)  
