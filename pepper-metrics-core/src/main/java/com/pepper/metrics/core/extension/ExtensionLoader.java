@@ -69,6 +69,7 @@ public class ExtensionLoader<T> {
         for (Map.Entry<String, Class<T>> entry : extensionClasses.entrySet()) {
             extensions.add(getExtension(entry.getKey()));
         }
+        extensions.sort(new ExtensionOrderComparator<T>());
         return extensions;
     }
 

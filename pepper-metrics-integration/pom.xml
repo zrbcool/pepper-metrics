@@ -21,6 +21,7 @@
         <module>pepper-metrics-motan</module>
         <module>pepper-metrics-mybatis</module>
         <module>pepper-metrics-dubbo</module>
+        <module>pepper-metrics-druid</module>
     </modules>
 
 </project>
