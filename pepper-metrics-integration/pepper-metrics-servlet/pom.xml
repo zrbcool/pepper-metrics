@@ -4,7 +4,7 @@
     <parent>
         <artifactId>pepper-metrics-integration</artifactId>
         <groupId>top.zrbcool</groupId>
-        <version>1.0.12-SNAPSHOT</version>
+        <version>1.0.12</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -12,14 +12,14 @@
     <artifactId>pepper-metrics-servlet</artifactId>
     <name>${project.artifactId}</name>
     <description>${project.artifactId}</description>
-    <version>1.0.12-SNAPSHOT</version>
+    <version>1.0.12</version>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
             <groupId>top.zrbcool</groupId>
             <artifactId>pepper-metrics-core</artifactId>
-            <version>1.0.12-SNAPSHOT</version>
+            <version>1.0.12</version>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
@@ -29,7 +29,7 @@
         <dependency>
             <groupId>top.zrbcool</groupId>
             <artifactId>pepper-metrics-scheduled-printer</artifactId>
-            <version>1.0.12-SNAPSHOT</version>
+            <version>1.0.12</version>
         </dependency>
     </dependencies>
 </project>
