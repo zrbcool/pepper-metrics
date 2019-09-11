@@ -3,7 +3,7 @@ package com.pepper.metrics.integration.druid;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.pepper.metrics.core.HealthTracker;
 import com.pepper.metrics.core.MetricsRegistry;
-import com.sun.tools.javac.util.Assert;
+import org.junit.Assert;
 
 import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;
@@ -23,10 +23,8 @@ public class DruidHealthTracker {
      * @param druidDataSource   Druid数据源实例（需要在用户应用中创建）
      */
     public static void addDataSource(String namespace, DruidDataSource druidDataSource) {
-        Assert.checkNonNull(namespace);
-        if (UNIQUE_NAME.contains(namespace)) {
-            Assert.error("Duplicate datasource name error.");
-        }
+        Assert.assertNotNull(namespace);
+        Assert.assertFalse("Duplicate datasource name error.", UNIQUE_NAME.contains(namespace));
         UNIQUE_NAME.add(namespace);
         druidDataSource.setName(namespace);
         DruidHealthStats stats = new DruidHealthStats(MetricsRegistry.getREGISTRY(), namespace, druidDataSource);
