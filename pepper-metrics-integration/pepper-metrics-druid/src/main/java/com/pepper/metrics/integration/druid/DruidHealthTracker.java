@@ -23,9 +23,8 @@ public class DruidHealthTracker {
      * @param namespace         区别数据源的命名空间，默认为"default"
      * @param name              区别数据源的名称，不可为空，[namespace]:[name]必须全局唯一。
      * @param druidDataSource   Druid数据源实例（需要在用户应用中创建）
-     * @return DruidHealthTracker
      */
-    public DruidHealthTracker addDataSource(String namespace, String name, DruidDataSource druidDataSource) {
+    public static void addDataSource(String namespace, String name, DruidDataSource druidDataSource) {
         Assert.checkNonNull(name);
         if (StringUtils.isEmpty(namespace)) {
             namespace = "default";
@@ -38,10 +37,9 @@ public class DruidHealthTracker {
         druidDataSource.setName(uniqueName);
         DruidHealthStats stats = new DruidHealthStats(MetricsRegistry.getREGISTRY(), name, namespace, druidDataSource);
         HealthTracker.addStats(stats);
-        return this;
     }
 
-    private String buildName(String namespace, String name) {
+    private static String buildName(String namespace, String name) {
         return namespace + ":" + name;
     }
 

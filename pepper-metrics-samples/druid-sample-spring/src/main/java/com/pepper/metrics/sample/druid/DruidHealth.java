@@ -21,10 +21,9 @@ public class DruidHealth {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/spring-context.xml");
         context.start();
         DruidDataSource dataSource = context.getBean("dataSource", DruidDataSource.class);
-        DruidHealthTracker tracker = context.getBean("druidHealthTracker", DruidHealthTracker.class);
 
         // 向DruidHealthTracker中添加数据源，即可收集健康信息
-        tracker.addDataSource(null, "mall", dataSource);
+        DruidHealthTracker.addDataSource(null, "mall", dataSource);
 
         Connection connection = dataSource.getConnection();
         String sql = "select * from config";

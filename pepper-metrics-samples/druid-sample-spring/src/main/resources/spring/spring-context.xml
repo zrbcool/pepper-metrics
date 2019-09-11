@@ -6,5 +6,4 @@
 
     <import resource="classpath*:spring/spring-db.xml"/>
 
-    <bean id="druidHealthTracker" class="com.pepper.metrics.integration.druid.DruidHealthTracker"/>
 </beans>
