@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class HealthTracker {
 
-    protected static final Set<HealthStats> HEALTH_STAT_SET = Sets.newConcurrentHashSet();
+    private static final Set<HealthStats> HEALTH_STAT_SET = Sets.newConcurrentHashSet();
     private static final ScheduledExecutorService scheduledExecutor;
 
     static {

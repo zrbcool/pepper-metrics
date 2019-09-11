@@ -23,7 +23,7 @@ public class DruidHealth {
         DruidDataSource dataSource = context.getBean("dataSource", DruidDataSource.class);
 
         // 向DruidHealthTracker中添加数据源，即可收集健康信息
-        DruidHealthTracker.addDataSource(null, "mall", dataSource);
+        DruidHealthTracker.addDataSource("nsname", "mall", dataSource);
 
         Connection connection = dataSource.getConnection();
         String sql = "select * from config";

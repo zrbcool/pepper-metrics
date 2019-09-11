@@ -18,6 +18,11 @@ public class DruidHealthTracker {
 
     private static Set<String> UNIQUE_NAME = new ConcurrentSkipListSet<>();
 
+
+    public static void addDataSource(String name, DruidDataSource druidDataSource) {
+        addDataSource(null, name, druidDataSource);
+    }
+
     /**
      * 添加要监控的Druid数据源
      * @param namespace         区别数据源的命名空间，默认为"default"
