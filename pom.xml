@@ -4,7 +4,7 @@
     <parent>
         <artifactId>pepper-metrics-parent</artifactId>
         <groupId>top.zrbcool</groupId>
-        <version>1.0.12</version>
+        <version>1.0.13-SNAPSHOT</version>
         <relativePath>./pepper-metrics-parent/pom.xml</relativePath>
     </parent>
 
@@ -38,7 +38,7 @@
     <scm>
         <connection>scm:git:https://github.com/zrbcool/pepper-metrics.git</connection>
         <developerConnection>scm:git:https://github.com/zrbcool/pepper-metrics.git</developerConnection>
-        <tag>pepper-metrics-1.0.12</tag>
+        <tag>pepper-metrics-1.0.11</tag>
         <url>http://pepper-metrics.zrbcool.top</url>
     </scm>
     <profiles>
