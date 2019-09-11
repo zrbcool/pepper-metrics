@@ -52,6 +52,7 @@ public class DruidHealthStatsScheduled implements HealthScheduledRun {
                 druidHealthStats.constantsCollect(DruidHealthQuota.USE_UNFAIR_LOCK, data.getOrDefault(DruidHealthQuota.USE_UNFAIR_LOCK, "null").toString());
                 druidHealthStats.constantsCollect(DruidHealthQuota.INIT_GLOBAL_VARIANTS, data.getOrDefault(DruidHealthQuota.INIT_GLOBAL_VARIANTS, "null").toString());
                 druidHealthStats.constantsCollect(DruidHealthQuota.INIT_VARIANTS, data.getOrDefault(DruidHealthQuota.INIT_VARIANTS, "null").toString());
+                druidHealthStats.gaugeCollect(DruidHealthQuota.WAIT_THREAD_COUNT, data.getLong(DruidHealthQuota.WAIT_THREAD_COUNT));
                 druidHealthStats.gaugeCollect(DruidHealthQuota.NOT_EMPTY_WAIT_COUNT, data.getLong(DruidHealthQuota.NOT_EMPTY_WAIT_COUNT));
                 druidHealthStats.gaugeCollect(DruidHealthQuota.NOT_EMPTY_WAIT_MILLIS, data.getLong(DruidHealthQuota.NOT_EMPTY_WAIT_MILLIS));
                 druidHealthStats.gaugeCollect(DruidHealthQuota.POOLING_COUNT, data.getLong(DruidHealthQuota.POOLING_COUNT));

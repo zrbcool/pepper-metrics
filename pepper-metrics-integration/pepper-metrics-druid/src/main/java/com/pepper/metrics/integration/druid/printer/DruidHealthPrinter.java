@@ -28,6 +28,7 @@ public class DruidHealthPrinter extends AbstractHealthPrinter {
             logDataMode(buildConsLog(DruidHealthQuota.NAME, constantsCollector));
             logDataMode(buildConsLog(DruidHealthQuota.DB_TYPE, constantsCollector));
 
+            logDataMode(buildLog(DruidHealthQuota.WAIT_THREAD_COUNT, gaugeCollector));
             logDataMode(buildLog(DruidHealthQuota.NOT_EMPTY_WAIT_COUNT, gaugeCollector));
             logDataMode(buildLog(DruidHealthQuota.NOT_EMPTY_WAIT_MILLIS, gaugeCollector));
             logDataMode(buildLog(DruidHealthQuota.POOLING_COUNT, gaugeCollector));
@@ -101,5 +102,10 @@ public class DruidHealthPrinter extends AbstractHealthPrinter {
 
     private String buildConsLog(String quota, Map<String, String> constantsCollector) {
         return quota + " = " + constantsCollector.get(quota);
+    }
+
+    @Override
+    protected String setPrefix(HealthStats healthStats) {
+        return "health-Druid:" + healthStats.getNamespace();
     }
 }

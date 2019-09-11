@@ -9,24 +9,18 @@ import io.micrometer.core.instrument.MeterRegistry;
  */
 public class HealthStats {
     private MeterRegistry registry;
-    private String name;
     private String namespace;
 
     public HealthStats() {
     }
 
-    public HealthStats(MeterRegistry registry, String name, String namespace) {
+    public HealthStats(MeterRegistry registry, String namespace) {
         this.registry = registry;
-        this.name = name;
         this.namespace = namespace;
     }
 
     public MeterRegistry getRegistry() {
         return registry;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public String getNamespace() {

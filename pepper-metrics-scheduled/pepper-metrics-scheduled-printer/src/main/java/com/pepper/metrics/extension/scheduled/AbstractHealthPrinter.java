@@ -54,6 +54,6 @@ public abstract class AbstractHealthPrinter implements HealthPrinter {
     }
 
     protected String setPrefix(HealthStats healthStats) {
-        return "health-" + healthStats.getName() + ":" + healthStats.getNamespace();
+        return "health-" + healthStats.getNamespace();
     }
 }
