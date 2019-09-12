@@ -19,7 +19,7 @@ public class MybatisPrinter extends AbstractPerfPrinter implements PerfPrinter {
     public List<Stats> chooseStats(Set<Stats> statsSet) {
         List<Stats> statsList = new ArrayList<>();
         for (Stats stats : statsSet) {
-            if ("app.mapper".equalsIgnoreCase(stats.getName())) {
+            if ("mybatis".equalsIgnoreCase(stats.getType())) {
                 statsList.add(stats);
             }
         }

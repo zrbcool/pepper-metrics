@@ -39,7 +39,7 @@ public interface PerfPrinter {
      * 定义日志前缀，继承AbstractPerfPrinter后，具备默认实现
      *
      * 默认实现前缀格式：
-     *      perf-[name]-[namespace]
+     *      perf-[type]-[namespace]
      * </pre>
      */
     String setPrefix(Stats stats);

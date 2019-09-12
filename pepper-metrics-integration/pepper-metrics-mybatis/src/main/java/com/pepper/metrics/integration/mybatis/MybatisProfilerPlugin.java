@@ -34,7 +34,7 @@ import java.util.concurrent.TimeUnit;
 public class MybatisProfilerPlugin implements Interceptor {
     private static final Stats MYBATIS_STAT = Profiler.Builder
             .builder()
-            .name("app.mapper")
+            .type("mybatis")
             .build();
 
     @Override

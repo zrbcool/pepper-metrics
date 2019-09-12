@@ -19,7 +19,8 @@ public class MotanRequestInPrinter extends AbstractPerfPrinter implements PerfPr
     public List<Stats> chooseStats(Set<Stats> statsSet) {
         List<Stats> statsList = new ArrayList<>();
         for (Stats stats : statsSet) {
-            if ("app.motan.request.in".equalsIgnoreCase(stats.getName())) {
+            if ("motan".equalsIgnoreCase(stats.getType()) &&
+                "in".equalsIgnoreCase(stats.getSubType())) {
                 statsList.add(stats);
             }
         }

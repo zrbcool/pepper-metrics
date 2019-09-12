@@ -21,11 +21,13 @@ import java.util.concurrent.TimeUnit;
 public class MotanProfilerFilter implements Filter {
     private static final Stats PROFILER_STAT_IN = Profiler.Builder
             .builder()
-            .name("app.motan.request.in")
+            .type("motan")
+            .subType("in")
             .build();
     private static final Stats PROFILER_STAT_OUT = Profiler.Builder
             .builder()
-            .name("app.motan.request.out")
+            .type("motan")
+            .subType("out")
             .build();
 
     @Override

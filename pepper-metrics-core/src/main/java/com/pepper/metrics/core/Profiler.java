@@ -31,15 +31,21 @@ public class Profiler {
     }
 
     public static class Builder {
-        private String name;
+        private String type;
+        private String subType = "default";
         private String namespace = "default";
 
         public static Builder builder() {
             return new Builder();
         }
 
-        public Builder name(String name) {
-            this.name = name;
+        public Builder type(String type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder subType(String subType) {
+            this.subType = subType;
             return this;
         }
 
@@ -49,7 +55,7 @@ public class Profiler {
         }
 
         public Stats build() {
-            final Stats stats = new Stats(MetricsRegistry.getREGISTRY(), name, namespace);
+            final Stats stats = new Stats(MetricsRegistry.getREGISTRY(), type, namespace, subType);
             PROFILER_STAT_SET.add(stats);
             return stats;
         }

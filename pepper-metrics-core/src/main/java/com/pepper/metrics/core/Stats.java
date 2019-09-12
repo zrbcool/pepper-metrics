@@ -1,5 +1,7 @@
 package com.pepper.metrics.core;
 
+import com.pepper.metrics.core.utils.MetricsNameBuilder;
+import com.pepper.metrics.core.utils.MetricsType;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -18,12 +20,17 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public class Stats {
     private MeterRegistry registry;
-    private String name;
+    private String type;
     private String namespace;
+    private String subType;
+    private String concurrentGaugeName;
+    private String durationSummaryName;
+    private String errCounterName;
 
     private final ConcurrentMap<List<String>, Counter> errCollector = new ConcurrentHashMap<>();
     private final ConcurrentMap<List<String>, AtomicLong> gaugeCollector = new ConcurrentHashMap<>();
     private final ConcurrentMap<List<String>, Timer> summaryCollector = new ConcurrentHashMap<>();
+
 
     public ConcurrentMap<List<String>, Counter> getErrCollector() {
         return errCollector;
@@ -37,39 +44,64 @@ public class Stats {
         return summaryCollector;
     }
 
-    public String getName() {
-        return name;
+    public String getType() {
+        return type;
+    }
+
+    public String getSubType() {
+        return subType;
     }
 
     public String getNamespace() {
         return namespace;
     }
 
-    public Stats(MeterRegistry registry, String name, String namespace) {
+    public Stats(MeterRegistry registry, String type, String namespace, String subType) {
         this.registry = registry;
-        this.name = name;
+        this.type = type;
         this.namespace = namespace;
+        this.subType = subType;
+        concurrentGaugeName = MetricsNameBuilder.builder()
+                .setName("concurrent")
+                .setType(type)
+                .setSubType(subType)
+                .setMetricsType(MetricsType.GAUGE)
+                .build();
+
+        durationSummaryName = MetricsNameBuilder.builder()
+                .setName("duration")
+                .setType(type)
+                .setSubType(subType)
+                .setMetricsType(MetricsType.SUMMARY)
+                .build();
+
+        errCounterName = MetricsNameBuilder.builder()
+                .setName("err")
+                .setType(type)
+                .setSubType(subType)
+                .setMetricsType(MetricsType.COUNTER)
+                .build();
     }
 
     public void error(String... tags) {
-        getOrInitCounter(errCollector, name + ".err.counter", tags).increment();
+        getOrInitCounter(errCollector, errCounterName, tags).increment();
     }
 
     public void incConc(String...tags) {
-        getOrInitGauge( name + ".concurrent.gauge", tags).incrementAndGet();
+        getOrInitGauge( concurrentGaugeName, tags).incrementAndGet();
     }
 
     public void decConc(String...tags) {
-        getOrInitGauge(name + ".concurrent.gauge", tags).decrementAndGet();
+        getOrInitGauge(concurrentGaugeName, tags).decrementAndGet();
     }
 
     public void observe(long elapse, String...tags) {
-        getOrInitSummary(name + ".summary", tags).record(elapse, TimeUnit.MILLISECONDS);
+        getOrInitSummary(durationSummaryName, tags).record(elapse, TimeUnit.MILLISECONDS);
     }
 
 
     public void observe(long elapse, TimeUnit timeUnit, String...tags) {
-        getOrInitSummary(name + ".summary", tags).record(elapse, timeUnit);
+        getOrInitSummary(durationSummaryName, tags).record(elapse, timeUnit);
     }
 
     private Timer getOrInitSummary(String sName, String... tags) {

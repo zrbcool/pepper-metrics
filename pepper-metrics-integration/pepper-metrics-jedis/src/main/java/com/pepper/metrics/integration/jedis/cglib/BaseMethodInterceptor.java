@@ -47,7 +47,7 @@ public abstract class BaseMethodInterceptor implements MethodInterceptor {
         if (stats != null) {
             return stats;
         }
-        stats = Profiler.Builder.builder().name(getType()).namespace(namespace).build();
+        stats = Profiler.Builder.builder().type(getType()).namespace(namespace).build();
         statsMap.putIfAbsent(statsKey, stats);
         return statsMap.get(statsKey);
     }

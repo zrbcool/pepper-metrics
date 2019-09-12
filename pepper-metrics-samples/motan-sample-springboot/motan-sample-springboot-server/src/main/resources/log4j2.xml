@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration status="off" monitorInterval="30">
     <properties>
-        <property name="PATTERN">%msg%xEx%n</property>
+        <property name="PATTERN">%d{HH:mm:ss} %msg%xEx%n</property>
         <property name="OUTPUT_LOG_LEVEL">info</property><!-- 日志输出级别 -->
     </properties>
     <appenders>
@@ -12,7 +12,7 @@
 
     <loggers>
         <!-- Printer logger配置，打印到root的console中 -->
-        <Logger name="performance" level="${OUTPUT_LOG_LEVEL}" additivity="true"/>
+        <Logger name="performance" level="INFO" additivity="true"/>
 
         <ROOT level="${OUTPUT_LOG_LEVEL}">
             <AppenderRef ref="Console"/>

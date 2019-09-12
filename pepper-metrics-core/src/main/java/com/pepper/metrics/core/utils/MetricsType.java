@@ -6,7 +6,9 @@ package com.pepper.metrics.core.utils;
  * @author zhiminxu
  */
 public enum MetricsType {
-    GAUGE("gauge");
+    GAUGE("gauge"),
+    SUMMARY("summary"),
+    COUNTER("counter");
 
     private String name;
 
