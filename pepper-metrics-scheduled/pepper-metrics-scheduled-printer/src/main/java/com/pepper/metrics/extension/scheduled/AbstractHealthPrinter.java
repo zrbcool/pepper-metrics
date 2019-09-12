@@ -5,7 +5,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Description:
@@ -55,5 +57,13 @@ public abstract class AbstractHealthPrinter implements HealthPrinter {
 
     protected String setPrefix(HealthStats healthStats) {
         return "health-" + healthStats.getNamespace();
+    }
+
+    protected String buildGaugeLog(String key, Map<String, AtomicLong> gaugeCollector) {
+        return key + " = " + gaugeCollector.get(key);
+    }
+
+    protected String buildConsLog(String key, Map<String, String> constantsCollector) {
+        return key + " = " + constantsCollector.get(key);
     }
 }

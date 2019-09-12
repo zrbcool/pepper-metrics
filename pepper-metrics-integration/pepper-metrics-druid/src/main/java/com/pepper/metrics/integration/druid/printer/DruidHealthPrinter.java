@@ -45,134 +45,126 @@ public class DruidHealthPrinter extends AbstractHealthPrinter {
             logDataMode(buildConsLog(DruidHealthQuota.INIT_VARIANTS, constantsCollector));
 
             if (gaugeCollector.containsKey(DruidHealthQuota.WAIT_THREAD_COUNT)) {
-                logDataMode(buildLog(DruidHealthQuota.WAIT_THREAD_COUNT, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.WAIT_THREAD_COUNT, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.NOT_EMPTY_WAIT_COUNT)) {
-                logDataMode(buildLog(DruidHealthQuota.NOT_EMPTY_WAIT_COUNT, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.NOT_EMPTY_WAIT_COUNT, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.NOT_EMPTY_WAIT_MILLIS)) {
-                logDataMode(buildLog(DruidHealthQuota.NOT_EMPTY_WAIT_MILLIS, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.NOT_EMPTY_WAIT_MILLIS, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.POOLING_COUNT)) {
-                logDataMode(buildLog(DruidHealthQuota.POOLING_COUNT, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.POOLING_COUNT, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.POOLING_PEAK)) {
-                logDataMode(buildLog(DruidHealthQuota.POOLING_PEAK, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.POOLING_PEAK, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.POOLING_PEAK_TIME)) {
-                logDataMode(buildLog(DruidHealthQuota.POOLING_PEAK_TIME, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.POOLING_PEAK_TIME, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.ACTIVE_COUNT)) {
-                logDataMode(buildLog(DruidHealthQuota.ACTIVE_COUNT, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.ACTIVE_COUNT, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.ACTIVE_PEAK)) {
-                logDataMode(buildLog(DruidHealthQuota.ACTIVE_PEAK, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.ACTIVE_PEAK, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.ACTIVE_PEAK_TIME)) {
-                logDataMode(buildLog(DruidHealthQuota.ACTIVE_PEAK_TIME, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.ACTIVE_PEAK_TIME, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.INITIAL_SIZE)) {
-                logDataMode(buildLog(DruidHealthQuota.INITIAL_SIZE, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.INITIAL_SIZE, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.MIN_IDLE)) {
-                logDataMode(buildLog(DruidHealthQuota.MIN_IDLE, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.MIN_IDLE, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.MAX_ACTIVE)) {
-                logDataMode(buildLog(DruidHealthQuota.MAX_ACTIVE, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.MAX_ACTIVE, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.QUERY_TIMEOUT)) {
-                logDataMode(buildLog(DruidHealthQuota.QUERY_TIMEOUT, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.QUERY_TIMEOUT, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.TRANSACTION_QUERY_TIMEOUT)) {
-                logDataMode(buildLog(DruidHealthQuota.TRANSACTION_QUERY_TIMEOUT, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.TRANSACTION_QUERY_TIMEOUT, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.LOGIN_TIMEOUT)) {
-                logDataMode(buildLog(DruidHealthQuota.LOGIN_TIMEOUT, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.LOGIN_TIMEOUT, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.LOGIC_CONNECT_COUNT)) {
-                logDataMode(buildLog(DruidHealthQuota.LOGIC_CONNECT_COUNT, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.LOGIC_CONNECT_COUNT, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.LOGIC_CLOSE_COUNT)) {
-                logDataMode(buildLog(DruidHealthQuota.LOGIC_CLOSE_COUNT, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.LOGIC_CLOSE_COUNT, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.LOGIC_CONNECT_ERROR_COUNT)) {
-                logDataMode(buildLog(DruidHealthQuota.LOGIC_CONNECT_ERROR_COUNT, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.LOGIC_CONNECT_ERROR_COUNT, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.PHYSICAL_CONNECT_COUNT)) {
-                logDataMode(buildLog(DruidHealthQuota.PHYSICAL_CONNECT_COUNT, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.PHYSICAL_CONNECT_COUNT, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.PHYSICAL_CLOSE_COUNT)) {
-                logDataMode(buildLog(DruidHealthQuota.PHYSICAL_CLOSE_COUNT, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.PHYSICAL_CLOSE_COUNT, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.PHYSICAL_CONNECT_ERROR_COUNT)) {
-                logDataMode(buildLog(DruidHealthQuota.PHYSICAL_CONNECT_ERROR_COUNT, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.PHYSICAL_CONNECT_ERROR_COUNT, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.EXECUTE_COUNT)) {
-                logDataMode(buildLog(DruidHealthQuota.EXECUTE_COUNT, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.EXECUTE_COUNT, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.ERROR_COUNT)) {
-                logDataMode(buildLog(DruidHealthQuota.ERROR_COUNT, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.ERROR_COUNT, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.COMMIT_COUNT)) {
-                logDataMode(buildLog(DruidHealthQuota.COMMIT_COUNT, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.COMMIT_COUNT, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.ROLLBACK_COUNT)) {
-                logDataMode(buildLog(DruidHealthQuota.ROLLBACK_COUNT, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.ROLLBACK_COUNT, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.PSCACHE_ACCESS_COUNT)) {
-                logDataMode(buildLog(DruidHealthQuota.PSCACHE_ACCESS_COUNT, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.PSCACHE_ACCESS_COUNT, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.PSCACHE_HIT_COUNT)) {
-                logDataMode(buildLog(DruidHealthQuota.PSCACHE_HIT_COUNT, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.PSCACHE_HIT_COUNT, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.PSCACHE_MISS_COUNT)) {
-                logDataMode(buildLog(DruidHealthQuota.PSCACHE_MISS_COUNT, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.PSCACHE_MISS_COUNT, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.START_TRANSACTION_COUNT)) {
-                logDataMode(buildLog(DruidHealthQuota.START_TRANSACTION_COUNT, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.START_TRANSACTION_COUNT, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.CLOB_OPEN_COUNT)) {
-                logDataMode(buildLog(DruidHealthQuota.CLOB_OPEN_COUNT, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.CLOB_OPEN_COUNT, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.BLOB_OPEN_COUNT)) {
-                logDataMode(buildLog(DruidHealthQuota.BLOB_OPEN_COUNT, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.BLOB_OPEN_COUNT, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.KEEP_ALIVE_CHECK_COUNT)) {
-                logDataMode(buildLog(DruidHealthQuota.KEEP_ALIVE_CHECK_COUNT, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.KEEP_ALIVE_CHECK_COUNT, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.MAX_POOL_PREPARED_STATEMENT_PRE_CONNECTION_SIZE)) {
-                logDataMode(buildLog(DruidHealthQuota.MAX_POOL_PREPARED_STATEMENT_PRE_CONNECTION_SIZE, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.MAX_POOL_PREPARED_STATEMENT_PRE_CONNECTION_SIZE, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.MIN_EVICTABLE_IDLE_TIME_MILLIS)) {
-                logDataMode(buildLog(DruidHealthQuota.MIN_EVICTABLE_IDLE_TIME_MILLIS, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.MIN_EVICTABLE_IDLE_TIME_MILLIS, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.MAX_EVICTABLE_IDLE_TIME_MILLIS)) {
-                logDataMode(buildLog(DruidHealthQuota.MAX_EVICTABLE_IDLE_TIME_MILLIS, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.MAX_EVICTABLE_IDLE_TIME_MILLIS, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.RECYCLE_ERROR_COUNT)) {
-                logDataMode(buildLog(DruidHealthQuota.RECYCLE_ERROR_COUNT, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.RECYCLE_ERROR_COUNT, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.PREPARED_STATEMENT_OPEN_COUNT)) {
-                logDataMode(buildLog(DruidHealthQuota.PREPARED_STATEMENT_OPEN_COUNT, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.PREPARED_STATEMENT_OPEN_COUNT, gaugeCollector));
             }
             if (gaugeCollector.containsKey(DruidHealthQuota.PREPARED_STATEMENT_CLOSE_COUNT)) {
-                logDataMode(buildLog(DruidHealthQuota.PREPARED_STATEMENT_CLOSE_COUNT, gaugeCollector));
+                logDataMode(buildGaugeLog(DruidHealthQuota.PREPARED_STATEMENT_CLOSE_COUNT, gaugeCollector));
             }
 
             logLineMode();
         }
     }
 
-    private String buildLog(String quota, Map<String, AtomicLong> gaugeCollector) {
-        return quota + " = " + gaugeCollector.get(quota);
-    }
-
-    private String buildConsLog(String quota, Map<String, String> constantsCollector) {
-        return quota + " = " + constantsCollector.get(quota);
-    }
-
     @Override
     protected String setPrefix(HealthStats healthStats) {
-        return "health-Druid:" + healthStats.getNamespace();
+        return "health-druid:" + healthStats.getNamespace();
     }
 }

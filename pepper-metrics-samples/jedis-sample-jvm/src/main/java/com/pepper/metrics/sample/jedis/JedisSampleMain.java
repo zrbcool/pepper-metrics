@@ -1,5 +1,6 @@
 package com.pepper.metrics.sample.jedis;
 
+import com.pepper.metrics.integration.jedis.health.JedisHealthTracker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.JedisPropsHolder;
@@ -33,9 +34,10 @@ public class JedisSampleMain {
         config.setTestOnCreate(false);
 
         log.info("init JedisPoolConfig: {}", config.toString());
-        JedisPropsHolder.NAMESPACE.set("myns");
+        final String namespace = "myns";
+        JedisPropsHolder.NAMESPACE.set(namespace);
         PjedisPool jedisPool = new PjedisPool(config, "192.168.100.221", 6379);
-
+        JedisHealthTracker.addJedisPool(namespace, jedisPool);
         for (int j = 0; j < 100; j++) {
             for (int i = 0; i < 10; i++) {
                 try (Jedis jedis = jedisPool.getResource()) {
