@@ -21,7 +21,8 @@ public class DubboRequestOutPrinter extends AbstractPerfPrinter implements PerfP
     public List<Stats> chooseStats(Set<Stats> statsSet) {
         List<Stats> statsList = new ArrayList<>();
         for (Stats stats : statsSet) {
-            if (stats.getName().equalsIgnoreCase("app.dubbo.request.out")) {
+            if (stats.getType().equalsIgnoreCase("dubbo") &&
+                    stats.getSubType().equalsIgnoreCase("out")) {
                 statsList.add(stats);
             }
         }
@@ -31,5 +32,10 @@ public class DubboRequestOutPrinter extends AbstractPerfPrinter implements PerfP
     @Override
     public String setMetricsName(Stats stats, List<String> tags) {
         return tags.get(3) + "." + tags.get(1);
+    }
+
+    @Override
+    public String setPrefix(Stats stats) {
+        return "perf-dubbo:outgoing";
     }
 }

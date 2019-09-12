@@ -10,6 +10,12 @@
     <artifactId>dubbo-sample-spring-consumer</artifactId>
 
     <dependencies>
+        <!-- unblock this if you use vm options -Dpepper.port=9147 -->
+        <dependency>
+            <groupId>top.zrbcool</groupId>
+            <artifactId>pepper-metrics-ds-prometheus</artifactId>
+            <version>1.0.13-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>top.zrbcool</groupId>
             <artifactId>dubbo-sample-spring-api</artifactId>

@@ -11,7 +11,6 @@ import org.junit.Test;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.TimeUnit;
 
 public class ExtensionTest {
 
@@ -22,8 +21,8 @@ public class ExtensionTest {
     public void init() {
         try {
             extensions = ExtensionLoader.getExtensionLoader(ScheduledRun.class).getExtensions();
-            final Stats jedisStat = Profiler.Builder.builder().name("jedis").namespace("default").build();
-            final Stats httpStat = Profiler.Builder.builder().name("http").namespace("default").build();
+            final Stats jedisStat = Profiler.Builder.builder().type("jedis").namespace("default").build();
+            final Stats httpStat = Profiler.Builder.builder().type("http").namespace("default").build();
 
             String[] jedisTags = new String[]{"method", "get"};
             String[] httpTags = new String[]{"url", "/ad/clickAd"};

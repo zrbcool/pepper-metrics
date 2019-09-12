@@ -21,7 +21,7 @@ public class HttpPrinter extends AbstractPerfPrinter implements PerfPrinter {
     public List<Stats> chooseStats(Set<Stats> statsSet) {
         List<Stats> statsList = new ArrayList<>();
         for (Stats stats : statsSet) {
-            if (stats.getName().equalsIgnoreCase("http")) {
+            if (stats.getType().equalsIgnoreCase("http")) {
                 statsList.add(stats);
             }
         }

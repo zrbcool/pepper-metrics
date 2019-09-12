@@ -112,7 +112,7 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
      */
     @Override
     public String setPrefix(Stats stats) {
-        return "pref-" + stats.getName() + "-" + stats.getNamespace();
+        return "pref-" + stats.getType() + "-" + stats.getNamespace();
     }
 
     private List<PrinterDomain> collector(Stats stats, ConcurrentMap<String, ConcurrentMap<List<String>, Double>> currentErrCollector,
@@ -206,7 +206,7 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
     }
 
     private String buildCollectorKey(Stats stats) {
-        return stats.getName() + "-" + stats.getNamespace();
+        return stats.getType() + "-" + stats.getNamespace();
     }
 
 }

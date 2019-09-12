@@ -18,7 +18,7 @@ public class CoreSamplePrinter extends AbstractPerfPrinter {
     public List<Stats> chooseStats(Set<Stats> statsSet) {
         List<Stats> statsList = new ArrayList<>();
         for (Stats stats : statsSet) {
-            if ("custom".equalsIgnoreCase(stats.getName())) {
+            if ("custom".equalsIgnoreCase(stats.getType())) {
                 statsList.add(stats);
             }
         }

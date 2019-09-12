@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 public class MAIN {
     public static void main(String[] args) throws InterruptedException {
-        final Stats stats = Profiler.Builder.builder().name("http.in").namespace("default").build();
+        final Stats stats = Profiler.Builder.builder().type("http").subType("in").namespace("default").build();
         String[] tags = new String[]{"url", "/api/news1"};
         long begin = System.currentTimeMillis();
         stats.incConc(tags);

@@ -26,8 +26,8 @@ public class JedisPrinterTest {
     public void init() {
         try {
             extensions = ExtensionLoader.getExtensionLoader(ScheduledRun.class).getExtensions();
-            final Stats jedisStat = Profiler.Builder.builder().name("jedis").namespace("default").build();
-            final Stats jedisStat1 = Profiler.Builder.builder().name("jedis").namespace("jedisNamespace1").build();
+            final Stats jedisStat = Profiler.Builder.builder().type("jedis").namespace("default").build();
+            final Stats jedisStat1 = Profiler.Builder.builder().type("jedis").namespace("jedisNamespace1").build();
 
             String[] jedisTags = new String[]{"method", "get"};
 

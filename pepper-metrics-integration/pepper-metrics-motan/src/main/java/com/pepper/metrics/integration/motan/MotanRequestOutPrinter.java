@@ -19,7 +19,8 @@ public class MotanRequestOutPrinter extends AbstractPerfPrinter implements PerfP
     public List<Stats> chooseStats(Set<Stats> statsSet) {
         List<Stats> statsList = new ArrayList<>();
         for (Stats stats : statsSet) {
-            if ("app.motan.request.out".equalsIgnoreCase(stats.getName())) {
+            if ("motan".equalsIgnoreCase(stats.getType()) &&
+                    "out".equalsIgnoreCase(stats.getSubType())) {
                 statsList.add(stats);
             }
         }

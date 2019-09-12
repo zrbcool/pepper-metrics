@@ -22,8 +22,8 @@ public class JedisPrinter extends AbstractPerfPrinter implements PerfPrinter {
     public List<Stats> chooseStats(Set<Stats> statsSet) {
         List<Stats> statsList = new ArrayList<>();
         for (Stats stats : statsSet) {
-            if (stats.getName().equalsIgnoreCase("jedis")
-                    || stats.getName().equalsIgnoreCase("jedisCluster")) {
+            if (stats.getType().equalsIgnoreCase("jedis")
+                    || stats.getType().equalsIgnoreCase("jedisCluster")) {
                 statsList.add(stats);
             }
         }
@@ -32,6 +32,6 @@ public class JedisPrinter extends AbstractPerfPrinter implements PerfPrinter {
 
     @Override
     public String setPrefix(Stats stats) {
-        return "perf-" + stats.getName() + "-" + stats.getNamespace();
+        return "perf-" + stats.getType() + "-" + stats.getNamespace();
     }
 }

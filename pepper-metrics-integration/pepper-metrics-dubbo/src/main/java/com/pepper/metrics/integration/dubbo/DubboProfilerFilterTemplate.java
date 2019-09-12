@@ -19,11 +19,13 @@ public abstract class DubboProfilerFilterTemplate implements Filter {
 
     static final Stats PROFILER_STAT_IN = Profiler.Builder
             .builder()
-            .name("app.dubbo.request.in")
+            .type("dubbo")
+            .subType("in")
             .build();
     static final Stats PROFILER_STAT_OUT = Profiler.Builder
             .builder()
-            .name("app.dubbo.request.out")
+            .type("dubbo")
+            .subType("out")
             .build();
 
     @Override

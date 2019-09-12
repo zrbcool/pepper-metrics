@@ -343,7 +343,7 @@ PerfPrinter接口提供的方法中，通常只需要自定义 `chooseStats` 方
 
 接口方法说明：
 * chooseStats：选取需要打印的Stats，通常根据name选取，由于同一个name下可能有多个namespace，所以这里会返回一个数组。数组中的元素通常具有相同的name属性，但具备不同的namespace属性。
-* setPrefix：定义日志前缀，继承AbstractPerfPrinter后，具备默认实现。默认实现前缀格式：perf-[name]-[namespace]
+* setPrefix：定义日志前缀，继承AbstractPerfPrinter后，具备默认实现。默认实现前缀格式：perf-[type]-[namespace]
 * setMetricsName：定义日志第一列【Metrics】的名称格式
 
 setPrefix即定义的下图位置的内容：

@@ -20,13 +20,15 @@ import java.util.concurrent.TimeUnit;
 public class PerfFilter implements Filter {
     private static final Stats PROFILER_STAT = Profiler.Builder
             .builder()
-            .name("http")
+            .type("http")
+            .subType("in")
             .namespace("default")
             .build();
 
     private static final Stats PROFILER_STAT_HTTPSTATUS = Profiler.Builder
             .builder()
-            .name("http-status")
+            .type("http-status")
+            .subType("in")
             .namespace("default")
             .build();
 

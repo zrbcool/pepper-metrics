@@ -14,7 +14,7 @@ public class CoreSampleMain {
     public static void main(String[] args) {
         final Stats stats = Profiler.Builder
                 .builder()
-                .name("custom")
+                .type("custom")
                 .namespace("myns")
                 .build();
         String[] tags = new String[]{"method", "mockLatency()"};
