@@ -21,7 +21,8 @@ public class HttpPrinter extends AbstractPerfPrinter implements PerfPrinter {
     public List<Stats> chooseStats(Set<Stats> statsSet) {
         List<Stats> statsList = new ArrayList<>();
         for (Stats stats : statsSet) {
-            if (stats.getType().equalsIgnoreCase("http")) {
+            if (stats.getType().equalsIgnoreCase("http") &&
+                stats.getSubType().equalsIgnoreCase("in")) {
                 statsList.add(stats);
             }
         }
@@ -34,4 +35,8 @@ public class HttpPrinter extends AbstractPerfPrinter implements PerfPrinter {
         return tags.get(1) + " " + tags.get(3);
     }
 
+    @Override
+    public String setPrefix(Stats stats) {
+        return "perf-http:incoming";
+    }
 }
