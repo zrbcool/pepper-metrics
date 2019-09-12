@@ -4,7 +4,7 @@
     <parent>
         <artifactId>pepper-metrics-parent</artifactId>
         <groupId>top.zrbcool</groupId>
-        <version>1.0.13-SNAPSHOT</version>
+        <version>1.0.14-SNAPSHOT</version>
         <relativePath>../pepper-metrics-parent/pom.xml</relativePath>
     </parent>
 
@@ -12,7 +12,7 @@
     <artifactId>pepper-metrics-scheduled</artifactId>
     <name>${project.artifactId}</name>
     <description>${project.artifactId}</description>
-    <version>1.0.13-SNAPSHOT</version>
+    <version>1.0.14-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
