@@ -4,19 +4,24 @@
     <parent>
         <artifactId>pepper-metrics-parent</artifactId>
         <groupId>top.zrbcool</groupId>
-        <version>1.0.13-SNAPSHOT</version>
+        <version>1.0.12-SNAPSHOT</version>
         <relativePath>../pepper-metrics-parent/pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>pepper-metrics-ds</artifactId>
-    <version>1.0.13-SNAPSHOT</version>
+    <artifactId>pepper-metrics-integration</artifactId>
+    <version>1.0.12-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
     <description>${project.artifactId}</description>
 
     <modules>
-        <module>pepper-metrics-ds-prometheus</module>
+        <module>pepper-metrics-jedis</module>
+        <module>pepper-metrics-servlet</module>
+        <module>pepper-metrics-motan</module>
+        <module>pepper-metrics-mybatis</module>
+        <module>pepper-metrics-dubbo</module>
+        <module>pepper-metrics-druid</module>
     </modules>
 
 </project>

@@ -4,7 +4,7 @@
     <parent>
         <artifactId>pepper-metrics-parent</artifactId>
         <groupId>top.zrbcool</groupId>
-        <version>1.0.13-SNAPSHOT</version>
+        <version>1.0.12-SNAPSHOT</version>
         <relativePath>./pepper-metrics-parent/pom.xml</relativePath>
     </parent>
 
@@ -13,34 +13,6 @@
     <name>${project.artifactId}</name>
     <description>${project.artifactId}</description>
     <packaging>pom</packaging>
-    <url>http://pepper-metrics.zrbcool.top</url>
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-    <developers>
-        <developer>
-            <name>zrbcool</name>
-            <email>zhangrongbincool@163.com</email>
-            <organization>http://www.coohua.com</organization>
-            <organizationUrl>http://www.coohua.com</organizationUrl>
-        </developer>
-        <developer>
-            <name>Lord-X</name>
-            <email>xzm_rainbow@126.com</email>
-            <organization>http://www.coohua.com</organization>
-            <organizationUrl>http://www.coohua.com</organizationUrl>
-        </developer>
-    </developers>
-    <scm>
-        <connection>scm:git:https://github.com/zrbcool/pepper-metrics.git</connection>
-        <developerConnection>scm:git:https://github.com/zrbcool/pepper-metrics.git</developerConnection>
-        <tag>pepper-metrics-1.0.11</tag>
-        <url>http://pepper-metrics.zrbcool.top</url>
-    </scm>
     <profiles>
         <profile>
             <id>coohua</id>

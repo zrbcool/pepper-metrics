@@ -4,19 +4,19 @@
     <parent>
         <artifactId>pepper-metrics-parent</artifactId>
         <groupId>top.zrbcool</groupId>
-        <version>1.0.13-SNAPSHOT</version>
+        <version>1.0.12-SNAPSHOT</version>
         <relativePath>../pepper-metrics-parent/pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>pepper-metrics-ds</artifactId>
-    <version>1.0.13-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <artifactId>pepper-metrics-scheduled</artifactId>
     <name>${project.artifactId}</name>
     <description>${project.artifactId}</description>
+    <version>1.0.12-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
     <modules>
-        <module>pepper-metrics-ds-prometheus</module>
+        <module>pepper-metrics-scheduled-printer</module>
     </modules>
 
 </project>
