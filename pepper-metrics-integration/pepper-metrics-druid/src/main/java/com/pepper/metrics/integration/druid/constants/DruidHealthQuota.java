@@ -11,6 +11,8 @@ public class DruidHealthQuota {
 
     public static final String DB_TYPE = "DbType";
 
+    public static final String URL = "URL";
+
     public static final String WAIT_THREAD_COUNT = "WaitThreadCount";
 
     public static final String NOT_EMPTY_WAIT_COUNT = "NotEmptyWaitCount";
