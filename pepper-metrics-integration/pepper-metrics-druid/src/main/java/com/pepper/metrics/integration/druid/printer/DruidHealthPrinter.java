@@ -27,6 +27,7 @@ public class DruidHealthPrinter extends AbstractHealthPrinter {
             logLineMode();
             logDataMode(buildConsLog(DruidHealthQuota.NAME, constantsCollector));
             logDataMode(buildConsLog(DruidHealthQuota.DB_TYPE, constantsCollector));
+            logDataMode(buildConsLog(DruidHealthQuota.URL, constantsCollector));
             logDataMode(buildConsLog(DruidHealthQuota.TEST_ON_BORROW, constantsCollector));
             logDataMode(buildConsLog(DruidHealthQuota.TEST_ON_RETURN, constantsCollector));
             logDataMode(buildConsLog(DruidHealthQuota.TEST_ON_IDLE, constantsCollector));

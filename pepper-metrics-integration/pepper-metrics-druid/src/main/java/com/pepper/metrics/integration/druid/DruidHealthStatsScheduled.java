@@ -37,6 +37,7 @@ public class DruidHealthStatsScheduled implements HealthScheduledRun {
             if (StringUtils.isNotEmpty(name) && (druidHealthStats = statsMap.get(name)) != null) {
                 druidHealthStats.constantsCollect(DruidHealthQuota.NAME, data.getOrDefault(DruidHealthQuota.NAME, "null").toString());
                 druidHealthStats.constantsCollect(DruidHealthQuota.DB_TYPE, data.getOrDefault(DruidHealthQuota.DB_TYPE, "null").toString());
+                druidHealthStats.constantsCollect(DruidHealthQuota.URL, truncateUrl(data.getOrDefault(DruidHealthQuota.URL, "null").toString()));
                 druidHealthStats.constantsCollect(DruidHealthQuota.TEST_ON_BORROW, data.getOrDefault(DruidHealthQuota.TEST_ON_BORROW, "null").toString());
                 druidHealthStats.constantsCollect(DruidHealthQuota.TEST_ON_RETURN, data.getOrDefault(DruidHealthQuota.TEST_ON_RETURN, "null").toString());
                 druidHealthStats.constantsCollect(DruidHealthQuota.TEST_ON_IDLE, data.getOrDefault(DruidHealthQuota.TEST_ON_IDLE, "null").toString());
@@ -169,6 +170,17 @@ public class DruidHealthStatsScheduled implements HealthScheduledRun {
                 }
             }
         }
+    }
+
+    private String truncateUrl(String aNull) {
+        if (!"null".equalsIgnoreCase(aNull)) {
+            int index = aNull.indexOf("?");
+            if (index != -1) {
+                return aNull.substring(0, index);
+            }
+            return aNull;
+        }
+        return "null";
     }
 
     private Map<String, DruidHealthStats> transferStats(Set<HealthStats> healthStats) {
