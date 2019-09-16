@@ -1,1 +1,2 @@
 com.pepper.metrics.integration.jedis.health.JedisHealthPrinter
+com.pepper.metrics.integration.jedis.health.JedisClusterHealthPrinter

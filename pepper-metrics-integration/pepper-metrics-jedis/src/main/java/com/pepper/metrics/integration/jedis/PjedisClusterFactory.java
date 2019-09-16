@@ -2,6 +2,7 @@ package com.pepper.metrics.integration.jedis;
 
 import com.google.common.reflect.TypeToken;
 import com.pepper.metrics.core.extension.ExtensionLoader;
+import com.pepper.metrics.integration.jedis.health.JedisClusterHealthTracker;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import redis.clients.jedis.HostAndPort;
@@ -25,9 +26,11 @@ public class PjedisClusterFactory {
     }
 
     private static JedisCluster newJedisCluster(Class[] classes, Object[] objects) {
-        return ExtensionLoader.getExtensionLoader(JedisClusterProxyFactory.class)
+        final JedisCluster jedisCluster = ExtensionLoader.getExtensionLoader(JedisClusterProxyFactory.class)
                 .getExtension("cglib")
                 .getProxy(JedisCluster.class, fixNamespace(), classes, objects);
+        JedisClusterHealthTracker.addJedisCluster(fixNamespace(), jedisCluster);
+        return jedisCluster;
     }
     private static Class[] CONST_1 = new Class[]{HostAndPort.class};
     public static JedisCluster newJedisCluster(HostAndPort node) {

@@ -88,7 +88,7 @@ public class Stats {
     }
 
     public void incConc(String...tags) {
-        getOrInitGauge( concurrentGaugeName, tags).incrementAndGet();
+        getOrInitGauge(concurrentGaugeName, tags).incrementAndGet();
     }
 
     public void decConc(String...tags) {

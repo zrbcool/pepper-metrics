@@ -20,6 +20,9 @@ public class JedisHealthStatsScheduled implements HealthScheduledRun {
             if (healthStat instanceof JedisHealthStats) {
                 ((JedisHealthStats) healthStat).collectStats();
             }
+            if (healthStat instanceof JedisClusterHealthStats) {
+                ((JedisClusterHealthStats) healthStat).collectStats();
+            }
         }
     }
 }

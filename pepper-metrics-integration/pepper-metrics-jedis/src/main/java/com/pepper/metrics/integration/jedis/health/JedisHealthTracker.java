@@ -40,4 +40,5 @@ public class JedisHealthTracker {
         final JedisHealthStats stats = new JedisHealthStats(MetricsRegistry.getREGISTRY(), namespace, jedisPool);
         HealthTracker.addStats(stats);
     }
+
 }

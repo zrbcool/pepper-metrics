@@ -16,14 +16,14 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public abstract class AbstractHealthPrinter implements HealthPrinter {
 
-    private static final Logger pLogger = LoggerFactory.getLogger("performance");
+    protected static final Logger pLogger = LoggerFactory.getLogger("performance");
 
-    protected static String PREFIX = "";
+    protected String prefix = "";
 
-    private static final String LEFT_STR = "| ";
-    private static final String RIGHT_STR = "|";
+    protected static final String LEFT_STR = "| ";
+    protected static final String RIGHT_STR = "|";
 
-    private static final int LINE_LENGTH = 100;
+    protected static final int LINE_LENGTH = 100;
 
     protected static ThreadLocal<String> LINE_MODE = new ThreadLocal<>();
     protected static ThreadLocal<String> DATA_MODE = new ThreadLocal<>();
@@ -32,7 +32,7 @@ public abstract class AbstractHealthPrinter implements HealthPrinter {
     public void print(Set<HealthStats> healthStats, String timestamp) {
         for (HealthStats stats : healthStats) {
             setPre(stats);
-            String prefixStr = "[" + PREFIX + ":" + timestamp + "] ";
+            String prefixStr = "[" + prefix + ":" + timestamp + "] ";
             LINE_MODE.set(prefixStr + StringUtils.repeat("-", LINE_LENGTH));
             DATA_MODE.set(prefixStr + LEFT_STR);
             doPrint(stats);
@@ -52,7 +52,7 @@ public abstract class AbstractHealthPrinter implements HealthPrinter {
     }
 
     private void setPre(HealthStats healthStats) {
-        PREFIX = setPrefix(healthStats);
+        prefix = setPrefix(healthStats);
     }
 
     protected String setPrefix(HealthStats healthStats) {

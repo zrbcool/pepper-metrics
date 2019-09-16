@@ -51,7 +51,7 @@ public class JedisClusterSampleMain {
         JedisPropsHolder.NAMESPACE.set("cluster");
         JedisCluster jedisCluster = PjedisClusterFactory.newJedisCluster(jedisClusterNodes, defaultConnectTimeout, defaultConnectMaxAttempts, jedisPoolConfig);
 
-        /**
+        /*
          * 重要的步骤，用PjedisClusterFactory.decorateJedisCluster()包装jedisCluster即可拥有pepper-metrics-jedis的metrics能力
          * 第二个参数是namespace，当应用需要连接多组redis集群时用于区分，如果只连接一组，可以不传，默认值是default
          */
@@ -60,7 +60,7 @@ public class JedisClusterSampleMain {
                 jedisCluster.set("hello:"+j, "robin");
             }
             for (Map.Entry<String, JedisPool> entry : jedisCluster.getClusterNodes().entrySet()) {
-                log.info(String.format("%s %s NumActive:%s NumIdle:%s", i, entry.getKey(), entry.getValue().getNumActive(), entry.getValue().getNumIdle()));
+//                log.info(String.format("%s %s NumActive:%s NumIdle:%s", i, entry.getKey(), entry.getValue().getNumActive(), entry.getValue().getNumIdle()));
             }
             log.info("------------------------------------------------------------");
             TimeUnit.SECONDS.sleep(1);
