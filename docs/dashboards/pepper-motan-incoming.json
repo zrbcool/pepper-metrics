@@ -59,7 +59,7 @@
   "gnetId": null,
   "graphTooltip": 1,
   "id": null,
-  "iteration": 1570872459576,
+  "iteration": 1570874423973,
   "links": [
     {
       "asDropdown": true,
@@ -158,13 +158,6 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by(method) (rate(app_motan_request_in_summary_seconds_count{app=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "{{method}}",
-          "refId": "A"
-        },
-        {
           "expr": "sum by(method) (rate(pepper_summary_motan_in_duration_seconds_count{app=~\"$app\"}[3m]))",
           "format": "time_series",
           "intervalFactor": 1,
@@ -258,15 +251,6 @@
       "stack": false,
       "steppedLine": false,
       "targets": [
-        {
-          "expr": "max(app_motan_request_in_summary_seconds{appId=\"$app\",quantile=\"0.99\"}) by (method)",
-          "format": "time_series",
-          "hide": false,
-          "interval": "1m",
-          "intervalFactor": 1,
-          "legendFormat": "{{method}}",
-          "refId": "C"
-        },
         {
           "expr": "max(pepper_summary_motan_in_duration_seconds{appId=\"$app\",quantile=\"0.99\"}) by (method)",
           "format": "time_series",
@@ -368,15 +352,6 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum (app_motan_request_in_concurrent_gauge{appId=~\"$app\"} offset 1m ) by (method)",
-          "format": "time_series",
-          "hide": false,
-          "instant": false,
-          "intervalFactor": 2,
-          "legendFormat": "{{method}}",
-          "refId": "A"
-        },
-        {
           "expr": "sum (pepper_gauge_motan_in_concurrent{appId=~\"$app\"} offset 1m ) by (method)",
           "format": "time_series",
           "hide": false,
@@ -477,14 +452,6 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(increase(app_motan_request_in_err_counter{app=~\"$app\"}[2m])) by (method)",
-          "format": "time_series",
-          "instant": false,
-          "intervalFactor": 2,
-          "legendFormat": "{{method}}",
-          "refId": "A"
-        },
-        {
           "expr": "sum(increase(pepper_counter_motan_in_err_total{app=~\"$app\"}[2m])) by (method)",
           "format": "time_series",
           "instant": false,
@@ -581,13 +548,6 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by(pod) (rate(app_motan_request_in_summary_seconds_count{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "{{pod}}",
-          "refId": "A"
-        },
-        {
           "expr": "sum by(pod) (rate(pepper_summary_motan_in_duration_seconds_count{appId=~\"$app\"}[3m]))",
           "format": "time_series",
           "intervalFactor": 1,
@@ -681,15 +641,6 @@
       "stack": false,
       "steppedLine": false,
       "targets": [
-        {
-          "expr": "max(app_motan_request_in_summary_seconds{appId=\"$app\",quantile=\"0.99\"}) by (pod)",
-          "format": "time_series",
-          "hide": false,
-          "interval": "1m",
-          "intervalFactor": 1,
-          "legendFormat": "{{pod}}",
-          "refId": "C"
-        },
         {
           "expr": "max(pepper_summary_motan_in_duration_seconds{appId=\"$app\",quantile=\"0.99\"}) by (pod)",
           "format": "time_series",
@@ -791,14 +742,6 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum (app_motan_request_in_concurrent_gauge{appId=~\"$app\"} offset 1m ) by (pod)",
-          "format": "time_series",
-          "instant": false,
-          "intervalFactor": 2,
-          "legendFormat": "{{pod}}",
-          "refId": "A"
-        },
-        {
           "expr": "sum (pepper_gauge_motan_in_concurrent{appId=~\"$app\"} offset 1m ) by (pod)",
           "format": "time_series",
           "instant": false,
@@ -897,14 +840,6 @@
       "stack": false,
       "steppedLine": false,
       "targets": [
-        {
-          "expr": "sum(increase(app_motan_requests_in_err_counter{appId=~\"$app\"}[2m])) by (pod)",
-          "format": "time_series",
-          "instant": false,
-          "intervalFactor": 2,
-          "legendFormat": "{{pod}}",
-          "refId": "A"
-        },
         {
           "expr": "sum(increase(pepper_counter_motan_in_err_total{appId=~\"$app\"}[2m])) by (pod)",
           "format": "time_series",
@@ -1232,5 +1167,5 @@
   "timezone": "",
   "title": "PEPPER / MOTAN / INCOMING",
   "uid": "0QKfd3dZk",
-  "version": 15
+  "version": 18
 }

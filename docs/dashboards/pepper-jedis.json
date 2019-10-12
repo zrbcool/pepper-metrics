@@ -46,7 +46,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1570872416268,
+  "iteration": 1570874412722,
   "links": [
     {
       "asDropdown": true,
@@ -157,20 +157,6 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by(namespace) (rate(jedis_summary_seconds_count{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}",
-          "refId": "B"
-        },
-        {
-          "expr": "sum by(namespace) (rate(jedisCluster_summary_seconds_count{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}",
-          "refId": "A"
-        },
-        {
           "expr": "sum by(namespace) (rate(pepper_summary_jedis_default_duration_seconds_count{appId=~\"$app\"}[3m]))",
           "format": "time_series",
           "intervalFactor": 1,
@@ -270,20 +256,6 @@
       "stack": true,
       "steppedLine": false,
       "targets": [
-        {
-          "expr": "sum by (namespace) (jedisCluster_concurrent_gauge{appId=~\"$app\"})",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}",
-          "refId": "A"
-        },
-        {
-          "expr": "sum by (namespace) (jedis_concurrent_gauge{appId=~\"$app\"})",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}",
-          "refId": "B"
-        },
         {
           "expr": "sum by (namespace) (pepper_gauge_jedis_default_concurrent{appId=~\"$app\"})",
           "format": "time_series",
@@ -386,21 +358,6 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "max(jedisCluster_summary_seconds{quantile=\"0.99\", app=~\"$app\"}) by (namespace)",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}",
-          "refId": "A"
-        },
-        {
-          "expr": "max(jedis_summary_seconds{quantile=\"0.99\", app=~\"$app\"}) by (namespace)",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}",
-          "refId": "B"
-        },
-        {
           "expr": "max(pepper_summary_jedis_default_duration_seconds{quantile=\"0.99\", app=~\"$app\"}) by (namespace)",
           "format": "time_series",
           "intervalFactor": 1,
@@ -502,20 +459,6 @@
       "stack": false,
       "steppedLine": false,
       "targets": [
-        {
-          "expr": "sum by(namespace) (increase(jedisCluster_err_counter{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}",
-          "refId": "A"
-        },
-        {
-          "expr": "sum by(namespace) (increase(jedis_err_counter{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}",
-          "refId": "B"
-        },
         {
           "expr": "sum by(namespace) (increase(pepper_counter_jedis_default_err_total{appId=~\"$app\"}[3m]))",
           "format": "time_series",
@@ -630,13 +573,6 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by(namespace, method) (rate(jedisCluster_summary_seconds_count{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}::{{method}}",
-          "refId": "A"
-        },
-        {
           "expr": "sum by(namespace, method) (rate(pepper_summary_jedisCluster_default_duration_seconds_count{appId=~\"$app\"}[3m]))",
           "format": "time_series",
           "intervalFactor": 1,
@@ -729,14 +665,6 @@
       "stack": false,
       "steppedLine": false,
       "targets": [
-        {
-          "expr": "max(jedisCluster_summary_seconds{quantile=\"0.99\", app=~\"$app\"}) by (namespace, method)",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}::{{method}}",
-          "refId": "A"
-        },
         {
           "expr": "max(pepper_summary_jedisCluster_default_duration_seconds{quantile=\"0.99\", app=~\"$app\"}) by (namespace, method)",
           "format": "time_series",
@@ -833,14 +761,6 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "max(jedisCluster_summary_seconds{quantile=\"0.999\", app=~\"$app\"}) by (namespace, method)",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}::{{method}}",
-          "refId": "A"
-        },
-        {
           "expr": "max(pepper_summary_jedisCluster_default_duration_seconds{quantile=\"0.999\", app=~\"$app\"}) by (namespace, method)",
           "format": "time_series",
           "hide": false,
@@ -936,13 +856,6 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by(namespace, operation) (increase(jedisCluster_err_counter{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}-{{operation}}",
-          "refId": "A"
-        },
-        {
           "expr": "sum by(namespace, operation) (increase(pepper_counter_jedisCluster_default_err_total{appId=~\"$app\"}[3m]))",
           "format": "time_series",
           "intervalFactor": 1,
@@ -1036,13 +949,6 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by(namespace, pod) (rate(jedisCluster_summary_seconds_count{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}::{{pod}}",
-          "refId": "A"
-        },
-        {
           "expr": "sum by(namespace, pod) (rate(pepper_summary_jedisCluster_default_duration_seconds_count{appId=~\"$app\"}[3m]))",
           "format": "time_series",
           "intervalFactor": 1,
@@ -1135,14 +1041,6 @@
       "stack": false,
       "steppedLine": false,
       "targets": [
-        {
-          "expr": "max(jedisCluster_summary_seconds{quantile=\"0.99\", app=~\"$app\"}) by (namespace, pod)",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}::{{pod}}",
-          "refId": "A"
-        },
         {
           "expr": "max(pepper_summary_jedisCluster_default_duration_seconds{quantile=\"0.99\", app=~\"$app\"}) by (namespace, pod)",
           "format": "time_series",
@@ -1239,14 +1137,6 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "max(jedisCluster_summary_seconds{quantile=\"0.999\", app=~\"$app\"}) by (namespace, pod)",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}::{{pod}}",
-          "refId": "A"
-        },
-        {
           "expr": "max(pepper_summary_jedisCluster_default_duration_seconds{quantile=\"0.999\", app=~\"$app\"}) by (namespace, pod)",
           "format": "time_series",
           "hide": false,
@@ -1341,13 +1231,6 @@
       "stack": false,
       "steppedLine": false,
       "targets": [
-        {
-          "expr": "sum by(namespace, pod) (increase(jedisCluster_err_counter{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}::{{pod}}",
-          "refId": "A"
-        },
         {
           "expr": "sum by(namespace, pod) (increase(pepper_counter_jedisCluster_default_err_total{appId=~\"$app\"}[3m]))",
           "format": "time_series",
@@ -1455,13 +1338,6 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by(namespace, method) (rate(jedis_summary_seconds_count{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}::{{method}}",
-          "refId": "A"
-        },
-        {
           "expr": "sum by(namespace, method) (rate(pepper_summary_jedis_default_duration_seconds_count{appId=~\"$app\"}[3m]))",
           "format": "time_series",
           "intervalFactor": 1,
@@ -1554,14 +1430,6 @@
       "stack": false,
       "steppedLine": false,
       "targets": [
-        {
-          "expr": "max(jedis_summary_seconds{quantile=\"0.99\", app=~\"$app\"}) by (namespace, method)",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}::{{method}}",
-          "refId": "A"
-        },
         {
           "expr": "max(pepper_summary_jedis_default_duration_seconds{quantile=\"0.99\", app=~\"$app\"}) by (namespace, method)",
           "format": "time_series",
@@ -1658,14 +1526,6 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "max(jedis_summary_seconds{quantile=\"0.999\", app=~\"$app\"}) by (namespace, method)",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}::{{method}}",
-          "refId": "A"
-        },
-        {
           "expr": "max(pepper_summary_jedis_default_duration_seconds{quantile=\"0.999\", app=~\"$app\"}) by (namespace, method)",
           "format": "time_series",
           "hide": false,
@@ -1761,13 +1621,6 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by(namespace, operation) (increase(jedis_err_counter{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}-{{operation}}",
-          "refId": "A"
-        },
-        {
           "expr": "sum by(namespace, operation) (increase(pepper_counter_jedis_default_err_total{appId=~\"$app\"}[3m]))",
           "format": "time_series",
           "intervalFactor": 1,
@@ -1861,13 +1714,6 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by(namespace, pod) (rate(jedis_summary_seconds_count{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}::{{pod}}",
-          "refId": "A"
-        },
-        {
           "expr": "sum by(namespace, pod) (rate(pepper_summary_jedis_default_duration_seconds_count{appId=~\"$app\"}[3m]))",
           "format": "time_series",
           "intervalFactor": 1,
@@ -1960,14 +1806,6 @@
       "stack": false,
       "steppedLine": false,
       "targets": [
-        {
-          "expr": "max(jedis_summary_seconds{quantile=\"0.99\", app=~\"$app\"}) by (namespace, pod)",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}::{{pod}}",
-          "refId": "A"
-        },
         {
           "expr": "max(pepper_summary_jedis_default_duration_seconds{quantile=\"0.99\", app=~\"$app\"}) by (namespace, pod)",
           "format": "time_series",
@@ -2064,14 +1902,6 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "max(jedis_summary_seconds{quantile=\"0.999\", app=~\"$app\"}) by (namespace, pod)",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}::{{pod}}",
-          "refId": "A"
-        },
-        {
           "expr": "max(pepper_summary_jedis_default_duration_seconds{quantile=\"0.999\", app=~\"$app\"}) by (namespace, pod)",
           "format": "time_series",
           "hide": false,
@@ -2166,13 +1996,6 @@
       "stack": false,
       "steppedLine": false,
       "targets": [
-        {
-          "expr": "sum by(namespace, pod) (increase(jedis_err_counter{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}::{{pod}}",
-          "refId": "A"
-        },
         {
           "expr": "sum by(namespace, pod) (increase(pepper_counter_jedis_default_err_total{appId=~\"$app\"}[3m]))",
           "format": "time_series",
@@ -2288,5 +2111,5 @@
   "timezone": "",
   "title": "PEPPER / JEDIS",
   "uid": "3HnYvqdWk",
-  "version": 21
+  "version": 22
 }

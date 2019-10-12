@@ -7,6 +7,13 @@
       "type": "datasource",
       "pluginId": "prometheus",
       "pluginName": "Prometheus"
+    },
+    {
+      "name": "VAR_JOBNAME",
+      "type": "constant",
+      "label": "jobname",
+      "value": "pepper_exporter_k8s",
+      "description": ""
     }
   ],
   "__requires": [
@@ -46,7 +53,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1570872416263,
+  "iteration": 1570874401009,
   "links": [
     {
       "asDropdown": true,
@@ -107,9 +114,10 @@
         "x": 0,
         "y": 0
       },
-      "id": 119,
+      "id": 14,
       "panels": [],
-      "title": "Overall",
+      "repeat": "url",
+      "title": "http - $url",
       "type": "row"
     },
     {
@@ -126,19 +134,15 @@
         "x": 0,
         "y": 1
       },
-      "id": 111,
+      "id": 17,
       "legend": {
-        "alignAsTable": true,
         "avg": false,
-        "current": true,
-        "max": true,
+        "current": false,
+        "max": false,
         "min": false,
-        "rightSide": true,
         "show": false,
-        "sort": "current",
-        "sortDesc": true,
         "total": false,
-        "values": true
+        "values": false
       },
       "lines": true,
       "linewidth": 1,
@@ -148,7 +152,7 @@
         "dataLinks": []
       },
       "percentage": false,
-      "pointradius": 5,
+      "pointradius": 2,
       "points": false,
       "renderer": "flot",
       "seriesOverrides": [],
@@ -157,42 +161,21 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by(namespace) (rate(jedis_summary_seconds_count{appId=~\"$app\"}[3m]))",
+          "expr": "sum (pepper_gauge_http_in_concurrent{appId=~\"$app\", method=~\"$method\", url=~\"$url\", pod=~\"$pod\"} offset 1m ) by (pod)",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}",
+          "legendFormat": "{{pod}}",
           "refId": "B"
-        },
-        {
-          "expr": "sum by(namespace) (rate(jedisCluster_summary_seconds_count{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}",
-          "refId": "A"
-        },
-        {
-          "expr": "sum by(namespace) (rate(pepper_summary_jedis_default_duration_seconds_count{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}",
-          "refId": "C"
-        },
-        {
-          "expr": "sum by(namespace) (rate(pepper_summary_jedisCluster_default_duration_seconds_count{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}",
-          "refId": "D"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "QPS - JedisClient / JedisClusterClient",
+      "title": "并发",
       "tooltip": {
         "shared": true,
-        "sort": 2,
+        "sort": 0,
         "value_type": "individual"
       },
       "type": "graph",
@@ -205,6 +188,7 @@
       },
       "yaxes": [
         {
+          "decimals": 0,
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -235,137 +219,21 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 4,
+        "h": 8,
         "w": 6,
         "x": 6,
         "y": 1
       },
-      "id": 115,
+      "id": 2,
+      "interval": "30s",
       "legend": {
         "alignAsTable": true,
-        "avg": false,
-        "current": true,
+        "avg": true,
+        "current": false,
         "max": true,
         "min": false,
-        "rightSide": true,
-        "show": false,
-        "sort": "current",
-        "sortDesc": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": true,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum by (namespace) (jedisCluster_concurrent_gauge{appId=~\"$app\"})",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}",
-          "refId": "A"
-        },
-        {
-          "expr": "sum by (namespace) (jedis_concurrent_gauge{appId=~\"$app\"})",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}",
-          "refId": "B"
-        },
-        {
-          "expr": "sum by (namespace) (pepper_gauge_jedis_default_concurrent{appId=~\"$app\"})",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}",
-          "refId": "C"
-        },
-        {
-          "expr": "sum by (namespace) (pepper_gauge_jedisCluster_default_concurrent{appId=~\"$app\"})",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}",
-          "refId": "D"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "并发 - JedisClient / JedisClusterClient",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
+        "rightSide": false,
         "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "decimals": -1,
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "${DS_PROMETHEUS-APP}",
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 4,
-        "w": 6,
-        "x": 12,
-        "y": 1
-      },
-      "id": 116,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": false,
-        "sort": "current",
-        "sortDesc": true,
         "total": false,
         "values": true
       },
@@ -380,50 +248,31 @@
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
+      "repeat": "motan",
+      "repeatDirection": "h",
       "seriesOverrides": [],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "max(jedisCluster_summary_seconds{quantile=\"0.99\", app=~\"$app\"}) by (namespace)",
+          "expr": "max(pepper_summary_http_in_duration_seconds{app=\"$app\", quantile=\"0.9\", method=~\"$method\", url=\"$url\", pod=~\"$pod\"}) by (pod)",
           "format": "time_series",
           "hide": false,
+          "interval": "1m",
           "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}",
-          "refId": "A"
-        },
-        {
-          "expr": "max(jedis_summary_seconds{quantile=\"0.99\", app=~\"$app\"}) by (namespace)",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}",
+          "legendFormat": "{{pod}}",
           "refId": "B"
-        },
-        {
-          "expr": "max(pepper_summary_jedis_default_duration_seconds{quantile=\"0.99\", app=~\"$app\"}) by (namespace)",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}",
-          "refId": "C"
-        },
-        {
-          "expr": "max(pepper_summary_jedisCluster_default_duration_seconds{quantile=\"0.99\", app=~\"$app\"}) by (namespace)",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}",
-          "refId": "D"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "P99 - JedisClient / JedisClusterClient",
+      "title": "P90 - $method $url",
       "tooltip": {
         "shared": true,
-        "sort": 2,
+        "sort": 0,
         "value_type": "individual"
       },
       "type": "graph",
@@ -441,7 +290,7 @@
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": "0",
+          "min": null,
           "show": true
         },
         {
@@ -460,33 +309,32 @@
     },
     {
       "aliasColors": {},
-      "bars": true,
+      "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PROMETHEUS-APP}",
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 4,
+        "h": 8,
         "w": 6,
-        "x": 18,
+        "x": 12,
         "y": 1
       },
-      "id": 117,
+      "id": 26,
+      "interval": "30s",
       "legend": {
         "alignAsTable": true,
-        "avg": false,
-        "current": true,
+        "avg": true,
+        "current": false,
         "max": true,
         "min": false,
-        "rightSide": true,
-        "show": false,
-        "sort": "current",
-        "sortDesc": true,
+        "rightSide": false,
+        "show": true,
         "total": false,
         "values": true
       },
-      "lines": false,
+      "lines": true,
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
@@ -497,48 +345,30 @@
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
+      "repeatDirection": "h",
       "seriesOverrides": [],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by(namespace) (increase(jedisCluster_err_counter{appId=~\"$app\"}[3m]))",
+          "expr": "max(pepper_summary_http_in_duration_seconds{app=\"$app\", quantile=\"0.99\", method=~\"$method\", url=\"$url\", pod=~\"$pod\"}) by (pod)",
           "format": "time_series",
+          "hide": false,
+          "interval": "1m",
           "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}",
-          "refId": "A"
-        },
-        {
-          "expr": "sum by(namespace) (increase(jedis_err_counter{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}",
+          "legendFormat": "{{pod}}",
           "refId": "B"
-        },
-        {
-          "expr": "sum by(namespace) (increase(pepper_counter_jedis_default_err_total{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}",
-          "refId": "C"
-        },
-        {
-          "expr": "sum by(namespace) (increase(pepper_counter_jedisCluster_default_err_total{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}",
-          "refId": "D"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "ERR - JedisClient / JedisClusterClient - 3m",
+      "title": "P99 - $method $url",
       "tooltip": {
         "shared": true,
-        "sort": 2,
+        "sort": 0,
         "value_type": "individual"
       },
       "type": "graph",
@@ -551,11 +381,12 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "decimals": null,
+          "format": "s",
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": "0",
+          "min": null,
           "show": true
         },
         {
@@ -573,17 +404,189 @@
       }
     },
     {
-      "collapsed": false,
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_PROMETHEUS-APP}",
+      "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
-        "h": 1,
-        "w": 24,
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 1
+      },
+      "id": 15,
+      "interval": "30s",
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "max": true,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "repeatDirection": "h",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "max(pepper_summary_http_in_duration_seconds{app=\"$app\", quantile=\"0.999\", method=~\"$method\", url=\"$url\", pod=~\"$pod\"}) by (pod)",
+          "format": "time_series",
+          "interval": "1m",
+          "intervalFactor": 1,
+          "legendFormat": "{{pod}}",
+          "refId": "C"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "P999 - $method $url",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": null,
+          "format": "s",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_PROMETHEUS-APP}",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 4,
+        "w": 6,
         "x": 0,
         "y": 5
       },
-      "id": 121,
-      "panels": [],
-      "title": "JedisCluster",
-      "type": "row"
+      "id": 18,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum by(pod) (rate(pepper_summary_http_in_duration_seconds_count{appId=~\"$app\", method=~\"$method\", url=~\"$url\", pod=~\"$pod\"}[3m])) > 0",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{pod}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "QPS",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": 3,
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "aliasColors": {},
@@ -597,19 +600,18 @@
         "h": 4,
         "w": 6,
         "x": 0,
-        "y": 6
+        "y": 9
       },
-      "id": 124,
+      "id": 19,
+      "interval": "30s",
       "legend": {
         "alignAsTable": true,
-        "avg": false,
-        "current": true,
+        "avg": true,
+        "current": false,
         "max": true,
         "min": false,
-        "rightSide": true,
+        "rightSide": false,
         "show": false,
-        "sort": "current",
-        "sortDesc": true,
         "total": false,
         "values": true
       },
@@ -624,34 +626,30 @@
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
+      "repeatDirection": "h",
       "seriesOverrides": [],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by(namespace, method) (rate(jedisCluster_summary_seconds_count{appId=~\"$app\"}[3m]))",
+          "expr": "max(pepper_summary_http_in_duration_seconds{app=\"$app\", quantile=\"0.99999\", method=~\"$method\", url=\"$url\", pod=~\"$pod\"}) by (pod)",
           "format": "time_series",
+          "hide": false,
+          "interval": "1m",
           "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}::{{method}}",
+          "legendFormat": "{{pod}}",
           "refId": "A"
-        },
-        {
-          "expr": "sum by(namespace, method) (rate(pepper_summary_jedisCluster_default_duration_seconds_count{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}::{{method}}",
-          "refId": "B"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "QPS - By Method",
+      "title": "MAX - $url",
       "tooltip": {
         "shared": true,
-        "sort": 2,
+        "sort": 0,
         "value_type": "individual"
       },
       "type": "graph",
@@ -664,11 +662,12 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "decimals": 2,
+          "format": "s",
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": "0",
+          "min": null,
           "show": true
         },
         {
@@ -694,22 +693,21 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 4,
+        "h": 8,
         "w": 6,
         "x": 6,
-        "y": 6
+        "y": 9
       },
-      "id": 122,
+      "id": 34,
+      "interval": "30s",
       "legend": {
         "alignAsTable": true,
-        "avg": false,
-        "current": true,
+        "avg": true,
+        "current": false,
         "max": true,
         "min": false,
-        "rightSide": true,
-        "show": false,
-        "sort": "current",
-        "sortDesc": true,
+        "rightSide": false,
+        "show": true,
         "total": false,
         "values": true
       },
@@ -724,36 +722,48 @@
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
+      "repeatDirection": "h",
       "seriesOverrides": [],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "max(jedisCluster_summary_seconds{quantile=\"0.99\", app=~\"$app\"}) by (namespace, method)",
+          "expr": "max(pepper_summary_http_in_duration_seconds{app=\"$app\", quantile=\"0.9\", method=~\"$method\", url=\"$url\"})",
           "format": "time_series",
           "hide": false,
+          "interval": "1m",
           "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}::{{method}}",
+          "legendFormat": "P90",
+          "refId": "B"
+        },
+        {
+          "expr": "max(pepper_summary_http_in_duration_seconds{app=\"$app\", quantile=\"0.9\", method=~\"$method\", url=\"$url\"} offset 24h)",
+          "format": "time_series",
+          "hide": false,
+          "interval": "1m",
+          "intervalFactor": 1,
+          "legendFormat": "P90 - Last Day",
           "refId": "A"
         },
         {
-          "expr": "max(pepper_summary_jedisCluster_default_duration_seconds{quantile=\"0.99\", app=~\"$app\"}) by (namespace, method)",
+          "expr": "max(pepper_summary_http_in_duration_seconds{app=\"$app\", quantile=\"0.9\", method=~\"$method\", url=\"$url\"} offset 7d)",
           "format": "time_series",
           "hide": false,
+          "interval": "1m",
           "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}::{{method}}",
-          "refId": "B"
+          "legendFormat": "P90 - Last Week",
+          "refId": "C"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "P99 - By Method",
+      "title": "P90 - $method $url",
       "tooltip": {
         "shared": true,
-        "sort": 2,
+        "sort": 0,
         "value_type": "individual"
       },
       "type": "graph",
@@ -771,7 +781,7 @@
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": "0",
+          "min": null,
           "show": true
         },
         {
@@ -797,22 +807,21 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 4,
+        "h": 8,
         "w": 6,
         "x": 12,
-        "y": 6
+        "y": 9
       },
-      "id": 123,
+      "id": 43,
+      "interval": "30s",
       "legend": {
         "alignAsTable": true,
-        "avg": false,
-        "current": true,
+        "avg": true,
+        "current": false,
         "max": true,
         "min": false,
-        "rightSide": true,
-        "show": false,
-        "sort": "current",
-        "sortDesc": true,
+        "rightSide": false,
+        "show": true,
         "total": false,
         "values": true
       },
@@ -827,36 +836,48 @@
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
+      "repeatDirection": "h",
       "seriesOverrides": [],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "max(jedisCluster_summary_seconds{quantile=\"0.999\", app=~\"$app\"}) by (namespace, method)",
+          "expr": "max(pepper_summary_http_in_duration_seconds{app=\"$app\", quantile=\"0.99\", method=~\"$method\", url=\"$url\"})",
           "format": "time_series",
           "hide": false,
+          "interval": "1m",
           "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}::{{method}}",
+          "legendFormat": "P99",
+          "refId": "B"
+        },
+        {
+          "expr": "max(pepper_summary_http_in_duration_seconds{app=\"$app\", quantile=\"0.99\", method=~\"$method\", url=\"$url\"} offset 24h)",
+          "format": "time_series",
+          "hide": false,
+          "interval": "1m",
+          "intervalFactor": 1,
+          "legendFormat": "P99 - Last Day",
           "refId": "A"
         },
         {
-          "expr": "max(pepper_summary_jedisCluster_default_duration_seconds{quantile=\"0.999\", app=~\"$app\"}) by (namespace, method)",
+          "expr": "max(pepper_summary_http_in_duration_seconds{app=\"$app\", quantile=\"0.99\", method=~\"$method\", url=\"$url\"} offset 7d)",
           "format": "time_series",
           "hide": false,
+          "interval": "1m",
           "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}::{{method}}",
-          "refId": "B"
+          "legendFormat": "P99 - Last Week",
+          "refId": "C"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "P999 - By Method",
+      "title": "P99 - $method $url",
       "tooltip": {
         "shared": true,
-        "sort": 2,
+        "sort": 0,
         "value_type": "individual"
       },
       "type": "graph",
@@ -874,7 +895,121 @@
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": "0",
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_PROMETHEUS-APP}",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 9
+      },
+      "id": 44,
+      "interval": "30s",
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "max": true,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "repeatDirection": "h",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "max(pepper_summary_http_in_duration_seconds{app=\"$app\", quantile=\"0.999\", method=~\"$method\", url=\"$url\"})",
+          "format": "time_series",
+          "hide": false,
+          "interval": "1m",
+          "intervalFactor": 1,
+          "legendFormat": "P999",
+          "refId": "B"
+        },
+        {
+          "expr": "max(pepper_summary_http_in_duration_seconds{app=\"$app\", quantile=\"0.999\", method=~\"$method\", url=\"$url\"} offset 24h)",
+          "format": "time_series",
+          "hide": false,
+          "interval": "1m",
+          "intervalFactor": 1,
+          "legendFormat": "P999 - Last Day",
+          "refId": "A"
+        },
+        {
+          "expr": "max(pepper_summary_http_in_duration_seconds{app=\"$app\", quantile=\"0.999\", method=~\"$method\", url=\"$url\"} offset 7d)",
+          "format": "time_series",
+          "hide": false,
+          "interval": "1m",
+          "intervalFactor": 1,
+          "legendFormat": "P999 - Last Week",
+          "refId": "C"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "P999 - $method $url",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": null,
+          "format": "s",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
           "show": true
         },
         {
@@ -902,19 +1037,23 @@
       "gridPos": {
         "h": 4,
         "w": 6,
-        "x": 18,
-        "y": 6
+        "x": 0,
+        "y": 13
       },
-      "id": 136,
+      "id": 46,
+      "interval": "",
       "legend": {
         "alignAsTable": true,
-        "avg": false,
-        "current": true,
+        "avg": true,
+        "current": false,
+        "hideEmpty": true,
+        "hideZero": true,
         "max": true,
         "min": false,
         "rightSide": true,
         "show": false,
-        "sort": "current",
+        "sideWidth": null,
+        "sort": "max",
         "sortDesc": true,
         "total": false,
         "values": true
@@ -936,227 +1075,19 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by(namespace, operation) (increase(jedisCluster_err_counter{appId=~\"$app\"}[3m]))",
+          "expr": "sum by (pod) (increase(pepper_summary_http_status_in_duration_seconds_count{app=\"$app\", method=~\"$method\", url=\"$url\", pod=~\"$pod\", status!~\"2..\"}[2m]))",
           "format": "time_series",
+          "instant": false,
           "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}-{{operation}}",
+          "legendFormat": "{{pod}}",
           "refId": "A"
-        },
-        {
-          "expr": "sum by(namespace, operation) (increase(pepper_counter_jedisCluster_default_err_total{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}-{{operation}}",
-          "refId": "B"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "ERR - 3m",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "${DS_PROMETHEUS-APP}",
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 4,
-        "w": 6,
-        "x": 0,
-        "y": 10
-      },
-      "id": 125,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": false,
-        "sort": "current",
-        "sortDesc": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum by(namespace, pod) (rate(jedisCluster_summary_seconds_count{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}::{{pod}}",
-          "refId": "A"
-        },
-        {
-          "expr": "sum by(namespace, pod) (rate(pepper_summary_jedisCluster_default_duration_seconds_count{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}::{{pod}}",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "QPS - By Instance",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "${DS_PROMETHEUS-APP}",
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 4,
-        "w": 6,
-        "x": 6,
-        "y": 10
-      },
-      "id": 126,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": false,
-        "sort": "current",
-        "sortDesc": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "max(jedisCluster_summary_seconds{quantile=\"0.99\", app=~\"$app\"}) by (namespace, pod)",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}::{{pod}}",
-          "refId": "A"
-        },
-        {
-          "expr": "max(pepper_summary_jedisCluster_default_duration_seconds{quantile=\"0.99\", app=~\"$app\"}) by (namespace, pod)",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}::{{pod}}",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "P99 - By Instance",
+      "title": "not 2XX By Instance - 2m",
       "tooltip": {
         "shared": true,
         "sort": 2,
@@ -1173,1035 +1104,7 @@
       "yaxes": [
         {
           "decimals": null,
-          "format": "s",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "${DS_PROMETHEUS-APP}",
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 4,
-        "w": 6,
-        "x": 12,
-        "y": 10
-      },
-      "id": 127,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": false,
-        "sort": "current",
-        "sortDesc": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "max(jedisCluster_summary_seconds{quantile=\"0.999\", app=~\"$app\"}) by (namespace, pod)",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}::{{pod}}",
-          "refId": "A"
-        },
-        {
-          "expr": "max(pepper_summary_jedisCluster_default_duration_seconds{quantile=\"0.999\", app=~\"$app\"}) by (namespace, pod)",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}::{{pod}}",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "P999 - By Instance",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "decimals": 1,
-          "format": "ms",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": true,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "${DS_PROMETHEUS-APP}",
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 4,
-        "w": 6,
-        "x": 18,
-        "y": 10
-      },
-      "id": 137,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": false,
-        "sort": "current",
-        "sortDesc": true,
-        "total": false,
-        "values": true
-      },
-      "lines": false,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum by(namespace, pod) (increase(jedisCluster_err_counter{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}::{{pod}}",
-          "refId": "A"
-        },
-        {
-          "expr": "sum by(namespace, pod) (increase(pepper_counter_jedisCluster_default_err_total{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "cluster::{{namespace}}::{{pod}}",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "ERR - 3m",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 14
-      },
-      "id": 129,
-      "panels": [],
-      "title": "JedisStandalone",
-      "type": "row"
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "${DS_PROMETHEUS-APP}",
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 4,
-        "w": 6,
-        "x": 0,
-        "y": 15
-      },
-      "id": 130,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": false,
-        "sort": "current",
-        "sortDesc": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum by(namespace, method) (rate(jedis_summary_seconds_count{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}::{{method}}",
-          "refId": "A"
-        },
-        {
-          "expr": "sum by(namespace, method) (rate(pepper_summary_jedis_default_duration_seconds_count{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}::{{method}}",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "QPS - By Method",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "${DS_PROMETHEUS-APP}",
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 4,
-        "w": 6,
-        "x": 6,
-        "y": 15
-      },
-      "id": 132,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": false,
-        "sort": "current",
-        "sortDesc": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "max(jedis_summary_seconds{quantile=\"0.99\", app=~\"$app\"}) by (namespace, method)",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}::{{method}}",
-          "refId": "A"
-        },
-        {
-          "expr": "max(pepper_summary_jedis_default_duration_seconds{quantile=\"0.99\", app=~\"$app\"}) by (namespace, method)",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}::{{method}}",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "P99 - By Method",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "decimals": null,
-          "format": "s",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "${DS_PROMETHEUS-APP}",
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 4,
-        "w": 6,
-        "x": 12,
-        "y": 15
-      },
-      "id": 134,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": false,
-        "sort": "current",
-        "sortDesc": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "max(jedis_summary_seconds{quantile=\"0.999\", app=~\"$app\"}) by (namespace, method)",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}::{{method}}",
-          "refId": "A"
-        },
-        {
-          "expr": "max(pepper_summary_jedis_default_duration_seconds{quantile=\"0.999\", app=~\"$app\"}) by (namespace, method)",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}::{{method}}",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "P999 - By Method",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "decimals": null,
-          "format": "s",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": true,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "${DS_PROMETHEUS-APP}",
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 4,
-        "w": 6,
-        "x": 18,
-        "y": 15
-      },
-      "id": 138,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": false,
-        "sort": "current",
-        "sortDesc": true,
-        "total": false,
-        "values": true
-      },
-      "lines": false,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum by(namespace, operation) (increase(jedis_err_counter{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}-{{operation}}",
-          "refId": "A"
-        },
-        {
-          "expr": "sum by(namespace, operation) (increase(pepper_counter_jedis_default_err_total{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}-{{operation}}",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "ERR - 3m",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "${DS_PROMETHEUS-APP}",
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 4,
-        "w": 6,
-        "x": 0,
-        "y": 19
-      },
-      "id": 131,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": false,
-        "sort": "current",
-        "sortDesc": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum by(namespace, pod) (rate(jedis_summary_seconds_count{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}::{{pod}}",
-          "refId": "A"
-        },
-        {
-          "expr": "sum by(namespace, pod) (rate(pepper_summary_jedis_default_duration_seconds_count{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}::{{pod}}",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "QPS - By Instance",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "${DS_PROMETHEUS-APP}",
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 4,
-        "w": 6,
-        "x": 6,
-        "y": 19
-      },
-      "id": 133,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": false,
-        "sort": "current",
-        "sortDesc": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "max(jedis_summary_seconds{quantile=\"0.99\", app=~\"$app\"}) by (namespace, pod)",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}::{{pod}}",
-          "refId": "A"
-        },
-        {
-          "expr": "max(pepper_summary_jedis_default_duration_seconds{quantile=\"0.99\", app=~\"$app\"}) by (namespace, pod)",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}::{{pod}}",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "P99 - By Instance",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "decimals": null,
-          "format": "s",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "${DS_PROMETHEUS-APP}",
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 4,
-        "w": 6,
-        "x": 12,
-        "y": 19
-      },
-      "id": 135,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": false,
-        "sort": "current",
-        "sortDesc": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "max(jedis_summary_seconds{quantile=\"0.999\", app=~\"$app\"}) by (namespace, pod)",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}::{{pod}}",
-          "refId": "A"
-        },
-        {
-          "expr": "max(pepper_summary_jedis_default_duration_seconds{quantile=\"0.999\", app=~\"$app\"}) by (namespace, pod)",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}::{{pod}}",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "P999 - By Instance",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "decimals": 1,
-          "format": "ms",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": true,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "${DS_PROMETHEUS-APP}",
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 4,
-        "w": 6,
-        "x": 18,
-        "y": 19
-      },
-      "id": 139,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": false,
-        "sort": "current",
-        "sortDesc": true,
-        "total": false,
-        "values": true
-      },
-      "lines": false,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum by(namespace, pod) (increase(jedis_err_counter{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}::{{pod}}",
-          "refId": "A"
-        },
-        {
-          "expr": "sum by(namespace, pod) (increase(pepper_counter_jedis_default_err_total{appId=~\"$app\"}[3m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "std::{{namespace}}::{{pod}}",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "ERR - 3m",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
+          "format": "none",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -2227,27 +1130,112 @@
   "schemaVersion": 19,
   "style": "dark",
   "tags": [
-    "jedis",
+    "http",
+    "incoming",
     "pepper"
   ],
   "templating": {
     "list": [
       {
+        "current": {
+          "value": "${VAR_JOBNAME}",
+          "text": "${VAR_JOBNAME}"
+        },
+        "hide": 2,
+        "label": "jobname",
+        "name": "jobname",
+        "options": [
+          {
+            "value": "${VAR_JOBNAME}",
+            "text": "${VAR_JOBNAME}"
+          }
+        ],
+        "query": "${VAR_JOBNAME}",
+        "skipUrlSync": false,
+        "type": "constant"
+      },
+      {
         "allValue": null,
         "current": {},
         "datasource": "${DS_PROMETHEUS-APP}",
-        "definition": "label_values(up{job=\"pepper_exporter_k8s\"}, appId)",
+        "definition": "label_values(up{job=~\"$jobname\"}, appId)",
         "hide": 0,
         "includeAll": false,
         "label": "app",
         "multi": false,
         "name": "app",
         "options": [],
-        "query": "label_values(up{job=\"pepper_exporter_k8s\"}, appId)",
-        "refresh": 1,
+        "query": "label_values(up{job=~\"$jobname\"}, appId)",
+        "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "${DS_PROMETHEUS-APP}",
+        "definition": "label_values(pepper_summary_http_in_duration_seconds_count{app=\"$app\"}, method)",
+        "hide": 0,
+        "includeAll": false,
+        "label": "method",
+        "multi": false,
+        "name": "method",
+        "options": [],
+        "query": "label_values(pepper_summary_http_in_duration_seconds_count{app=\"$app\"}, method)",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "${DS_PROMETHEUS-APP}",
+        "definition": "label_values(pepper_summary_http_in_duration_seconds_count{app=\"$app\", method=\"$method\"}, url)",
+        "hide": 0,
+        "includeAll": false,
+        "label": "url",
+        "multi": true,
+        "name": "url",
+        "options": [],
+        "query": "label_values(pepper_summary_http_in_duration_seconds_count{app=\"$app\", method=\"$method\"}, url)",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "${DS_PROMETHEUS-APP}",
+        "definition": "label_values(pepper_summary_http_in_duration_seconds_count{app=\"$app\", method=\"$method\", url=~\"$url\"}, pod)",
+        "hide": 0,
+        "includeAll": true,
+        "label": "pod",
+        "multi": true,
+        "name": "pod",
+        "options": [],
+        "query": "label_values(pepper_summary_http_in_duration_seconds_count{app=\"$app\", method=\"$method\", url=~\"$url\"}, pod)",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
         "tagValuesQuery": "",
         "tags": [],
         "tagsQuery": "",
@@ -2257,7 +1245,7 @@
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-3h",
     "to": "now"
   },
   "timepicker": {
@@ -2286,7 +1274,7 @@
     ]
   },
   "timezone": "",
-  "title": "PEPPER / JEDIS",
-  "uid": "3HnYvqdWk",
-  "version": 21
+  "title": "PEPPER / HTTP / INCOMING / DRILL",
+  "uid": "EO0fwqOZz",
+  "version": 24
 }

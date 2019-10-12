@@ -59,7 +59,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1570872372341,
+  "iteration": 1570874389499,
   "links": [
     {
       "asDropdown": true,
@@ -158,13 +158,6 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by(method, url) (rate(http_summary_seconds_count{appId=~\"$app\"}[3m])) >0",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "{{method}} {{url}}",
-          "refId": "A"
-        },
-        {
           "expr": "sum by(method, url) (rate(pepper_summary_http_in_duration_seconds_count{appId=~\"$app\"}[3m])) >0",
           "format": "time_series",
           "intervalFactor": 1,
@@ -258,15 +251,6 @@
       "stack": false,
       "steppedLine": false,
       "targets": [
-        {
-          "expr": "max(http_summary_seconds{app=\"$app\",quantile=\"0.99\"}) by (method, url)",
-          "format": "time_series",
-          "hide": false,
-          "interval": "1m",
-          "intervalFactor": 1,
-          "legendFormat": "{{method}} {{url}}",
-          "refId": "C"
-        },
         {
           "expr": "max(pepper_summary_http_in_duration_seconds{app=\"$app\",quantile=\"0.99\"}) by (method, url)",
           "format": "time_series",
@@ -368,14 +352,6 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum (http_concurrent_gauge{app=~\"$app\"} offset 1m ) by (method, url)",
-          "format": "time_series",
-          "instant": false,
-          "intervalFactor": 2,
-          "legendFormat": "{{method}} {{url}}",
-          "refId": "A"
-        },
-        {
           "expr": "sum (pepper_gauge_http_in_concurrent{app=~\"$app\"} offset 1m ) by (method, url)",
           "format": "time_series",
           "instant": false,
@@ -474,14 +450,6 @@
       "stack": false,
       "steppedLine": false,
       "targets": [
-        {
-          "expr": "sum by (method, url) (increase(http_status_summary_seconds_count{app=~\"$app\", status!~\"2..\"}[2m]))",
-          "format": "time_series",
-          "instant": false,
-          "intervalFactor": 2,
-          "legendFormat": "{{method}} {{url}}",
-          "refId": "A"
-        },
         {
           "expr": "sum by (method, url) (increase(pepper_summary_http_status_in_duration_seconds_count{app=~\"$app\", status!~\"2..\"}[2m]))",
           "format": "time_series",
@@ -582,14 +550,6 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by(pod) (rate(http_summary_seconds_count{appId=~\"$app\"}[3m])) >0",
-          "format": "time_series",
-          "instant": false,
-          "intervalFactor": 2,
-          "legendFormat": "{{pod}}",
-          "refId": "A"
-        },
-        {
           "expr": "sum by(pod) (rate(pepper_summary_http_in_duration_seconds_count{appId=~\"$app\"}[3m])) >0",
           "format": "time_series",
           "instant": false,
@@ -688,14 +648,6 @@
       "stack": false,
       "steppedLine": false,
       "targets": [
-        {
-          "expr": "max(http_summary_seconds{appId=\"$app\",quantile=\"0.99\"}) by (pod)",
-          "format": "time_series",
-          "instant": false,
-          "intervalFactor": 2,
-          "legendFormat": "{{pod}}",
-          "refId": "A"
-        },
         {
           "expr": "max(pepper_summary_http_in_duration_seconds{appId=\"$app\",quantile=\"0.99\"}) by (pod)",
           "format": "time_series",
@@ -894,14 +846,6 @@
       "stack": false,
       "steppedLine": false,
       "targets": [
-        {
-          "expr": "sum by (pod) (increase(http_status_summary_seconds_count{app=~\"$app\", status!~\"2..\"}[2m]))",
-          "format": "time_series",
-          "instant": false,
-          "intervalFactor": 1,
-          "legendFormat": "{{pod}}",
-          "refId": "A"
-        },
         {
           "expr": "sum by (pod) (increase(pepper_summary_http_status_in_duration_seconds_count{app=~\"$app\", status!~\"2..\"}[2m]))",
           "format": "time_series",
@@ -1249,5 +1193,5 @@
   "timezone": "",
   "title": "PEPPER / HTTP / INCOMING",
   "uid": "qUdOy3OWz",
-  "version": 19
+  "version": 20
 }
