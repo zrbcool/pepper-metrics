@@ -46,7 +46,7 @@
   "gnetId": null,
   "graphTooltip": 1,
   "id": null,
-  "iteration": 1566530491678,
+  "iteration": 1570872513086,
   "links": [
     {
       "asDropdown": true,
@@ -157,11 +157,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by(class) (rate(app_mapper_summary_seconds_count{appId=~\"$app\"}[3m]))",
+          "expr": "sum by(class) (rate(pepper_summary_mybatis_default_duration_seconds_count{appId=~\"$app\"}[3m]))",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{class}}",
-          "refId": "B"
+          "refId": "A"
         }
       ],
       "thresholds": [],
@@ -250,11 +250,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (class) (app_mapper_concurrent_gauge{appId=~\"$app\"})",
+          "expr": "sum by (class) (pepper_gauge_mybatis_default_concurrent{appId=~\"$app\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{class}}",
-          "refId": "A"
+          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -344,7 +344,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "max(app_mapper_summary_seconds{quantile=\"0.99\", app=~\"$app\"}) by (class)",
+          "expr": "max(pepper_summary_mybatis_default_duration_seconds{quantile=\"0.99\", app=~\"$app\"}) by (class)",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -439,7 +439,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by(class) (increase(app_mapper_err_counter{appId=~\"$app\"}[3m]))",
+          "expr": "sum by(class) (increase(pepper_summary_mybatis_default_duration_seconds{appId=~\"$app\"}[3m]))",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{class}}",
@@ -545,7 +545,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by(operation) (rate(app_mapper_summary_seconds_count{appId=~\"$app\"}[3m]))",
+          "expr": "sum by(operation) (rate(pepper_summary_mybatis_default_duration_seconds_count{appId=~\"$app\"}[3m]))",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{operation}}",
@@ -638,12 +638,12 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "max(app_mapper_summary_seconds{quantile=\"0.99\", app=~\"$app\"}) by (operation)",
+          "expr": "max(pepper_summary_mybatis_default_duration_seconds{quantile=\"0.99\", app=~\"$app\"}) by (operation)",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
           "legendFormat": "{{operation}}",
-          "refId": "A"
+          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -733,7 +733,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "max(app_mapper_summary_seconds{quantile=\"0.999\", app=~\"$app\"}) by (operation)",
+          "expr": "max(pepper_summary_mybatis_default_duration_seconds{quantile=\"0.999\", app=~\"$app\"}) by (operation)",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -828,7 +828,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by(operation) (increase(app_mapper_err_counter{appId=~\"$app\"}[3m]))",
+          "expr": "sum by(operation) (increase(pepper_summary_mybatis_default_duration_seconds{appId=~\"$app\"}[3m]))",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{operation}}",
@@ -921,7 +921,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by(pod) (rate(app_mapper_summary_seconds_count{app=~\"$app\"}[3m]))",
+          "expr": "sum by(pod) (rate(pepper_summary_mybatis_default_duration_seconds_count{app=~\"$app\"}[3m]))",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{pod}}",
@@ -1014,7 +1014,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "max(app_mapper_summary_seconds{quantile=\"0.99\", app=~\"$app\"}) by (pod)",
+          "expr": "max(pepper_summary_mybatis_default_duration_seconds{quantile=\"0.99\", app=~\"$app\"}) by (pod)",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -1109,7 +1109,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "max(app_mapper_summary_seconds{quantile=\"0.999\", app=~\"$app\"}) by (pod)",
+          "expr": "max(pepper_summary_mybatis_default_duration_seconds{quantile=\"0.999\", app=~\"$app\"}) by (pod)",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -1204,7 +1204,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by(pod) (increase(app_mapper_err_counter{appId=~\"$app\"}[3m]))",
+          "expr": "sum by(pod) (increase(pepper_summary_mybatis_default_duration_seconds{appId=~\"$app\"}[3m]))",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{pod}}",
@@ -1257,7 +1257,8 @@
   "schemaVersion": 19,
   "style": "dark",
   "tags": [
-    "mybatis"
+    "mybatis",
+    "pepper"
   ],
   "templating": {
     "list": [
@@ -1317,5 +1318,5 @@
   "timezone": "",
   "title": "PEPPER / MYBATIS",
   "uid": "GTmQ3gKWz",
-  "version": 6
+  "version": 8
 }

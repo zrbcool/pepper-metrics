@@ -59,7 +59,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1566543181611,
+  "iteration": 1570872186186,
   "links": [
     {
       "asDropdown": true,
@@ -162,6 +162,13 @@
           "intervalFactor": 1,
           "legendFormat": "{{app}}",
           "refId": "A"
+        },
+        {
+          "expr": "sum by(app) (rate(pepper_summary_http_in_duration_seconds_count{appId=~\"$app\"}[3m])) >0",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{app}}",
+          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -255,6 +262,13 @@
           "intervalFactor": 1,
           "legendFormat": "{{app}}",
           "refId": "A"
+        },
+        {
+          "expr": "sum (pepper_gauge_http_in_concurrent{app=~\"$app\"} offset 1m ) by (app)",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{app}}",
+          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -351,6 +365,15 @@
           "intervalFactor": 1,
           "legendFormat": "{{app}}",
           "refId": "A"
+        },
+        {
+          "expr": "max(pepper_summary_http_in_duration_seconds{app=~\"$app\",quantile=\"0.99\"}) by (app)",
+          "format": "time_series",
+          "hide": false,
+          "interval": "1m",
+          "intervalFactor": 1,
+          "legendFormat": "{{app}}",
+          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -445,6 +468,13 @@
           "intervalFactor": 1,
           "legendFormat": "{{app}}",
           "refId": "A"
+        },
+        {
+          "expr": "sum by(app) (rate(pepper_summary_motan_in_duration_seconds_count{app=~\"$app\"}[3m]))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{app}}",
+          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -538,6 +568,13 @@
           "intervalFactor": 1,
           "legendFormat": "{{app}}",
           "refId": "A"
+        },
+        {
+          "expr": "sum (pepper_gauge_motan_in_concurrent{app=~\"$app\"} offset 1m ) by (app)",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{app}}",
+          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -634,6 +671,15 @@
           "intervalFactor": 1,
           "legendFormat": "{{app}}",
           "refId": "C"
+        },
+        {
+          "expr": "max(pepper_summary_motan_in_duration_seconds{app=~\"$app\",quantile=\"0.99\"}) by (app)",
+          "format": "time_series",
+          "hide": false,
+          "interval": "1m",
+          "intervalFactor": 1,
+          "legendFormat": "{{app}}",
+          "refId": "A"
         }
       ],
       "thresholds": [],
@@ -740,6 +786,22 @@
           "intervalFactor": 2,
           "legendFormat": "{{app}} - 5XX",
           "refId": "B"
+        },
+        {
+          "expr": "sum by (app)(pepper_summary_http_status_in_duration_seconds_count{status=~\"4..\"})",
+          "format": "time_series",
+          "instant": false,
+          "intervalFactor": 2,
+          "legendFormat": "{{app}} - 4XX",
+          "refId": "C"
+        },
+        {
+          "expr": "sum by (app)(pepper_summary_http_status_in_duration_seconds_count{status=~\"5..\"})",
+          "format": "time_series",
+          "instant": false,
+          "intervalFactor": 2,
+          "legendFormat": "{{app}} - 5XX",
+          "refId": "D"
         }
       ],
       "thresholds": [],
@@ -839,6 +901,14 @@
           "intervalFactor": 2,
           "legendFormat": "{{app}} ",
           "refId": "A"
+        },
+        {
+          "expr": "sum by (app)(pepper_counter_http_in_err_total{app=~\"$app\"})",
+          "format": "time_series",
+          "instant": false,
+          "intervalFactor": 2,
+          "legendFormat": "{{app}} ",
+          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -938,6 +1008,14 @@
           "intervalFactor": 2,
           "legendFormat": "{{app}}",
           "refId": "A"
+        },
+        {
+          "expr": "sum by(app) (increase(pepper_counter_motan_in_err_total{appId=~\"$app\"}[2m]))",
+          "format": "time_series",
+          "instant": false,
+          "intervalFactor": 2,
+          "legendFormat": "{{app}}",
+          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -1037,6 +1115,14 @@
           "intervalFactor": 2,
           "legendFormat": "{{app}}",
           "refId": "A"
+        },
+        {
+          "expr": "sum by(app) (increase(pepper_counter_motan_out_err_total{appId=~\"$app\"}[2m]))",
+          "format": "time_series",
+          "instant": false,
+          "intervalFactor": 2,
+          "legendFormat": "{{app}}",
+          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -1184,9 +1270,9 @@
           "decimals": 2,
           "link": true,
           "linkTooltip": "点击查看详情",
-          "linkUrl": "/d/WatLCGzWk/incoming-http?var-app=${__cell_1}",
+          "linkUrl": "/d/qUdOy3OWz/pepper-http-incoming?var-app=${__cell_1}",
           "mappingType": 1,
-          "pattern": "appId",
+          "pattern": "app",
           "thresholds": [],
           "type": "number",
           "unit": "short"
@@ -1224,28 +1310,28 @@
       ],
       "targets": [
         {
-          "expr": " sum\n  by(app) (rate(http_summary_seconds_count{app=~\"$app\"}[3m] offset\n  1m))",
+          "expr": " sum\n  by(app) (rate(pepper_summary_http_in_duration_seconds_count{app=~\"$app\"}[3m] offset\n  1m))",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
           "refId": "A"
         },
         {
-          "expr": "sum\n  by(app) (http_concurrent_gauge{appId=~\"$app\"} offset 1m)",
+          "expr": "sum\n  by(app) (pepper_gauge_http_in_concurrent{appId=~\"$app\"} offset 1m)",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
           "refId": "B"
         },
         {
-          "expr": "max(http_summary_seconds{app=~\"$app\",quantile=\"0.99\"}) by (app)",
+          "expr": "max(pepper_summary_http_in_duration_seconds{app=~\"$app\",quantile=\"0.99\"}) by (app)",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
           "refId": "C"
         },
         {
-          "expr": "max(http_summary_seconds{app=~\"$app\",quantile=\"0.999\"}) by (app)",
+          "expr": "max(pepper_summary_http_in_duration_seconds{app=~\"$app\",quantile=\"0.999\"}) by (app)",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
@@ -1343,9 +1429,9 @@
           "decimals": 2,
           "link": true,
           "linkTooltip": "点击查看详情",
-          "linkUrl": "/d/x63t6GzWk/3-incoming-motan?orgId=1&var-app=${__cell_1}",
+          "linkUrl": "/d/0QKfd3dZk/pepper-motan-incoming?orgId=1&var-app=${__cell_1}",
           "mappingType": 1,
-          "pattern": "appId",
+          "pattern": "app",
           "thresholds": [],
           "type": "number",
           "unit": "short"
@@ -1383,21 +1469,21 @@
       ],
       "targets": [
         {
-          "expr": "sum\n  by(app) (rate(app_motan_request_in_summary_seconds_count{app=~\"$app\"}[3m] offset\n  1m))",
+          "expr": "sum\n  by(app) (rate(pepper_summary_motan_in_duration_seconds_count{app=~\"$app\"}[3m] offset\n  1m))",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
           "refId": "A"
         },
         {
-          "expr": "sum\n  by(app) (app_motan_request_in_concurrent_gauge{app=~\"$app\"} offset 1m)",
+          "expr": "sum\n  by(app) (pepper_gauge_motan_in_concurrent{app=~\"$app\"} offset 1m)",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
           "refId": "B"
         },
         {
-          "expr": "max(app_motan_request_in_summary_seconds{app=~\"$app\",quantile=\"0.99\"}) by (app)",
+          "expr": "max(pepper_summary_motan_in_duration_seconds{app=~\"$app\",quantile=\"0.99\"}) by (app)",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -1405,7 +1491,7 @@
           "refId": "C"
         },
         {
-          "expr": "max(app_motan_request_in_summary_seconds{app=~\"$app\",quantile=\"0.999\"}) by (app)",
+          "expr": "max(pepper_summary_motan_in_duration_seconds{app=~\"$app\",quantile=\"0.999\"}) by (app)",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -1502,5 +1588,5 @@
   "timezone": "",
   "title": "PEPPER / Dashboard",
   "uid": "ZwhGzzFZz",
-  "version": 10
+  "version": 18
 }

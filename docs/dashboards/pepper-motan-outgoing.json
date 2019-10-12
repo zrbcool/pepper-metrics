@@ -59,7 +59,7 @@
   "gnetId": null,
   "graphTooltip": 1,
   "id": null,
-  "iteration": 1566530454946,
+  "iteration": 1570872486537,
   "links": [
     {
       "asDropdown": true,
@@ -158,7 +158,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by(method) (rate(app_motan_request_out_summary_seconds_count{app=~\"$app\"}[3m]))",
+          "expr": "sum by(method) (rate(pepper_summary_motan_out_duration_seconds_count{app=~\"$app\"}[3m]))",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{method}}",
@@ -252,7 +252,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "max(app_motan_request_out_summary_seconds{appId=\"$app\",quantile=\"0.99\"}) by (method)",
+          "expr": "max(pepper_summary_motan_out_duration_seconds{appId=\"$app\",quantile=\"0.99\"}) by (method)",
           "format": "time_series",
           "hide": false,
           "interval": "1m",
@@ -352,7 +352,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum (app_motan_request_out_concurrent_gauge{appId=~\"$app\"} offset 1m ) by (method)",
+          "expr": "sum (pepper_gauge_motan_out_concurrent{appId=~\"$app\"} offset 1m ) by (method)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -448,11 +448,11 @@
       "renderer": "flot",
       "seriesOverrides": [],
       "spaceLength": 10,
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(increase(app_motan_request_out_err_counter_total{appId=~\"$app\"}[2m])) by (method)",
+          "expr": "sum(increase(pepper_counter_motan_out_err_total{appId=~\"$app\"}[2m])) by (method)",
           "format": "time_series",
           "instant": false,
           "intervalFactor": 2,
@@ -548,7 +548,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by(pod) (rate(app_motan_request_out_summary_seconds_count{appId=~\"$app\"}[3m]))",
+          "expr": "sum by(pod) (rate(pepper_summary_motan_out_duration_seconds_count{appId=~\"$app\"}[3m]))",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{pod}}",
@@ -642,7 +642,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "max(app_motan_request_out_summary_seconds{appId=\"$app\",quantile=\"0.99\"}) by (pod)",
+          "expr": "max(pepper_summary_motan_out_duration_seconds{appId=\"$app\",quantile=\"0.99\"}) by (pod)",
           "format": "time_series",
           "hide": false,
           "interval": "1m",
@@ -742,7 +742,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum (app_motan_request_out_concurrent_gauge{appId=~\"$app\"} offset 1m ) by (pod)",
+          "expr": "sum (pepper_gauge_motan_out_concurrent{appId=~\"$app\"} offset 1m ) by (pod)",
           "format": "time_series",
           "instant": false,
           "intervalFactor": 2,
@@ -837,11 +837,11 @@
       "renderer": "flot",
       "seriesOverrides": [],
       "spaceLength": 10,
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(increase(app_motan_request_out_err_counter_total{appId=~\"$app\"}[2m])) by (pod)",
+          "expr": "sum(increase(pepper_counter_motan_out_err_total{appId=~\"$app\"}[2m])) by (pod)",
           "format": "time_series",
           "instant": false,
           "intervalFactor": 2,
@@ -1038,7 +1038,7 @@
       ],
       "targets": [
         {
-          "expr": "sum by(method) (rate(app_motan_request_out_summary_seconds_count{app=\"$app\"}[3m]))",
+          "expr": "sum by(method) (rate(pepper_summary_motan_out_duration_seconds_count{app=\"$app\"}[3m]))",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
@@ -1046,7 +1046,7 @@
           "refId": "A"
         },
         {
-          "expr": "((\n  sum by(method) (increase(app_motan_request_out_err_counter{app=\"$app\"}[10m]))\n  / \n  (sum by(method) (increase(app_motan_request_out_summary_seconds_count{}[10m])) + 0.0001)\n  ) * 100)",
+          "expr": "((\n  sum by(method) (increase(pepper_counter_motan_out_err_total{app=\"$app\"}[10m]))\n  / \n  (sum by(method) (increase(pepper_summary_motan_out_duration_seconds_count{app=\"$app\"}[10m])) + 0.0001)\n  ) * 100)",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
@@ -1054,7 +1054,7 @@
           "refId": "B"
         },
         {
-          "expr": "sum by (method) (max_over_time(app_motan_request_out_summary_seconds{app=\"$app\", quantile=\"0.99\"}[10m]) )",
+          "expr": "sum by (method) (max_over_time(pepper_summary_motan_out_duration_seconds{app=\"$app\", quantile=\"0.99\"}[10m]) )",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
@@ -1062,7 +1062,7 @@
           "refId": "C"
         },
         {
-          "expr": "sum by (method) (max_over_time(app_motan_request_out_summary_seconds{app=\"$app\", quantile=\"0.999\"}[10m]) )",
+          "expr": "sum by (method) (max_over_time(pepper_summary_motan_out_duration_seconds{app=\"$app\", quantile=\"0.999\"}[10m]) )",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
@@ -1070,7 +1070,7 @@
           "refId": "D"
         },
         {
-          "expr": "sum (app_motan_request_out_concurrent_gauge{app=\"$app\"} offset 1m ) by (method)",
+          "expr": "sum (pepper_gauge_motan_out_concurrent{app=\"$app\"} offset 1m ) by (method)",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
@@ -1088,7 +1088,8 @@
   "style": "dark",
   "tags": [
     "motan",
-    "outgoing"
+    "outgoing",
+    "pepper"
   ],
   "templating": {
     "list": [
@@ -1166,5 +1167,5 @@
   "timezone": "",
   "title": "PEPPER / MOTAN / OUTGOING",
   "uid": "J3dPrqdZz",
-  "version": 6
+  "version": 9
 }

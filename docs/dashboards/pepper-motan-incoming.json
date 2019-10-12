@@ -59,7 +59,7 @@
   "gnetId": null,
   "graphTooltip": 1,
   "id": null,
-  "iteration": 1566530427391,
+  "iteration": 1570872459576,
   "links": [
     {
       "asDropdown": true,
@@ -163,6 +163,13 @@
           "intervalFactor": 1,
           "legendFormat": "{{method}}",
           "refId": "A"
+        },
+        {
+          "expr": "sum by(method) (rate(pepper_summary_motan_in_duration_seconds_count{app=~\"$app\"}[3m]))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{method}}",
+          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -259,6 +266,15 @@
           "intervalFactor": 1,
           "legendFormat": "{{method}}",
           "refId": "C"
+        },
+        {
+          "expr": "max(pepper_summary_motan_in_duration_seconds{appId=\"$app\",quantile=\"0.99\"}) by (method)",
+          "format": "time_series",
+          "hide": false,
+          "interval": "1m",
+          "intervalFactor": 1,
+          "legendFormat": "{{method}}",
+          "refId": "A"
         }
       ],
       "thresholds": [],
@@ -359,6 +375,15 @@
           "intervalFactor": 2,
           "legendFormat": "{{method}}",
           "refId": "A"
+        },
+        {
+          "expr": "sum (pepper_gauge_motan_in_concurrent{appId=~\"$app\"} offset 1m ) by (method)",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "intervalFactor": 2,
+          "legendFormat": "{{method}}",
+          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -458,6 +483,14 @@
           "intervalFactor": 2,
           "legendFormat": "{{method}}",
           "refId": "A"
+        },
+        {
+          "expr": "sum(increase(pepper_counter_motan_in_err_total{app=~\"$app\"}[2m])) by (method)",
+          "format": "time_series",
+          "instant": false,
+          "intervalFactor": 2,
+          "legendFormat": "{{method}}",
+          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -553,6 +586,13 @@
           "intervalFactor": 1,
           "legendFormat": "{{pod}}",
           "refId": "A"
+        },
+        {
+          "expr": "sum by(pod) (rate(pepper_summary_motan_in_duration_seconds_count{appId=~\"$app\"}[3m]))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{pod}}",
+          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -649,6 +689,15 @@
           "intervalFactor": 1,
           "legendFormat": "{{pod}}",
           "refId": "C"
+        },
+        {
+          "expr": "max(pepper_summary_motan_in_duration_seconds{appId=\"$app\",quantile=\"0.99\"}) by (pod)",
+          "format": "time_series",
+          "hide": false,
+          "interval": "1m",
+          "intervalFactor": 1,
+          "legendFormat": "{{pod}}",
+          "refId": "A"
         }
       ],
       "thresholds": [],
@@ -748,6 +797,14 @@
           "intervalFactor": 2,
           "legendFormat": "{{pod}}",
           "refId": "A"
+        },
+        {
+          "expr": "sum (pepper_gauge_motan_in_concurrent{appId=~\"$app\"} offset 1m ) by (pod)",
+          "format": "time_series",
+          "instant": false,
+          "intervalFactor": 2,
+          "legendFormat": "{{pod}}",
+          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -847,6 +904,14 @@
           "intervalFactor": 2,
           "legendFormat": "{{pod}}",
           "refId": "A"
+        },
+        {
+          "expr": "sum(increase(pepper_counter_motan_in_err_total{appId=~\"$app\"}[2m])) by (pod)",
+          "format": "time_series",
+          "instant": false,
+          "intervalFactor": 2,
+          "legendFormat": "{{pod}}",
+          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -909,7 +974,7 @@
       "showHeader": true,
       "sort": {
         "col": 3,
-        "desc": true
+        "desc": false
       },
       "styles": [
         {
@@ -1038,7 +1103,7 @@
       ],
       "targets": [
         {
-          "expr": "sum by(method) (rate(app_motan_request_in_summary_seconds_count{app=\"$app\"}[3m]))",
+          "expr": "sum by(method) (rate(pepper_summary_motan_in_duration_seconds_count{app=\"$app\"}[3m]))",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
@@ -1046,7 +1111,7 @@
           "refId": "A"
         },
         {
-          "expr": "((\n  sum by(method) (increase(app_motan_request_in_err_counter{app=\"$app\"}[10m]))\n  / \n  (sum by(method) (increase(app_motan_request_in_summary_seconds_count{}[10m])) + 0.0001)\n  ) * 100)",
+          "expr": "((\n  sum by(method) (increase(pepper_counter_motan_in_err_total{app=\"$app\"}[10m]))\n  / \n  (sum by(method) (increase(pepper_summary_motan_in_duration_seconds_count{}[10m])) + 0.0001)\n  ) * 100)",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
@@ -1054,7 +1119,7 @@
           "refId": "B"
         },
         {
-          "expr": "sum by (method) (max_over_time(app_motan_request_in_summary_seconds{app=\"$app\", quantile=\"0.99\"}[10m]) )",
+          "expr": "sum by (method) (max_over_time(pepper_summary_motan_in_duration_seconds{app=\"$app\", quantile=\"0.99\"}[10m]) )",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
@@ -1062,7 +1127,7 @@
           "refId": "C"
         },
         {
-          "expr": "sum by (method) (max_over_time(app_motan_request_in_summary_seconds{app=\"$app\", quantile=\"0.999\"}[10m]) )",
+          "expr": "sum by (method) (max_over_time(pepper_summary_motan_in_duration_seconds{app=\"$app\", quantile=\"0.999\"}[10m]) )",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
@@ -1070,7 +1135,7 @@
           "refId": "D"
         },
         {
-          "expr": "sum (app_motan_request_in_concurrent_gauge{app=\"$app\"} offset 1m ) by (method)",
+          "expr": "sum (pepper_gauge_motan_in_concurrent{app=\"$app\"} offset 1m ) by (method)",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
@@ -1088,7 +1153,8 @@
   "style": "dark",
   "tags": [
     "motan",
-    "incoming"
+    "incoming",
+    "pepper"
   ],
   "templating": {
     "list": [
@@ -1166,5 +1232,5 @@
   "timezone": "",
   "title": "PEPPER / MOTAN / INCOMING",
   "uid": "0QKfd3dZk",
-  "version": 12
+  "version": 15
 }

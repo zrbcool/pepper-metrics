@@ -46,7 +46,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1566530442190,
+  "iteration": 1570872472444,
   "links": [
     {
       "asDropdown": true,
@@ -159,7 +159,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by(pod) (rate(app_motan_request_in_summary_seconds_count{app=~\"$app\", method=~\"$method\"}[3m]))",
+          "expr": "sum by(pod) (rate(pepper_summary_motan_in_duration_seconds_count{app=~\"$app\", method=~\"$method\"}[3m]))",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{pod}}",
@@ -254,7 +254,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "max(app_motan_request_in_summary_seconds{appId=\"$app\", quantile=\"0.9\", method=~\"$method\"}) by (pod)",
+          "expr": "max(pepper_summary_motan_in_duration_seconds{appId=\"$app\", quantile=\"0.9\", method=~\"$method\"}) by (pod)",
           "format": "time_series",
           "hide": false,
           "interval": "1m",
@@ -350,7 +350,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "max(app_motan_request_in_summary_seconds{appId=\"$app\", quantile=\"0.99\", method=~\"$method\"}) by (pod)",
+          "expr": "max(pepper_summary_motan_in_duration_seconds{appId=\"$app\", quantile=\"0.99\", method=~\"$method\"}) by (pod)",
           "format": "time_series",
           "hide": false,
           "interval": "1m",
@@ -446,7 +446,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "max(app_motan_request_in_summary_seconds{appId=\"$app\", quantile=\"0.999\", method=~\"$method\"}) by (pod)",
+          "expr": "max(pepper_summary_motan_in_duration_seconds{appId=\"$app\", quantile=\"0.999\", method=~\"$method\"}) by (pod)",
           "format": "time_series",
           "interval": "1m",
           "intervalFactor": 1,
@@ -537,7 +537,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "floor(sum (app_motan_request_in_concurrent_gauge{appId=~\"$app\", method=~\"$method\"} offset 1m ) by (pod))",
+          "expr": "floor(sum (pepper_gauge_motan_in_concurrent{appId=~\"$app\", method=~\"$method\"} offset 1m ) by (pod))",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{pod}}",
@@ -631,7 +631,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "max(app_motan_request_in_summary_seconds{appId=\"$app\", quantile=\"0.9\", method=~\"$method\"})",
+          "expr": "max(pepper_summary_motan_in_duration_seconds{appId=\"$app\", quantile=\"0.9\", method=~\"$method\"})",
           "format": "time_series",
           "hide": false,
           "interval": "1m",
@@ -640,7 +640,7 @@
           "refId": "C"
         },
         {
-          "expr": "max(app_motan_request_in_summary_seconds{appId=\"$app\", quantile=\"0.9\", method=~\"$method\"} offset 24h)",
+          "expr": "max(pepper_summary_motan_in_duration_seconds{appId=\"$app\", quantile=\"0.9\", method=~\"$method\"} offset 24h)",
           "format": "time_series",
           "hide": false,
           "interval": "1m",
@@ -649,7 +649,7 @@
           "refId": "A"
         },
         {
-          "expr": "max(app_motan_request_in_summary_seconds{appId=\"$app\", quantile=\"0.9\", method=~\"$method\"} offset 7d)",
+          "expr": "max(pepper_summary_motan_in_duration_seconds{appId=\"$app\", quantile=\"0.9\", method=~\"$method\"} offset 7d)",
           "format": "time_series",
           "hide": false,
           "interval": "1m",
@@ -745,7 +745,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "max(app_motan_request_in_summary_seconds{appId=\"$app\", quantile=\"0.99\", method=~\"$method\"}) by (pod)",
+          "expr": "max(pepper_summary_motan_in_duration_seconds{appId=\"$app\", quantile=\"0.99\", method=~\"$method\"})",
           "format": "time_series",
           "hide": false,
           "interval": "1m",
@@ -754,7 +754,7 @@
           "refId": "C"
         },
         {
-          "expr": "max(app_motan_request_in_summary_seconds{appId=\"$app\", quantile=\"0.99\", method=~\"$method\"} offset 24h) by (pod)",
+          "expr": "max(pepper_summary_motan_in_duration_seconds{appId=\"$app\", quantile=\"0.99\", method=~\"$method\"} offset 24h)",
           "format": "time_series",
           "hide": false,
           "interval": "1m",
@@ -763,7 +763,7 @@
           "refId": "A"
         },
         {
-          "expr": "max(app_motan_request_in_summary_seconds{appId=\"$app\", quantile=\"0.99\", method=~\"$method\"} offset 7d) by (pod)",
+          "expr": "max(pepper_summary_motan_in_duration_seconds{appId=\"$app\", quantile=\"0.99\", method=~\"$method\"} offset 7d)",
           "format": "time_series",
           "hide": false,
           "interval": "1m",
@@ -859,7 +859,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "max(app_motan_request_in_summary_seconds{appId=\"$app\", quantile=\"0.999\", method=~\"$method\"}) by (pod)",
+          "expr": "max(pepper_summary_motan_in_duration_seconds{appId=\"$app\", quantile=\"0.999\", method=~\"$method\"})",
           "format": "time_series",
           "hide": false,
           "interval": "1m",
@@ -868,7 +868,7 @@
           "refId": "C"
         },
         {
-          "expr": "max(app_motan_request_in_summary_seconds{appId=\"$app\", quantile=\"0.999\", method=~\"$method\"} offset 24h) by (pod)",
+          "expr": "max(pepper_summary_motan_in_duration_seconds{appId=\"$app\", quantile=\"0.999\", method=~\"$method\"} offset 24h)",
           "format": "time_series",
           "hide": false,
           "interval": "1m",
@@ -877,7 +877,7 @@
           "refId": "A"
         },
         {
-          "expr": "max(app_motan_request_in_summary_seconds{appId=\"$app\", quantile=\"0.999\", method=~\"$method\"} offset 7d) by (pod)",
+          "expr": "max(pepper_summary_motan_in_duration_seconds{appId=\"$app\", quantile=\"0.999\", method=~\"$method\"} offset 7d)",
           "format": "time_series",
           "hide": false,
           "interval": "1m",
@@ -977,7 +977,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(increase(app_motan_request_in_err_counter{appId=~\"$app\"}[1m]))",
+          "expr": "sum(increase(pepper_counter_motan_in_err_total{appId=~\"$app\"}[2m]))",
           "format": "time_series",
           "instant": false,
           "intervalFactor": 1,
@@ -989,7 +989,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "错误数 - 1m",
+      "title": "错误数 - 2m",
       "tooltip": {
         "shared": true,
         "sort": 2,
@@ -1033,7 +1033,8 @@
   "style": "dark",
   "tags": [
     "incoming",
-    "motan"
+    "motan",
+    "pepper"
   ],
   "templating": {
     "list": [
@@ -1063,16 +1064,16 @@
         "allValue": null,
         "current": {},
         "datasource": "${DS_PROMETHEUS-APP}",
-        "definition": "query_result(sum(increase(app_motan_requests_in_latency_seconds_histogram_count{appId=\"$app\"}[1d])) by (method) > 30) ",
+        "definition": "label_values(pepper_summary_motan_in_duration_seconds_count{app=~\"$app\"}, method)",
         "hide": 0,
         "includeAll": false,
         "label": "method",
         "multi": true,
         "name": "method",
         "options": [],
-        "query": "query_result(sum(increase(app_motan_requests_in_latency_seconds_histogram_count{appId=\"$app\"}[1d])) by (method) > 30) ",
+        "query": "label_values(pepper_summary_motan_in_duration_seconds_count{app=~\"$app\"}, method)",
         "refresh": 1,
-        "regex": "/\"([^\"]+)\"/",
+        "regex": "",
         "skipUrlSync": false,
         "sort": 1,
         "tagValuesQuery": "",
@@ -1115,5 +1116,5 @@
   "timezone": "",
   "title": "PEPPER / MOTAN / INCOMING / DRILL",
   "uid": "pxUGt3OWz",
-  "version": 7
+  "version": 13
 }
