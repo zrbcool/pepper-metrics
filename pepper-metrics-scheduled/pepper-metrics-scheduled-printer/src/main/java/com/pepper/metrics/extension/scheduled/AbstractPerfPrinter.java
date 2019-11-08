@@ -206,7 +206,7 @@ public abstract class AbstractPerfPrinter implements PerfPrinter {
     }
 
     private String buildCollectorKey(Stats stats) {
-        return stats.getType() + "-" + stats.getNamespace();
+        return stats.getType() + "-" + stats.getSubType() + "-" + stats.getNamespace();
     }
 
 }
