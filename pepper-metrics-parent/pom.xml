@@ -4,7 +4,7 @@
 	<artifactId>pepper-metrics-parent</artifactId>
 	<name>${project.artifactId}</name>
 	<description>${project.artifactId}</description>
-	<version>1.0.15</version>
+	<version>1.0.16-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
