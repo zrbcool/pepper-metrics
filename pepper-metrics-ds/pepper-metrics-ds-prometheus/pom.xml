@@ -4,13 +4,13 @@
     <parent>
         <artifactId>pepper-metrics-ds</artifactId>
         <groupId>top.zrbcool</groupId>
-        <version>1.0.15-SNAPSHOT</version>
+        <version>1.0.15</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>pepper-metrics-ds-prometheus</artifactId>
-    <version>1.0.15-SNAPSHOT</version>
+    <version>1.0.15</version>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
     <description>${project.artifactId}</description>
@@ -19,7 +19,7 @@
         <dependency>
             <groupId>top.zrbcool</groupId>
             <artifactId>pepper-metrics-core</artifactId>
-            <version>1.0.15-SNAPSHOT</version>
+            <version>1.0.15</version>
         </dependency>
         <dependency>
             <groupId>io.micrometer</groupId>
