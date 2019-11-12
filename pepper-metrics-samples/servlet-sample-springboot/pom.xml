@@ -3,7 +3,7 @@
     <parent>
         <artifactId>pepper-metrics-samples</artifactId>
         <groupId>top.zrbcool</groupId>
-        <version>1.0.16-SNAPSHOT</version>
+        <version>1.0.16</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -13,18 +13,18 @@
         <dependency>
             <groupId>top.zrbcool</groupId>
             <artifactId>pepper-metrics-custom</artifactId>
-            <version>1.0.16-SNAPSHOT</version>
+            <version>1.0.16</version>
         </dependency>
         <dependency>
             <groupId>top.zrbcool</groupId>
             <artifactId>pepper-metrics-servlet</artifactId>
-            <version>1.0.16-SNAPSHOT</version>
+            <version>1.0.16</version>
         </dependency>
         <!-- pepper-metrics datasource use prometheus by default -->
         <dependency>
             <groupId>top.zrbcool</groupId>
             <artifactId>pepper-metrics-ds-prometheus</artifactId>
-            <version>1.0.16-SNAPSHOT</version>
+            <version>1.0.16</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -3,7 +3,7 @@
     <parent>
         <artifactId>pepper-metrics-integration</artifactId>
         <groupId>top.zrbcool</groupId>
-        <version>1.0.16-SNAPSHOT</version>
+        <version>1.0.16</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -13,12 +13,12 @@
         <dependency>
             <groupId>top.zrbcool</groupId>
             <artifactId>pepper-metrics-core</artifactId>
-            <version>1.0.16-SNAPSHOT</version>
+            <version>1.0.16</version>
         </dependency>
         <dependency>
             <groupId>top.zrbcool</groupId>
             <artifactId>pepper-metrics-scheduled-printer</artifactId>
-            <version>1.0.16-SNAPSHOT</version>
+            <version>1.0.16</version>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
