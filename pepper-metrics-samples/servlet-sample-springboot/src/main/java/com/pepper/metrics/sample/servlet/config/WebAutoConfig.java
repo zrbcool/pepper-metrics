@@ -1,5 +1,6 @@
 package com.pepper.metrics.sample.servlet.config;
 
+import com.pepper.metrics.integration.custom.CustomProfilerAspect;
 import com.pepper.metrics.integration.servlet.PerfFilter;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -33,5 +34,10 @@ public class WebAutoConfig {
         registration.setOrder(1);
 
         return registration;
+    }
+
+    @Bean
+    public CustomProfilerAspect customProfilerAspect() {
+        return new CustomProfilerAspect();
     }
 }

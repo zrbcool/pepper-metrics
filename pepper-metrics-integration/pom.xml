@@ -22,6 +22,7 @@
         <module>pepper-metrics-mybatis</module>
         <module>pepper-metrics-dubbo</module>
         <module>pepper-metrics-druid</module>
+        <module>pepper-metrics-custom</module>
     </modules>
 
 </project>

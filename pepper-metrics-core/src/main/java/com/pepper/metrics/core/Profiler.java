@@ -61,4 +61,19 @@ public class Profiler {
         }
 
     }
+
+    public static void main(String[] args) throws InterruptedException {
+        ScheduledExecutorService scheduledExecutor = Executors.newScheduledThreadPool(1, new ThreadFactory());
+
+        scheduledExecutor.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("i am alive");
+            }
+        }, 10000, 10000, TimeUnit.MILLISECONDS);
+
+        for (;;) {
+            TimeUnit.SECONDS.sleep(1);
+        }
+    }
 }

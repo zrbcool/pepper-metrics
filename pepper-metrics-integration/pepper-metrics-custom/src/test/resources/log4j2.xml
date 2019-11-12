@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="off" monitorInterval="1800">
+    <properties>
+        <property name="LOG_HOME">/data/coohua/logs/pepper</property>
+        <property name="PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] [%level] [%C{36}.%M(%L)] - %msg%xEx%n</property>
+        <!-- 系统默认日志-->
+        <property name="PERFORMANCE_LOG">${LOG_HOME}/sys.log</property>
+
+        <property name="EVERY_FILE_SIZE">1000M</property><!-- 日志切割的最小单位 -->
+        <property name="OUTPUT_LOG_LEVEL">info</property><!-- 日志输出级别 -->
+    </properties>
+    <appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${PATTERN}"/>
+        </Console>
+        <RollingRandomAccessFile name="performanceFile"
+                                 fileName="${PERFORMANCE_LOG}"
+                                 filePattern="${PERFORMANCE_LOG}.%d{yyyyMMdd}.%i.log.gz"
+                                 immediateFlush="true"
+                                 ignoreExceptions="true">
+            <PatternLayout pattern="${PATTERN}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="${EVERY_FILE_SIZE}"/>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+            <Filters>
+                <!-- 过滤不记录error级别的信息 -->
+                <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="trace" onMatch="ACCEPT" onMismatch="NEUTRAL"/>
+            </Filters>
+            <DefaultRolloverStrategy max="20">
+                <Delete basePath="${LOG_HOME}" maxDepth="1">
+                    <IfFileName glob="*.log.gz" />
+                    <IfLastModified age="10d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+        <Async name="performanceLogAppender">
+            <AppenderRef ref="performanceFile"/>
+        </Async>
+    </appenders>
+
+    <loggers>
+        <Logger name="performance" level="${OUTPUT_LOG_LEVEL}" additivity="false">
+            <AppenderRef ref="performanceLogAppender"/>
+        </Logger>
+        <ROOT level="${OUTPUT_LOG_LEVEL}" additivity="true">
+            <AppenderRef ref="performanceLogAppender"/>
+        </ROOT>
+    </loggers>
+</configuration>
