@@ -47,7 +47,9 @@ public class ProducerSendMessageHook implements SendMessageHook {
 
     private String[] tags(SendMessageContext context) {
         final MessageQueue messageQueue = context.getMq();
-        return new String[]{"metric", messageQueue.getBrokerName() + "/" + messageQueue.getTopic() + "/Q" + messageQueue.getQueueId(),
+        return new String[]{"metric", messageQueue.getBrokerName() +
+                            "/" + messageQueue.getTopic() +
+                            "/Q" + messageQueue.getQueueId(),
                 "broker", messageQueue.getBrokerName(),
                 "namespace", namespace,
                 "topic", messageQueue.getTopic(),
