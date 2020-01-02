@@ -1,4 +1,4 @@
-package com.pepper.metrics.integration.rocketmq.proxy;
+package com.pepper.metrics.integration.rocketmq.deprecated;
 
 import com.pepper.metrics.core.Profiler;
 import com.pepper.metrics.core.Stats;
@@ -12,6 +12,7 @@ import java.util.List;
  * @author zhangrongbincool@163.com
  * @version 20-1-2
  */
+@Deprecated
 public class MessageListenerOrderlyProxy implements MessageListenerOrderly {
 
     private String namespace;

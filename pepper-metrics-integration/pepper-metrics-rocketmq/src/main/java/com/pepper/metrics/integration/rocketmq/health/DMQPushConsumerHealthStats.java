@@ -1,4 +1,4 @@
-package com.pepper.metrics.integration.rocketmq;
+package com.pepper.metrics.integration.rocketmq.health;
 
 import com.google.common.collect.Maps;
 import com.pepper.metrics.core.HealthStatsDefault;

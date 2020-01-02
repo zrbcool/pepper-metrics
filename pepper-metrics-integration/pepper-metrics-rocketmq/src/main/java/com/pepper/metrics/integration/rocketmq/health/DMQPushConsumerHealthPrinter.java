@@ -1,4 +1,4 @@
-package com.pepper.metrics.integration.rocketmq;
+package com.pepper.metrics.integration.rocketmq.health;
 
 import com.google.common.collect.Sets;
 import com.google.common.util.concurrent.AtomicDouble;

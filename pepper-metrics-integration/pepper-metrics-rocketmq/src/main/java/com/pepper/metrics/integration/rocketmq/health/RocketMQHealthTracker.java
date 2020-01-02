@@ -1,10 +1,9 @@
-package com.pepper.metrics.integration.rocketmq;
+package com.pepper.metrics.integration.rocketmq.health;
 
 import com.pepper.metrics.core.HealthTracker;
 import com.pepper.metrics.core.MetricsRegistry;
-import com.pepper.metrics.integration.rocketmq.DMQPushConsumerHealthStats;
-import com.pepper.metrics.integration.rocketmq.proxy.MessageListenerConcurrentlyProxy;
-import com.pepper.metrics.integration.rocketmq.proxy.MessageListenerOrderlyProxy;
+import com.pepper.metrics.integration.rocketmq.deprecated.MessageListenerConcurrentlyProxy;
+import com.pepper.metrics.integration.rocketmq.deprecated.MessageListenerOrderlyProxy;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerOrderly;

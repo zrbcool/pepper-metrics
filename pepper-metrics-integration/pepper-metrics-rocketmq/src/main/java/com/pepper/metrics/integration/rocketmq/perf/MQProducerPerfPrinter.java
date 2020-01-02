@@ -1,4 +1,4 @@
-package com.pepper.metrics.integration.rocketmq;
+package com.pepper.metrics.integration.rocketmq.perf;
 
 import com.pepper.metrics.core.Stats;
 import com.pepper.metrics.core.extension.SpiMeta;

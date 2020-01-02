@@ -1,4 +1,4 @@
-package com.pepper.metrics.integration.rocketmq.proxy;
+package com.pepper.metrics.integration.rocketmq.deprecated;
 
 import com.pepper.metrics.core.Profiler;
 import com.pepper.metrics.core.Stats;
@@ -11,6 +11,7 @@ import java.lang.reflect.Method;
  * @author zhangrongbincool@163.com
  * @version 19-8-7
  */
+@Deprecated
 public class DefaultMQProducerMethodInterceptor implements MethodInterceptor {
     private final String namespace;
     private final Stats stats;

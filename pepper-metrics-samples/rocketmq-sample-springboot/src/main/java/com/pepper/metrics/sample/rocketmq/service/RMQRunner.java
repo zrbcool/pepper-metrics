@@ -1,10 +1,10 @@
 package com.pepper.metrics.sample.rocketmq.service;
 
-import com.pepper.metrics.integration.rocketmq.DefaultMQProducerFactory;
-import com.pepper.metrics.integration.rocketmq.RocketMQHealthTracker;
+import com.pepper.metrics.integration.rocketmq.perf.ConsumerConsumeMessageHook;
+import com.pepper.metrics.integration.rocketmq.perf.ProducerSendMessageHook;
+import com.pepper.metrics.integration.rocketmq.health.RocketMQHealthTracker;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
-import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.client.exception.MQBrokerException;
@@ -19,7 +19,6 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -39,7 +38,9 @@ public class RMQRunner implements ApplicationRunner {
         final String topic = "PEPPER-TEST-TOPIC";
         final String namespace = "default";
 
-        DefaultMQProducer producer = DefaultMQProducerFactory.newDefaultMQProducer();
+        //DefaultMQProducer producer = DefaultMQProducerFactory.newDefaultMQProducer();
+        DefaultMQProducer producer = new DefaultMQProducer();
+        producer.getDefaultMQProducerImpl().registerSendMessageHook(new ProducerSendMessageHook(namespace));
         producer.setNamesrvAddr(NAME_SRV_ADDR);
         producer.setProducerGroup("default");
         producer.start();
@@ -69,7 +70,9 @@ public class RMQRunner implements ApplicationRunner {
             }
             return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
         };
-        consumer.setMessageListener(RocketMQHealthTracker.proxy(namespace, consumerGroup, listener));
+        //consumer.setMessageListener(RocketMQHealthTracker.proxy(namespace, consumerGroup, listener));
+        consumer.setMessageListener(listener);
+        consumer.getDefaultMQPushConsumerImpl().registerConsumeMessageHook(new ConsumerConsumeMessageHook(namespace));
         consumer.start();
         RocketMQHealthTracker.addDefaultMQPushConsumer(namespace, consumer);
 

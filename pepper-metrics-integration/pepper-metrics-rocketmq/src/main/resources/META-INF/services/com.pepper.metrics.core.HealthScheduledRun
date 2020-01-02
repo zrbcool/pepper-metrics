@@ -1,1 +1,1 @@
-com.pepper.metrics.integration.rocketmq.DMQPushConsumerHealthStatScheduled
+com.pepper.metrics.integration.rocketmq.health.DMQPushConsumerHealthStatScheduled

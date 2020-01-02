@@ -1,1 +1,1 @@
-com.pepper.metrics.integration.rocketmq.DMQPushConsumerHealthPrinter
+com.pepper.metrics.integration.rocketmq.health.DMQPushConsumerHealthPrinter

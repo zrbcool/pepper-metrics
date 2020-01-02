@@ -1,13 +1,13 @@
-package com.pepper.metrics.integration.rocketmq.proxy;
+package com.pepper.metrics.integration.rocketmq.deprecated;
 
 import com.pepper.metrics.core.extension.SpiMeta;
-import com.pepper.metrics.integration.rocketmq.DefaultMQProducerProxyFactory;
 import net.sf.cglib.proxy.Enhancer;
 
 /**
  * @author zhangrongbincool@163.com
  * @version 20-1-2
  */
+@Deprecated
 @SpiMeta(name = "cglib")
 public class DefaultMQProducerCglibProxyFactory implements DefaultMQProducerProxyFactory {
     @Override

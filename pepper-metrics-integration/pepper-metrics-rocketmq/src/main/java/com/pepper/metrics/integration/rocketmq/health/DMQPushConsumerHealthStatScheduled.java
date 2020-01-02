@@ -1,4 +1,4 @@
-package com.pepper.metrics.integration.rocketmq;
+package com.pepper.metrics.integration.rocketmq.health;
 
 import com.pepper.metrics.core.HealthScheduledRun;
 import com.pepper.metrics.core.HealthStats;

@@ -1,2 +1,2 @@
-com.pepper.metrics.integration.rocketmq.MessageListenerPerfPrinter
-com.pepper.metrics.integration.rocketmq.MQProducerPerfPrinter
+com.pepper.metrics.integration.rocketmq.perf.MQConsumerPerfPrinter
+com.pepper.metrics.integration.rocketmq.perf.MQProducerPerfPrinter
