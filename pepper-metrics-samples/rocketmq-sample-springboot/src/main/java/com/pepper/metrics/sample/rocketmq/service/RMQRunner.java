@@ -61,14 +61,15 @@ public class RMQRunner implements ApplicationRunner {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer();
         consumer.setNamesrvAddr(NAME_SRV_ADDR);
         consumer.subscribe(topic, "*");
-        consumer.setConsumerGroup("default");
+        final String consumerGroup = "default";
+        consumer.setConsumerGroup(consumerGroup);
         final MessageListenerConcurrently listener = (msgs, context) -> {
             for (MessageExt msg : msgs) {
 //                log.info(msg.toString());
             }
             return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
         };
-        consumer.setMessageListener(RocketMQHealthTracker.proxy(namespace, listener));
+        consumer.setMessageListener(RocketMQHealthTracker.proxy(namespace, consumerGroup, listener));
         consumer.start();
         RocketMQHealthTracker.addDefaultMQPushConsumer(namespace, consumer);
 

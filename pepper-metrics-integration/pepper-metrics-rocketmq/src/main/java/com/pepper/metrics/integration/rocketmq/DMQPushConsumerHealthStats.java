@@ -39,11 +39,12 @@ public class DMQPushConsumerHealthStats extends HealthStatsDefault {
 
     public void collectMetrics() {
         topicConsumerHealthStatsMap.clear();
+        final String consumerGroup = defaultMQPushConsumer.getConsumerGroup();
         final ConsumerRunningInfo consumerRunningInfo = defaultMQPushConsumer.getDefaultMQPushConsumerImpl().consumerRunningInfo();
         for (Map.Entry<String, ConsumeStatus> statusEntry : consumerRunningInfo.getStatusTable().entrySet()) {
             final String topic = statusEntry.getKey();
             final ConsumeStatus consumeStatus = statusEntry.getValue();
-            final TopicConsumerHealthStats topicConsumerHealthStats = new TopicConsumerHealthStats(getRegistry(), getNamespace(), topic, consumeStatus);
+            final TopicConsumerHealthStats topicConsumerHealthStats = new TopicConsumerHealthStats(getRegistry(), getNamespace(), topic, consumerGroup, consumeStatus);
             topicConsumerHealthStatsMap.putIfAbsent(topic, topicConsumerHealthStats);
         }
 
@@ -55,15 +56,17 @@ public class DMQPushConsumerHealthStats extends HealthStatsDefault {
     class TopicConsumerHealthStats extends HealthStatsDefault {
         private String topic;
         private ConsumeStatus consumeStatus;
+        private String consumerGroup;
 
-        public TopicConsumerHealthStats(MeterRegistry registry, String namespace, String topic, ConsumeStatus consumeStatus) {
+        public TopicConsumerHealthStats(MeterRegistry registry, String namespace, String topic, String consumerGroup, ConsumeStatus consumeStatus) {
             super(registry, namespace);
             this.topic = topic;
             this.consumeStatus = consumeStatus;
+            this.consumerGroup = consumerGroup;
         }
 
         public void collectMetrics() {
-            String[] additionTags = {"topic", topic};
+            String[] additionTags = {"topic", topic, "consumerGroup", consumerGroup};
             constantsCollect("Topic", topic);
             gaugeCollect("ConsumeFailedMsgs", consumeStatus.getConsumeFailedMsgs(), additionTags);
             gaugeCollect("getConsumeFailedTPS", consumeStatus.getConsumeFailedTPS(), additionTags);

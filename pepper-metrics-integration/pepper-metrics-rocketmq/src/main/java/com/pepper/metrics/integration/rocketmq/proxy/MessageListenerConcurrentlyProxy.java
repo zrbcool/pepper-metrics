@@ -18,10 +18,12 @@ public class MessageListenerConcurrentlyProxy implements MessageListenerConcurre
     private Stats stats;
     private String namespace;
     private MessageListenerConcurrently target;
+    private String consumeGroup;
 
-    public MessageListenerConcurrentlyProxy(String namespace, MessageListenerConcurrently target) {
+    public MessageListenerConcurrentlyProxy(String namespace, String consumeGroup, MessageListenerConcurrently target) {
         this.namespace = namespace;
         this.target = target;
+        this.consumeGroup = consumeGroup;
         stats = Profiler.Builder.builder().type("rocketmq").subType("consume").namespace(namespace).build();
     }
 
@@ -32,6 +34,7 @@ public class MessageListenerConcurrentlyProxy implements MessageListenerConcurre
         final MessageQueue messageQueue = context.getMessageQueue();
         final String[] tags = {"metric", messageQueue.getTopic() + "-Q" + messageQueue.getQueueId(),
                 "namespace", namespace,
+                "consumeGroup", consumeGroup,
                 "topic", messageQueue.getTopic(),
                 "queueId", String.valueOf(messageQueue.getQueueId())};
         stats.incConc(tags);

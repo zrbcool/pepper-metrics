@@ -4,8 +4,10 @@ import com.pepper.metrics.core.HealthTracker;
 import com.pepper.metrics.core.MetricsRegistry;
 import com.pepper.metrics.integration.rocketmq.DMQPushConsumerHealthStats;
 import com.pepper.metrics.integration.rocketmq.proxy.MessageListenerConcurrentlyProxy;
+import com.pepper.metrics.integration.rocketmq.proxy.MessageListenerOrderlyProxy;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
+import org.apache.rocketmq.client.consumer.listener.MessageListenerOrderly;
 import org.junit.Assert;
 
 import java.util.Set;
@@ -27,7 +29,11 @@ public class RocketMQHealthTracker {
         HealthTracker.addStats(stats);
     }
 
-    public static MessageListenerConcurrently proxy(String namespace, MessageListenerConcurrently listenerConcurrently) {
-        return new MessageListenerConcurrentlyProxy(namespace, listenerConcurrently);
+    public static MessageListenerConcurrently proxy(String namespace, String consumerGroup, MessageListenerConcurrently listenerConcurrently) {
+        return new MessageListenerConcurrentlyProxy(namespace, consumerGroup, listenerConcurrently);
+    }
+
+    public static MessageListenerOrderly proxy(String namespace, String consumerGroup, MessageListenerOrderly messageListenerOrderly) {
+        return new MessageListenerOrderlyProxy(namespace, consumerGroup, messageListenerOrderly);
     }
 }
