@@ -3,7 +3,7 @@
     <parent>
         <artifactId>pepper-metrics-samples</artifactId>
         <groupId>top.zrbcool</groupId>
-        <version>1.0.19-SNAPSHOT</version>
+        <version>1.0.19</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -14,12 +14,12 @@
         <dependency>
             <groupId>top.zrbcool</groupId>
             <artifactId>pepper-metrics-druid</artifactId>
-            <version>1.0.19-SNAPSHOT</version>
+            <version>1.0.19</version>
         </dependency>
         <dependency>
             <groupId>top.zrbcool</groupId>
             <artifactId>pepper-metrics-ds-prometheus</artifactId>
-            <version>1.0.19-SNAPSHOT</version>
+            <version>1.0.19</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
