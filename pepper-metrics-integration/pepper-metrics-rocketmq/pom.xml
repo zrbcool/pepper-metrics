@@ -26,6 +26,11 @@
             <artifactId>pepper-metrics-scheduled-printer</artifactId>
             <version>1.0.17-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib-nodep</artifactId>
+            <version>2.2</version>
+        </dependency>
     </dependencies>
 
 </project>

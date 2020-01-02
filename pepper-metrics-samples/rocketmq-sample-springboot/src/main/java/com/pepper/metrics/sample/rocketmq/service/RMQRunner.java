@@ -1,8 +1,10 @@
 package com.pepper.metrics.sample.rocketmq.service;
 
+import com.pepper.metrics.integration.rocketmq.DefaultMQProducerFactory;
 import com.pepper.metrics.integration.rocketmq.RocketMQHealthTracker;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
+import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.client.exception.MQBrokerException;
@@ -17,6 +19,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -34,9 +37,9 @@ public class RMQRunner implements ApplicationRunner {
     public void run(ApplicationArguments args) throws MQClientException {
         String NAME_SRV_ADDR = "rocketmq-c0-namesrv001.coohua-inc.com:9876;rocketmq-c0-namesrv002.coohua-inc.com:9876";
         final String topic = "PEPPER-TEST-TOPIC";
+        final String namespace = "default";
 
-        DefaultMQProducer producer;
-        producer = new DefaultMQProducer();
+        DefaultMQProducer producer = DefaultMQProducerFactory.newDefaultMQProducer();
         producer.setNamesrvAddr(NAME_SRV_ADDR);
         producer.setProducerGroup("default");
         producer.start();
@@ -59,14 +62,15 @@ public class RMQRunner implements ApplicationRunner {
         consumer.setNamesrvAddr(NAME_SRV_ADDR);
         consumer.subscribe(topic, "*");
         consumer.setConsumerGroup("default");
-        consumer.setMessageListener((MessageListenerConcurrently) (msgs, context) -> {
+        final MessageListenerConcurrently listener = (msgs, context) -> {
             for (MessageExt msg : msgs) {
 //                log.info(msg.toString());
             }
             return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
-        });
+        };
+        consumer.setMessageListener(RocketMQHealthTracker.proxy(namespace, listener));
         consumer.start();
-        RocketMQHealthTracker.addDefaultMQPushConsumer("default", consumer);
+        RocketMQHealthTracker.addDefaultMQPushConsumer(namespace, consumer);
 
     }
 
