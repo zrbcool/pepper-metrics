@@ -44,11 +44,12 @@ public abstract class HealthStatsDefault extends HealthStats {
     public void gaugeCollect(String gaugeName, long value, String... additionalTags) {
         if (ArrayUtils.isEmpty(additionalTags)) {
             gaugeCollect(gaugeName, value);
+
         }
         String[] defaultTags = new String[]{"GaugeName", gaugeName, "namespace", getNamespace()};
         String[] tags = Arrays.copyOf(defaultTags, defaultTags.length + additionalTags.length);
         System.arraycopy(additionalTags, 0, tags, defaultTags.length, additionalTags.length);
-        getOrInitGauge(gaugeName, () -> tags);
+        getOrInitGauge(gaugeName, () -> tags).set(value);
     }
 
     private AtomicLong getOrInitGauge(String gaugeName, Tags tagsFuc) {

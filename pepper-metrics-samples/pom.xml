@@ -26,6 +26,7 @@
         <module>motan-sample-springboot</module>
         <module>dubbo-sample-spring</module>
         <module>druid-sample-spring</module>
+        <module>rocketmq-sample-springboot</module>
     </modules>
 
 </project>
