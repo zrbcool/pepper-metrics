@@ -1,5 +1,6 @@
 package com.pepper.metrics.extension.scheduled;
 
+import com.google.common.util.concurrent.AtomicDouble;
 import com.pepper.metrics.core.HealthStats;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -7,7 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Description:
@@ -59,7 +59,7 @@ public abstract class AbstractHealthPrinter implements HealthPrinter {
         return "health-" + healthStats.getNamespace();
     }
 
-    protected String buildGaugeLog(String key, Map<String, AtomicLong> gaugeCollector) {
+    protected String buildGaugeLog(String key, Map<String, AtomicDouble> gaugeCollector) {
         return key + " = " + gaugeCollector.get(key);
     }
 

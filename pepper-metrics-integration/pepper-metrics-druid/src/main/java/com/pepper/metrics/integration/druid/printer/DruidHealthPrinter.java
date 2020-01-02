@@ -1,5 +1,6 @@
 package com.pepper.metrics.integration.druid.printer;
 
+import com.google.common.util.concurrent.AtomicDouble;
 import com.pepper.metrics.core.HealthStats;
 import com.pepper.metrics.core.extension.SpiMeta;
 import com.pepper.metrics.extension.scheduled.AbstractHealthPrinter;
@@ -21,7 +22,7 @@ public class DruidHealthPrinter extends AbstractHealthPrinter {
     protected void doPrint(HealthStats stats) {
         if (stats instanceof DruidHealthStats) {
             DruidHealthStats druidHealthStats = (DruidHealthStats) stats;
-            Map<String, AtomicLong> gaugeCollector =  druidHealthStats.getGaugeCollector();
+            Map<String, AtomicDouble> gaugeCollector =  druidHealthStats.getGaugeCollector();
             Map<String, String> constantsCollector = druidHealthStats.getConstantsCollector();
 
             logLineMode();

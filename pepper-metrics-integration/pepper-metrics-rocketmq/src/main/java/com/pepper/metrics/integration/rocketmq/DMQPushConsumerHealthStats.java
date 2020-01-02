@@ -66,11 +66,11 @@ public class DMQPushConsumerHealthStats extends HealthStatsDefault {
             String[] additionTags = {"topic", topic};
             constantsCollect("Topic", topic);
             gaugeCollect("ConsumeFailedMsgs", consumeStatus.getConsumeFailedMsgs(), additionTags);
-            gaugeCollect("getConsumeFailedTPS", Math.round(consumeStatus.getConsumeFailedTPS()), additionTags);
-            gaugeCollect("ConsumeOKTPS", Math.round(consumeStatus.getConsumeOKTPS()), additionTags);
-            gaugeCollect("ConsumeRT", Math.round(consumeStatus.getConsumeRT()), additionTags);
-            gaugeCollect("PullRT", Math.round(consumeStatus.getPullRT()), additionTags);
-            gaugeCollect("PullTPS", Math.round(consumeStatus.getPullTPS()), additionTags);
+            gaugeCollect("getConsumeFailedTPS", consumeStatus.getConsumeFailedTPS(), additionTags);
+            gaugeCollect("ConsumeOKTPS", consumeStatus.getConsumeOKTPS(), additionTags);
+            gaugeCollect("ConsumeRT", consumeStatus.getConsumeRT(), additionTags);
+            gaugeCollect("PullRT", consumeStatus.getPullRT(), additionTags);
+            gaugeCollect("PullTPS", consumeStatus.getPullTPS(), additionTags);
         }
 
         @Override

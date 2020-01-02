@@ -1,11 +1,11 @@
 package com.pepper.metrics.integration.jedis.health;
 
+import com.google.common.util.concurrent.AtomicDouble;
 import com.pepper.metrics.core.HealthStats;
 import com.pepper.metrics.core.extension.SpiMeta;
 import com.pepper.metrics.extension.scheduled.AbstractHealthPrinter;
 
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Description:
@@ -19,7 +19,7 @@ public class JedisHealthPrinter extends AbstractHealthPrinter {
     protected void doPrint(HealthStats stats) {
         if (stats instanceof JedisHealthStats) {
             JedisHealthStats healthStats = (JedisHealthStats) stats;
-            Map<String, AtomicLong> gaugeCollector =  healthStats.getGaugeCollector();
+            Map<String, AtomicDouble> gaugeCollector =  healthStats.getGaugeCollector();
             Map<String, String> constantsCollector = healthStats.getConstantsCollector();
 
             logLineMode();

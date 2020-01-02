@@ -1,14 +1,13 @@
 package com.pepper.metrics.integration.jedis.health;
 
 import com.google.common.collect.Sets;
+import com.google.common.util.concurrent.AtomicDouble;
 import com.pepper.metrics.core.HealthStats;
 import com.pepper.metrics.core.extension.SpiMeta;
 import com.pepper.metrics.extension.scheduled.AbstractHealthPrinter;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * @author zhangrongbincool@163.com
@@ -35,7 +34,7 @@ public class JedisClusterHealthPrinter extends AbstractHealthPrinter {
         protected void doPrint(HealthStats stats) {
             if (stats instanceof JedisClusterHealthStats.JedisClusterNodeHealthStats) {
                 JedisClusterHealthStats.JedisClusterNodeHealthStats nodeStats = (JedisClusterHealthStats.JedisClusterNodeHealthStats) stats;
-                Map<String, AtomicLong> gaugeCollector =  nodeStats.getGaugeCollector();
+                Map<String, AtomicDouble> gaugeCollector =  nodeStats.getGaugeCollector();
                 Map<String, String> constantsCollector = nodeStats.getConstantsCollector();
 
                 logLineMode();

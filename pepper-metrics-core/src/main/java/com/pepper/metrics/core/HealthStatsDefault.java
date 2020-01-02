@@ -1,5 +1,6 @@
 package com.pepper.metrics.core;
 
+import com.google.common.util.concurrent.AtomicDouble;
 import com.pepper.metrics.core.utils.MetricsNameBuilder;
 import com.pepper.metrics.core.utils.MetricsType;
 import io.micrometer.core.instrument.Gauge;
@@ -17,11 +18,11 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public abstract class HealthStatsDefault extends HealthStats {
 
-    private final Map<String, AtomicLong> gaugeCollector = new ConcurrentHashMap<>();
+    private final Map<String, AtomicDouble> gaugeCollector = new ConcurrentHashMap<>();
 
     private final Map<String, String> constantsCollector = new ConcurrentHashMap<>();
 
-    public Map<String, AtomicLong> getGaugeCollector() {
+    public Map<String, AtomicDouble> getGaugeCollector() {
         return gaugeCollector;
     }
 
@@ -37,34 +38,34 @@ public abstract class HealthStatsDefault extends HealthStats {
         constantsCollector.put(gaugeName, value);
     }
 
-    public void gaugeCollect(String gaugeName, long value) {
+    public void gaugeCollect(String gaugeName, double value) {
         getOrInitGauge(gaugeName, () -> new String[]{"GaugeName", gaugeName, "namespace", getNamespace()}).set(value);
     }
 
-    public void gaugeCollect(String gaugeName, long value, String... additionalTags) {
+    public void gaugeCollect(String gaugeName, double value, String... additionalTags) {
         if (ArrayUtils.isEmpty(additionalTags)) {
             gaugeCollect(gaugeName, value);
-
         }
         String[] defaultTags = new String[]{"GaugeName", gaugeName, "namespace", getNamespace()};
         String[] tags = Arrays.copyOf(defaultTags, defaultTags.length + additionalTags.length);
         System.arraycopy(additionalTags, 0, tags, defaultTags.length, additionalTags.length);
         getOrInitGauge(gaugeName, () -> tags).set(value);
+
     }
 
-    private AtomicLong getOrInitGauge(String gaugeName, Tags tagsFuc) {
-        final AtomicLong gauge = gaugeCollector.get(gaugeName);
+    private AtomicDouble getOrInitGauge(String gaugeName, Tags tagsFuc) {
+        final AtomicDouble gauge = gaugeCollector.get(gaugeName);
         if (gauge != null) return gauge;
         synchronized (gaugeCollector) {
             if (gaugeCollector.get(gaugeName) == null) {
-                final AtomicLong obj = new AtomicLong();
+                final AtomicDouble obj = new AtomicDouble();
                 String metricsName = MetricsNameBuilder.builder()
                         .setMetricsType(MetricsType.GAUGE)
                         .setType(getType())
                         .setSubType(getSubType())
                         .setName(gaugeName)
                         .build();
-                Gauge.builder(metricsName, obj, AtomicLong::get).tags(tagsFuc.tags()).register(getRegistry());
+                Gauge.builder(metricsName, obj, AtomicDouble::get).tags(tagsFuc.tags()).register(getRegistry());
                 gaugeCollector.putIfAbsent(gaugeName, obj);
             }
         }

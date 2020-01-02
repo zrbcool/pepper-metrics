@@ -1,13 +1,13 @@
 package com.pepper.metrics.integration.rocketmq;
 
 import com.google.common.collect.Sets;
+import com.google.common.util.concurrent.AtomicDouble;
 import com.pepper.metrics.core.HealthStats;
 import com.pepper.metrics.core.extension.SpiMeta;
 import com.pepper.metrics.extension.scheduled.AbstractHealthPrinter;
 
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * @author zhangrongbincool@163.com
@@ -29,7 +29,7 @@ public class DMQPushConsumerHealthPrinter extends AbstractHealthPrinter {
             if (stats instanceof DMQPushConsumerHealthStats.TopicConsumerHealthStats) {
                 DMQPushConsumerHealthStats.TopicConsumerHealthStats healthStats = (DMQPushConsumerHealthStats.TopicConsumerHealthStats) stats;
 
-                final Map<String, AtomicLong> gaugeCollector = healthStats.getGaugeCollector();
+                final Map<String, AtomicDouble> gaugeCollector = healthStats.getGaugeCollector();
                 final Map<String, String> constantsCollector = healthStats.getConstantsCollector();
                 logLineMode();
 
