@@ -4,13 +4,13 @@
     <parent>
         <artifactId>pepper-metrics-samples</artifactId>
         <groupId>top.zrbcool</groupId>
-        <version>1.0.20-SNAPSHOT</version>
+        <version>1.0.20</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>core-sample-jvm</artifactId>
-    <version>1.0.20-SNAPSHOT</version>
+    <version>1.0.20</version>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -18,18 +18,18 @@
         <dependency>
             <groupId>top.zrbcool</groupId>
             <artifactId>pepper-metrics-core</artifactId>
-            <version>1.0.20-SNAPSHOT</version>
+            <version>1.0.20</version>
         </dependency>
         <dependency>
             <groupId>top.zrbcool</groupId>
             <artifactId>pepper-metrics-scheduled-printer</artifactId>
-            <version>1.0.20-SNAPSHOT</version>
+            <version>1.0.20</version>
         </dependency>
         <!-- pepper-metrics datasource use prometheus by default -->
         <dependency>
             <groupId>top.zrbcool</groupId>
             <artifactId>pepper-metrics-ds-prometheus</artifactId>
-            <version>1.0.20-SNAPSHOT</version>
+            <version>1.0.20</version>
         </dependency>
         <!-- log4j2 2.X -->
         <dependency>
