@@ -27,6 +27,7 @@
         <module>dubbo-sample-spring</module>
         <module>druid-sample-spring</module>
         <module>rocketmq-sample-springboot</module>
+        <module>thread-sample-jvm</module>
     </modules>
 
 </project>

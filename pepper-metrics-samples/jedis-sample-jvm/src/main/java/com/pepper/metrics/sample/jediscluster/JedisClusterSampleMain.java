@@ -1,6 +1,8 @@
 package com.pepper.metrics.sample.jediscluster;
 
+import com.google.common.util.concurrent.RateLimiter;
 import com.pepper.metrics.integration.jedis.PjedisClusterFactory;
+import org.apache.commons.lang3.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.*;
@@ -8,6 +10,8 @@ import redis.clients.jedis.*;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -27,9 +31,11 @@ public class JedisClusterSampleMain {
         }
     }
 
+    public static ExecutorService executor = Executors.newFixedThreadPool(10);
+
     private static void testJedisCluster() throws InterruptedException {
         log.info("testJedisCluster()");
-        String address = "192.168.100.180:9700,192.168.100.180:9701,192.168.100.180:9702,192.168.100.180:9703,192.168.100.180:9704,192.168.100.180:9705";
+        String address = "redis-demo-c1-n0.coohua-inc.com:9720,redis-demo-c1-n1.coohua-inc.com:9720,redis-demo-c1-n2.coohua-inc.com:9720,redis-demo-c1-n3.coohua-inc.com:9720,redis-demo-c1-n4.coohua-inc.com:9720,redis-demo-c1-n5.coohua-inc.com:9720";
 
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
         jedisPoolConfig.setMaxTotal(300);
@@ -50,20 +56,23 @@ public class JedisClusterSampleMain {
         }
         JedisPropsHolder.NAMESPACE.set("cluster");
         JedisCluster jedisCluster = PjedisClusterFactory.newJedisCluster(jedisClusterNodes, defaultConnectTimeout, defaultConnectMaxAttempts, jedisPoolConfig);
-
+        RateLimiter limiter = RateLimiter.create(1000);
         /*
          * 重要的步骤，用PjedisClusterFactory.decorateJedisCluster()包装jedisCluster即可拥有pepper-metrics-jedis的metrics能力
          * 第二个参数是namespace，当应用需要连接多组redis集群时用于区分，如果只连接一组，可以不传，默认值是default
          */
+        for (int i = 0; i < 10; i++) {
+            executor.submit(() -> {
+                limiter.acquire();
+                jedisCluster.setex("hello:"+ RandomUtils.nextInt(), 100, "robin");
+            });
+        }
         for (int i = 0; i < 100; i++) {
-            for (int j = 0; j < 10; j++) {
-                jedisCluster.set("hello:"+j, "robin");
-            }
             for (Map.Entry<String, JedisPool> entry : jedisCluster.getClusterNodes().entrySet()) {
-//                log.info(String.format("%s %s NumActive:%s NumIdle:%s", i, entry.getKey(), entry.getValue().getNumActive(), entry.getValue().getNumIdle()));
+                log.info(String.format("%s %s NumActive:%s NumIdle:%s", i, entry.getKey(), entry.getValue().getNumActive(), entry.getValue().getNumIdle()));
             }
             log.info("------------------------------------------------------------");
-            TimeUnit.SECONDS.sleep(1);
+            TimeUnit.SECONDS.sleep(10);
         }
     }
 }

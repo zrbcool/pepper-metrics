@@ -24,6 +24,7 @@
         <module>pepper-metrics-druid</module>
         <module>pepper-metrics-custom</module>
         <module>pepper-metrics-rocketmq</module>
+        <module>pepper-metrics-thread</module>
     </modules>
 
 </project>
