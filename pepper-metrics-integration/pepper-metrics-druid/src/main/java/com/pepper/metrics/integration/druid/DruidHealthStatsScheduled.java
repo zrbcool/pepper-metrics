@@ -168,6 +168,7 @@ public class DruidHealthStatsScheduled implements HealthScheduledRun {
                 if (innerMap.containsKey(DruidHealthQuota.PREPARED_STATEMENT_CLOSE_COUNT)) {
                     druidHealthStats.gaugeCollect(DruidHealthQuota.PREPARED_STATEMENT_CLOSE_COUNT, data.getLong(DruidHealthQuota.PREPARED_STATEMENT_CLOSE_COUNT));
                 }
+                druidHealthStats.infoCollect();
             }
         }
     }

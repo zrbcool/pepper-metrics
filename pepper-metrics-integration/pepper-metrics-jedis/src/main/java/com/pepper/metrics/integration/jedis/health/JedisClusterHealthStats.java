@@ -59,6 +59,7 @@ public class JedisClusterHealthStats extends HealthStatsDefault {
             gaugeCollect("NumWaiters", pool.getNumWaiters(), additionTags);
             gaugeCollect("MaxBorrowWaitTimeMillis", pool.getMaxBorrowWaitTimeMillis(), additionTags);
             gaugeCollect("MeanBorrowWaitTimeMillis", pool.getMeanBorrowWaitTimeMillis(), additionTags);
+            infoCollect();
         }
 
         @Override

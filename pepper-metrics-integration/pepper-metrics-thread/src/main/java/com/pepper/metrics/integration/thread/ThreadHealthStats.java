@@ -34,6 +34,7 @@ public class ThreadHealthStats extends HealthStatsDefault {
             gaugeCollect("QueueSize", threadPoolExecutor.getQueue().size());
             gaugeCollect("QueueRemainingCapacity", threadPoolExecutor.getQueue().remainingCapacity());
         }
+        infoCollect();
     }
 
     @Override

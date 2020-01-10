@@ -42,6 +42,7 @@ public class JedisHealthStats extends HealthStatsDefault {
         gaugeCollect("NumWaiters", pool.getNumWaiters());
         gaugeCollect("MaxBorrowWaitTimeMillis", pool.getMaxBorrowWaitTimeMillis());
         gaugeCollect("MeanBorrowWaitTimeMillis", pool.getMeanBorrowWaitTimeMillis());
+        infoCollect();
     }
 
     @Override

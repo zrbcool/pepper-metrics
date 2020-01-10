@@ -74,6 +74,7 @@ public class DMQPushConsumerHealthStats extends HealthStatsDefault {
             gaugeCollect("ConsumeRT", consumeStatus.getConsumeRT(), additionTags);
             gaugeCollect("PullRT", consumeStatus.getPullRT(), additionTags);
             gaugeCollect("PullTPS", consumeStatus.getPullTPS(), additionTags);
+            infoCollect();
         }
 
         @Override

@@ -5,19 +5,20 @@ import com.pepper.metrics.core.utils.MetricsNameBuilder;
 import com.pepper.metrics.core.utils.MetricsType;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Tag;
 import org.apache.commons.lang3.ArrayUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * @author zhangrongbincool@163.com
  * @version 19-9-12
  */
 public abstract class HealthStatsDefault extends HealthStats {
-
     private final Map<String, AtomicDouble> gaugeCollector = new ConcurrentHashMap<>();
 
     private final Map<String, String> constantsCollector = new ConcurrentHashMap<>();
@@ -36,6 +37,21 @@ public abstract class HealthStatsDefault extends HealthStats {
 
     public void constantsCollect(String gaugeName, String value) {
         constantsCollector.put(gaugeName, value);
+    }
+
+    public void infoCollect() {
+        String metricsName = MetricsNameBuilder.builder()
+                .setMetricsType(MetricsType.GAUGE)
+                .setType(getType())
+                .setSubType(getSubType())
+                .setName("Info")
+                .build();
+        List<Tag> tags = new ArrayList<>();
+        tags.add(Tag.of("namespace", getNamespace()));
+        for (Map.Entry<String, String> entry : constantsCollector.entrySet()) {
+            tags.add(Tag.of(entry.getKey(), entry.getValue()));
+        }
+        getRegistry().gauge(metricsName, tags, 1);
     }
 
     public void gaugeCollect(String gaugeName, double value) {
