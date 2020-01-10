@@ -4,25 +4,25 @@
     <parent>
         <artifactId>pepper-metrics-demo</artifactId>
         <groupId>top.zrbcool</groupId>
-        <version>1.0.21-SNAPSHOT</version>
+        <version>1.0.21</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>pepper-metrics-demo-jvm</artifactId>
-    <version>1.0.21-SNAPSHOT</version>
+    <version>1.0.21</version>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
             <groupId>top.zrbcool</groupId>
             <artifactId>pepper-metrics-core</artifactId>
-            <version>1.0.21-SNAPSHOT</version>
+            <version>1.0.21</version>
         </dependency>
         <dependency>
             <groupId>top.zrbcool</groupId>
             <artifactId>pepper-metrics-scheduled-printer</artifactId>
-            <version>1.0.21-SNAPSHOT</version>
+            <version>1.0.21</version>
         </dependency>
     </dependencies>
 
