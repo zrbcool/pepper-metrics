@@ -24,8 +24,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ConsumerConsumeMessageHook implements ConsumeMessageHook {
     private Stats stats;
     private String namespace;
-    private static final String METRICS_NAME_RETURNTYPE = MetricsNameBuilder.builder()
-            .setMetricsType(MetricsType.GAUGE)
+    private static final String METRICS_NAME_RETURN_TYPE = MetricsNameBuilder.builder()
+            .setMetricsType(MetricsType.COUNTER)
             .setType("rocketmq")
             .setSubType("consumer")
             .setName("returnType")
@@ -62,7 +62,7 @@ public class ConsumerConsumeMessageHook implements ConsumeMessageHook {
         if (StringUtils.equals(returnType, ConsumeReturnType.EXCEPTION.name())) {
             stats.error(tags);
         }
-        Counter.builder(METRICS_NAME_RETURNTYPE)
+        Counter.builder(METRICS_NAME_RETURN_TYPE)
                 .tags(Tags.of(tags).and("returnType", returnType))
                 .register(MetricsRegistry.getREGISTRY())
                 .increment();
