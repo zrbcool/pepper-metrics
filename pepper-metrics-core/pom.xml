@@ -4,13 +4,13 @@
     <parent>
         <artifactId>pepper-metrics-parent</artifactId>
         <groupId>top.zrbcool</groupId>
-        <version>1.0.22</version>
+        <version>1.0.23-SNAPSHOT</version>
         <relativePath>../pepper-metrics-parent/pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>pepper-metrics-core</artifactId>
-    <version>1.0.22</version>
+    <version>1.0.23-SNAPSHOT</version>
     <name>${project.artifactId}</name>
     <description>${project.artifactId}</description>
     <dependencies>

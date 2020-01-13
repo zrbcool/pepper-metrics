@@ -3,7 +3,7 @@
     <parent>
         <artifactId>motan-sample-springboot</artifactId>
         <groupId>top.zrbcool</groupId>
-        <version>1.0.22</version>
+        <version>1.0.23-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
