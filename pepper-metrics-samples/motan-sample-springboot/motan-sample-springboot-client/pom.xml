@@ -3,7 +3,7 @@
     <parent>
         <artifactId>motan-sample-springboot</artifactId>
         <groupId>top.zrbcool</groupId>
-        <version>1.0.22-SNAPSHOT</version>
+        <version>1.0.22</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -13,13 +13,13 @@
         <dependency>
             <groupId>top.zrbcool</groupId>
             <artifactId>motan-sample-springboot-api</artifactId>
-            <version>1.0.22-SNAPSHOT</version>
+            <version>1.0.22</version>
         </dependency>
         <!-- unblock this if you use vm options -Dpepper.port=9147 -->
         <dependency>
             <groupId>top.zrbcool</groupId>
             <artifactId>pepper-metrics-ds-prometheus</artifactId>
-            <version>1.0.22-SNAPSHOT</version>
+            <version>1.0.22</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
