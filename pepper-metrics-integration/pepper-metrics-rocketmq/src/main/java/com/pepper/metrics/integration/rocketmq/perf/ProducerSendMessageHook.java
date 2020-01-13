@@ -2,6 +2,7 @@ package com.pepper.metrics.integration.rocketmq.perf;
 
 import com.pepper.metrics.core.Profiler;
 import com.pepper.metrics.core.Stats;
+import io.micrometer.core.instrument.Tags;
 import org.apache.rocketmq.client.hook.SendMessageContext;
 import org.apache.rocketmq.client.hook.SendMessageHook;
 import org.apache.rocketmq.common.message.MessageQueue;
@@ -41,18 +42,33 @@ public class ProducerSendMessageHook implements SendMessageHook {
         stats.decConc(tags);
         stats.observe(System.currentTimeMillis() - beginTime, tags);
         if (context.getException() != null) {
-            stats.error(tags);
+            stats.error(tags(context, context.getException()));
         }
     }
 
     private String[] tags(SendMessageContext context) {
+        return tags(context, null);
+    }
+
+    private String[] tags(SendMessageContext context, Exception e) {
         final MessageQueue messageQueue = context.getMq();
-        return new String[]{"metric", messageQueue.getBrokerName() +
-                            "/" + messageQueue.getTopic() +
-                            "/Q" + messageQueue.getQueueId(),
-                "broker", messageQueue.getBrokerName(),
-                "namespace", namespace,
-                "topic", messageQueue.getTopic(),
-                "queueId", String.valueOf(messageQueue.getQueueId())};
+        if (e != null) {
+            return new String[]{"metric", messageQueue.getBrokerName() +
+                    "/" + messageQueue.getTopic() +
+                    "/Q" + messageQueue.getQueueId(),
+                    "broker", messageQueue.getBrokerName(),
+                    "namespace", namespace,
+                    "topic", messageQueue.getTopic(),
+                    "queueId", String.valueOf(messageQueue.getQueueId()),
+                    "exception", e.getClass().getName()};
+        } else {
+            return new String[]{"metric", messageQueue.getBrokerName() +
+                    "/" + messageQueue.getTopic() +
+                    "/Q" + messageQueue.getQueueId(),
+                    "broker", messageQueue.getBrokerName(),
+                    "namespace", namespace,
+                    "topic", messageQueue.getTopic(),
+                    "queueId", String.valueOf(messageQueue.getQueueId())};
+        }
     }
 }

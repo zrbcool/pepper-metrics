@@ -4,6 +4,7 @@ import com.pepper.metrics.core.HealthStatsDefault;
 import io.micrometer.core.instrument.MeterRegistry;
 
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author zhangrongbincool@163.com
@@ -24,6 +25,9 @@ public class ThreadHealthStats extends HealthStatsDefault {
     public void collectStats() {
         constantsCollect("RejectedExecutionHandler", threadPoolExecutor.getRejectedExecutionHandler().getClass().getSimpleName());
         constantsCollect("ClassName", threadPoolExecutor.getClass().getName());
+        constantsCollect("KeepAliveTime", String.valueOf(threadPoolExecutor.getKeepAliveTime(TimeUnit.SECONDS)));
+        constantsCollect("allowsCoreThreadTimeOut", String.valueOf(threadPoolExecutor.allowsCoreThreadTimeOut()));
+        constantsCollect("QueueClassName", String.valueOf(threadPoolExecutor.getQueue().getClass().getName()));
         gaugeCollect("ActiveCount", threadPoolExecutor.getActiveCount());
         gaugeCollect("CompletedTaskCount", threadPoolExecutor.getCompletedTaskCount());
         gaugeCollect("CorePoolSize", threadPoolExecutor.getCorePoolSize());
