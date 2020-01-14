@@ -3,7 +3,7 @@
     <parent>
         <artifactId>pepper-metrics-samples</artifactId>
         <groupId>top.zrbcool</groupId>
-        <version>1.0.23-SNAPSHOT</version>
+        <version>1.0.23</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -13,7 +13,7 @@
         <dependency>
             <groupId>top.zrbcool</groupId>
             <artifactId>pepper-metrics-rocketmq</artifactId>
-            <version>1.0.23-SNAPSHOT</version>
+            <version>1.0.23</version>
         </dependency>
         <dependency>
             <groupId>org.apache.rocketmq</groupId>
@@ -28,7 +28,7 @@
         <dependency>
             <groupId>top.zrbcool</groupId>
             <artifactId>pepper-metrics-ds-prometheus</artifactId>
-            <version>1.0.23-SNAPSHOT</version>
+            <version>1.0.23</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
