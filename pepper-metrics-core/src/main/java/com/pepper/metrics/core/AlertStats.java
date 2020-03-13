@@ -1,4 +1,4 @@
-package com.pepper.metrics.integration.custom;
+package com.pepper.metrics.core;
 
 import com.pepper.metrics.core.Stats;
 import com.pepper.metrics.core.utils.MetricsNameBuilder;

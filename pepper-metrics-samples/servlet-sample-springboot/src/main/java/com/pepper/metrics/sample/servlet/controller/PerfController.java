@@ -1,7 +1,7 @@
 package com.pepper.metrics.sample.servlet.controller;
 
-import com.pepper.metrics.integration.custom.AlertProfiler;
-import com.pepper.metrics.integration.custom.AlertStats;
+import com.pepper.metrics.core.AlertProfiler;
+import com.pepper.metrics.core.AlertStats;
 import com.pepper.metrics.integration.custom.CustomProfiler;
 import com.pepper.metrics.sample.servlet.service.HelloService;
 import org.springframework.beans.factory.annotation.Autowired;

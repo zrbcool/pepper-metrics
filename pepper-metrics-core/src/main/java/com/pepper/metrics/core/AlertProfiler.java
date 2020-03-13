@@ -1,7 +1,4 @@
-package com.pepper.metrics.integration.custom;
-
-import com.pepper.metrics.core.MetricsRegistry;
-import com.pepper.metrics.core.Profiler;
+package com.pepper.metrics.core;
 
 import java.util.ArrayList;
 import java.util.List;
