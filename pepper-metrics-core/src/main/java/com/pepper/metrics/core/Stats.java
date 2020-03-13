@@ -131,7 +131,7 @@ public class Stats {
         return counter;
     }
 
-    private AtomicLong getOrInitGauge(String gaugeName, String... tags) {
+    protected AtomicLong getOrInitGauge(String gaugeName, String... tags) {
         final List<String> asList = Arrays.asList(tags);
         final AtomicLong g = gaugeCollector.get(asList);
         if (g != null) return g;

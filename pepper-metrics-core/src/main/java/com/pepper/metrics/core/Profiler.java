@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
  * @version 19-8-7
  */
 public class Profiler {
-    private static final Set<Stats> PROFILER_STAT_SET = Sets.newConcurrentHashSet();
+    protected static final Set<Stats> PROFILER_STAT_SET = Sets.newConcurrentHashSet();
     private static final ScheduledExecutorService scheduledExecutor;
 
     static {
@@ -59,7 +59,6 @@ public class Profiler {
             PROFILER_STAT_SET.add(stats);
             return stats;
         }
-
     }
 
     public static void main(String[] args) throws InterruptedException {
