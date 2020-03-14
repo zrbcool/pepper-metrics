@@ -1,6 +1,5 @@
 package com.pepper.metrics.core;
 
-import com.pepper.metrics.core.Stats;
 import com.pepper.metrics.core.utils.MetricsNameBuilder;
 import com.pepper.metrics.core.utils.MetricsType;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -16,15 +15,18 @@ public class AlertStats extends Stats {
             .setMetricsType(MetricsType.GAUGE)
             .build();
     private final String[] rules;
+    private final String name;
 
-    public AlertStats(MeterRegistry registry, String type, String namespace, String subType,  List<String> rules) {
+    public AlertStats(MeterRegistry registry, String type, String namespace, String subType,  List<String> rules, String name) {
         super(registry, type, namespace, subType);
         this.rules = rules.toArray(new String[0]);
+        this.name = name;
     }
 
     private String[] assembleLabels(String label1Name, String label1Value, String label2Name, String label2Value, String label3Name, String label3Value) {
         return ArrayUtils.addAll(
                 new String[]{
+                        "name", name,
                         "level1_name", label1Name,
                         "level1_value", label1Value,
                         "level2_name", label2Name,

@@ -26,6 +26,7 @@ public class PerfController {
 
     static {
         alertStats = AlertProfiler.Builder.builder()
+                .name("noName")
                 .rule("rule_1")
                 .rule("rule_2")
                 .rule("rule_3").create();

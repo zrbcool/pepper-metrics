@@ -31,7 +31,7 @@ public class AlertProfiler extends Profiler {
         }
 
         public AlertStats create() {
-            AlertStats stats = new AlertStats(MetricsRegistry.getREGISTRY(), "alert", "default", "default", rules);
+            AlertStats stats = new AlertStats(MetricsRegistry.getREGISTRY(), "alert", "default", "default", rules, name);
             PROFILER_STAT_SET.add(stats);
             return stats;
         }
