@@ -4,13 +4,13 @@
     <parent>
         <artifactId>pepper-metrics-samples</artifactId>
         <groupId>top.zrbcool</groupId>
-        <version>1.0.24</version>
+        <version>1.0.25-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>jedis-sample-jvm</artifactId>
-    <version>1.0.24</version>
+    <version>1.0.25-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -18,13 +18,13 @@
         <dependency>
             <groupId>top.zrbcool</groupId>
             <artifactId>pepper-metrics-jedis</artifactId>
-            <version>1.0.24</version>
+            <version>1.0.25-SNAPSHOT</version>
         </dependency>
         <!-- pepper-metrics datasource use prometheus by default -->
         <dependency>
             <groupId>top.zrbcool</groupId>
             <artifactId>pepper-metrics-ds-prometheus</artifactId>
-            <version>1.0.24</version>
+            <version>1.0.25-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>redis.clients</groupId>
@@ -34,7 +34,7 @@
         <dependency>
             <groupId>top.zrbcool</groupId>
             <artifactId>pepper-metrics-scheduled-printer</artifactId>
-            <version>1.0.24</version>
+            <version>1.0.25-SNAPSHOT</version>
         </dependency>
 
         <!-- log4j 1.X -->
