@@ -45,9 +45,9 @@
             <version>1.2.58</version>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>[4.13.1,)</version>
         </dependency>
     </dependencies>
 </project>
