@@ -18,17 +18,17 @@ import java.util.concurrent.TimeUnit;
  */
 public class Profiler {
     protected static final Set<Stats> PROFILER_STAT_SET = Sets.newConcurrentHashSet();
-    private static final ScheduledExecutorService scheduledExecutor;
+//    private static final ScheduledExecutorService scheduledExecutor;
 
-    static {
-        scheduledExecutor = Executors.newSingleThreadScheduledExecutor(new ThreadFactory());
-        scheduledExecutor.scheduleAtFixedRate(() -> {
-            final List<ScheduledRun> extensions = ExtensionLoader.getExtensionLoader(ScheduledRun.class).getExtensions();
-            for (ScheduledRun extension : extensions) {
-                extension.run(PROFILER_STAT_SET);
-            }
-        }, 30, 60, TimeUnit.SECONDS);
-    }
+//    static {
+//        scheduledExecutor = Executors.newSingleThreadScheduledExecutor(new ThreadFactory());
+//        scheduledExecutor.scheduleAtFixedRate(() -> {
+//            final List<ScheduledRun> extensions = ExtensionLoader.getExtensionLoader(ScheduledRun.class).getExtensions();
+//            for (ScheduledRun extension : extensions) {
+//                extension.run(PROFILER_STAT_SET);
+//            }
+//        }, 30, 60, TimeUnit.SECONDS);
+//    }
 
     public static class Builder {
         private String type;
