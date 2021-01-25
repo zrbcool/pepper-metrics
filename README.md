@@ -28,7 +28,7 @@ https://github.com/zrbcool/pepper-metrics/wiki
 
 ## Quickly Run A Demo Within 10 minutes
 请参考独立项目：[https://github.com/zrbcool/pepper-metrics-demo](https://github.com/zrbcool/pepper-metrics-demo)    
-线上Demo：[http://metrics.pepperx.top/](http://metrics.pepperx.top/)  
+线上Demo：[http://blog.zrbcool.top/](http://blog.zrbcool.top/)  
 
 
 ## Quick Start  
